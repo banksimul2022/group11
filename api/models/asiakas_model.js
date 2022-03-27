@@ -12,10 +12,10 @@ const asiakas = {
       [asiakas.tunnus, asiakas.etunimi, asiakas.sukunimi, asiakas.osoite, asiakas.puhelin], callback);
   },
   delete: function (id, callback) {
-    return db.query('delete from asiakas where id=$1', [id], callback);
+    return db.query('delete from asiakas where id=?', [id], callback);
   },
   update: function (id, asiakas, callback) {
-    return db.query('update asiakas set tunnus=$1, etunimi=$2, sukunimi=$3, osoite=$4, puhelin=$5 where id=$6',
+    return db.query('update asiakas set tunnus=?, etunimi=?, sukunimi=?, osoite=?, puhelin=? where id=?',
       [asiakas.tunnus, asiakas.etunimi, asiakas.sukunimi, asiakas.osoite, asiakas.puhelin, id], callback);
   }
 

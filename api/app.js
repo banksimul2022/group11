@@ -1,12 +1,13 @@
-const  express = require('express');
-const  path = require('path');
-const  cookieParser = require('cookie-parser');
-const  logger = require('morgan');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 
-const  indexRouter = require('./routes/index');
-const  asiakasRouter = require('./routes/asiakas');
+const indexRouter = require('./routes/index');
+const asiakasRouter = require('./routes/asiakas');
+const tiliRouter = require('./routes/tili');
 
-const  app = express();
+const app = express();
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -16,5 +17,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/asiakas', asiakasRouter);
+app.use('/tili', tiliRouter);
 
 module.exports = app;
