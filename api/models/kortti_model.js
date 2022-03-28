@@ -7,14 +7,14 @@ const kortti = {
   getById: function (id, callback) {
     return db.query('select * from kortti where id=?', [id], callback);
   },
-  add: function (asiakas, callback) {
+  add: function (kortti, callback) {
     return db.query('insert into kortti (korttiNumero, pinKoodi, lukittu) values(?,?,?)',
       [kortti.korttiNumero, kortti.pinKoodi, kortti.lukittu], callback);
   },
   delete: function (id, callback) {
-    return db.query('delete from kortti where id=?', [id], callback);
+    return db.query('delete from kortti where id=?', [id], callback); //Varsinainen kortin poisto tapahtuu cascadella tililtä
   },
-  update: function (id, asiakas, callback) {
+  update: function (id, kortti, callback) {
     return db.query('update kortti set korttiNumero=?, pinKoodi=?, lukittu=? where id=?',
       [kortti.korttiNumero, kortti.pinKoodi, kortti.lukittu, id], callback);
   }
