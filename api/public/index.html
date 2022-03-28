@@ -6,8 +6,35 @@
 </head>
 
 <body>
-  <h1>Express</h1>
-  <p>Welcome to Express</p>
+  <h1>BankSimul REST API dokumentaatio</h1>
+  <h2>Asiakas</h2>
+  <h4>GET /asiakas = Hae kaikki asiakkaat</h4>
+  <h4>GET /asiakas/:id = Hae asiakas jonka id on :id</h4>
+  <h4>POST /asiakas = Lisää asiakas</h4>
+  <h4>PUT /asiakas/:id = Päivitä asiakas jonka id on :id</h4>
+  <h4>DELETE /asiakas/:id = Poista asiakas jonka id on :id</h4>
+  <h4>Asiakkaan tietorakenne:</h4>
+  <p> x-www-form-urlencoded <br><br>
+    {<br><br>
+    "tunnus": "JAKY001", <br><br>
+    "etunimi": "Jarkko",<br><br>
+    "sukunimi": "Kylähaara",<br><br>
+    "osoite": "Mansikkapolku 1 04444 Vaasa",<br><br>
+    "puhelin": "050-2294966"<br><br>
+    }</p>
+    <h2>Tili</h2>
+  <h4>GET /tili = Hae kaikki tilit</h4>
+  <h4>GET /tili/:id = Hae tili jonka id on :id</h4>
+  <h4>POST /tili = Lisää tili</h4>
+  <h4>PUT /tili/:id = Päivitä tili jonka id on :id</h4>
+  <h4>DELETE /tili/:id = Poista tili jonka id on :id</h4>
+  <h4>Tilin tietorakenne:</h4>
+  <p> x-www-form-urlencoded <br><br>
+    {<br><br>
+    "tilinumero": "123456789012345678", <br><br>
+    "saldo": "100000"<br><br>
+    }</p>
+
 </body>
 
 </html>
