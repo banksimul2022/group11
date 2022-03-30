@@ -8,6 +8,7 @@ const asiakasRouter = require('./routes/asiakas');
 const tiliRouter = require('./routes/tili');
 const tilitapahtumatRouter = require('./routes/tilitapahtumat')
 const korttiRouter = require('./routes/kortti');
+const asiakastili = require('./routes/asiakastili');
 
 const app = express();
 
@@ -22,5 +23,5 @@ app.use('/asiakas', asiakasRouter);
 app.use('/tili', tiliRouter);
 app.use('/tilitapahtumat', tilitapahtumatRouter)
 app.use('/kortti',korttiRouter)
-
+app.use('/asiakastili', asiakastili)
 module.exports = app;
