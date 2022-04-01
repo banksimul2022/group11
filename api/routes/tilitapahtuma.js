@@ -1,7 +1,7 @@
 const { response } = require('express')
 const express = require('express')
 const router = express.Router()
-const tilitapahtumat = require('../models/tilitapahtumat_model')
+const tilitapahtumat = require('../models/tilitapahtuma_model')
 
 router.get('/:id?',
  function(request, response) {

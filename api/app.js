@@ -6,9 +6,9 @@ const logger = require('morgan');
 const indexRouter = require('./routes/index');
 const asiakasRouter = require('./routes/asiakas');
 const tiliRouter = require('./routes/tili');
-const tilitapahtumatRouter = require('./routes/tilitapahtumat')
+const tilitapahtumaRouter = require('./routes/tilitapahtuma')
 const korttiRouter = require('./routes/kortti');
-const asiakastili = require('./routes/asiakastili');
+const asiakastiliRouter = require('./routes/asiakastili');
 
 const app = express();
 
@@ -21,7 +21,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/asiakas', asiakasRouter);
 app.use('/tili', tiliRouter);
-app.use('/tilitapahtumat', tilitapahtumatRouter)
+app.use('/tilitapahtuma', tilitapahtumaRouter)
 app.use('/kortti',korttiRouter)
-app.use('/asiakastili', asiakastili)
+app.use('/asiakastili', asiakastiliRouter)
 module.exports = app;
