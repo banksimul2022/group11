@@ -24,10 +24,23 @@ router.get('/:id?',
   }
 })
 
+router.get('/:idkortti?', 
+function(req, res) {
+  if (req.params.idkortti) {
+    tilitapahtumat.getByTili(req.params.idkortti, function (err, dbres) {
+      if (err) {
+        res.json(err)
+      } else {
+        res.json(dbres)
+      }
+    })
+  }
+})
+
 router.get('/:aikaleima?', 
 function(req, res) {
     if (req.params.aikaleima) {
-        tilitapahtumat.getByAikaleima(req.params.aikaleima, function(err, dbres) {
+        tilitapahtumat.getByAikaleima(req.params.aikaleima, req.params.idkortti, function(err, dbres) {
             if (err) {
                 response.json(err)
             } else {
