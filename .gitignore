@@ -6,3 +6,4 @@ bankautomat/*.user
 # DLLRestApi build and user
 bankautomat/libraries/DLLRestAPI/build/
 bankautomat/libraries/DLLRestAPI/*.user
+bankautomat/libraries/DLLRestAPI/*.user.bak
