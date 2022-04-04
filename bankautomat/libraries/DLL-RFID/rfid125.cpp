@@ -25,7 +25,7 @@ void RFID125::readCardID()
 void RFID125::receiveCardID()
 {
     qDebug() << "Received data from Reader";
-    QByteArray ID = m_serialPort->readAll().chopped(3).remove(0, 3);
+    QByteArray ID = m_serialPort->read(16).chopped(3).remove(0, 3);
     disconnect(m_serialPort, SIGNAL(readyRead()), this, SLOT(receiveCardID()));
     emit sendToExe(ID);
 }
