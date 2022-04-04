@@ -3,3 +3,5 @@ api/.env
 bankautomat/build/
 bankautomat/*.user
 .vscode/settings.json
+bankautomat/libraries/DLL-RFID/build/
+bankautomat/libraries/DLL-RFID/*.user
