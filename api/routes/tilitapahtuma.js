@@ -1,12 +1,12 @@
 const { response } = require('express')
 const express = require('express')
 const router = express.Router()
-const tilitapahtumat = require('../models/tilitapahtuma_model')
+const tilitapahtuma = require('../models/tilitapahtuma_model')
 
 router.get('/:id?',
  function(request, response) {
   if (request.params.id) {
-    tilitapahtumat.getById(request.params.id, function(err, dbResult) {
+    tilitapahtuma.getById(request.params.id, function(err, dbResult) {
       if (err) {
         response.json(err)
       } else {
@@ -14,7 +14,7 @@ router.get('/:id?',
       }
     })
   } else {
-    tilitapahtumat.get(function(err, dbResult) {
+    tilitapahtuma.get(function(err, dbResult) {
       if (err) {
         response.json(err)
       } else {
@@ -27,7 +27,7 @@ router.get('/:id?',
 router.get('/:idkortti?', 
 function(req, res) {
   if (req.params.idkortti) {
-    tilitapahtumat.getByTili(req.params.idkortti, function (err, dbres) {
+    tilitapahtuma.getByTili(req.params.idkortti, function (err, dbres) {
       if (err) {
         res.json(err)
       } else {
@@ -40,7 +40,7 @@ function(req, res) {
 router.get('/:aikaleima?', 
 function(req, res) {
     if (req.params.aikaleima) {
-        tilitapahtumat.getByAikaleima(req.params.aikaleima, req.params.idkortti, function(err, dbres) {
+        tilitapahtuma.getByAikaleima(req.params.aikaleima, req.params.idkortti, function(err, dbres) {
             if (err) {
                 response.json(err)
             } else {
@@ -48,7 +48,7 @@ function(req, res) {
             }
         })
     } else {
-        tilitapahtumat.get(function(err, dbres) {
+        tilitapahtuma.get(function(err, dbres) {
             if (err) {
                 response.json(err)
             } else {
@@ -60,7 +60,7 @@ function(req, res) {
 
 router.post('/', 
 function(request, response) {
-  tilitapahtumat.add(request.body, function(err, count) {
+  tilitapahtuma.add(request.body, function(err, count) {
     if (err) {
       response.json(err)
     } else {
@@ -71,7 +71,7 @@ function(request, response) {
 
 router.delete('/:id', 
 function(request, response) {
-  tilitapahtumat.delete(request.params.id, function(err, count) {
+  tilitapahtuma.delete(request.params.id, function(err, count) {
     if (err) {
       response.json(err)
     } else {
@@ -82,7 +82,7 @@ function(request, response) {
 
 router.put('/:id', 
 function(request, response) {
-  tilitapahtumat.update(request.params.id, request.body, function(err, dbResult) {
+  tilitapahtuma.update(request.params.id, request.body, function(err, dbResult) {
     if (err) {
       response.json(err)
     } else {
