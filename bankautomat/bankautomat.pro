@@ -1,4 +1,5 @@
 QT       += core gui
+QT       += network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -22,3 +23,9 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/libraries/DLLRestAPI/build/release/ -lDLLRestAPI
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/libraries/DLLRestAPI/build/debug/ -lDLLRestAPI
+
+INCLUDEPATH += $$PWD/libraries/DLLRestAPI
+DEPENDPATH += $$PWD/libraries/DLLRestAPI
