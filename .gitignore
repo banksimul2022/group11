@@ -2,6 +2,7 @@ api/node_modules/
 api/.env
 bankautomat/build/
 bankautomat/*.user
+.vscode/settings.json
 
 # DLLRestApi build and user
 bankautomat/libraries/DLLRestAPI/build/

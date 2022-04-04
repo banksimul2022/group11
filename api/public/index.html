@@ -37,7 +37,7 @@
 
     <h2>Asiakastili</h2>
     <div>
-      <p>Hae kaikki rivit taulusta asiakastili</p>
+      <p>Hae kaikki rivit taulusta tilitapahtumat</p>
       <code>GET</span><span> https://banksimul-g11.herokuapp.com/asiakastili/</span></code>
     </div>
     <div>
@@ -51,6 +51,40 @@
     <div>
       <p>Hae tilin idn perusteella</p>
       <code>GET</span><span> https://banksimul-g11.herokuapp.com/asiakastili/tili/{id}</span></code>
+    </div>
+    <div>
+      <p>Lisää asiakastili</p>
+      <code>POST</span><span> https://banksimul-g11.herokuapp.com/asiakastili/</span></code>
+    </div>
+    <div>
+      <p>Poista asiakastili rivin idn perusteella</p>
+      <code>DELETE</span><span> https://banksimul-g11.herokuapp.com/asiakastili/{id}</span></code>
+    </div>
+    <div>
+      <p>Päivitä asiakastili</p>
+      <code><span>PUT</span><span >https://banksimul-g11.herokuapp.com/asiakastili/{id}</span></code>
+    </div>
+
+    <h2>tilitapahtumat</h2>
+    <div>
+      <p>Hae kaikki rivit taulusta tilitapahtumat</p>
+      <code>GET</span><span> https://banksimul-g11.herokuapp.com/tilitapahtumat/</span></code>
+    </div>
+    <div>
+      <p>Hae tapahtuman idn perusteella</p>
+      <code>GET</span><span> https://banksimul-g11.herokuapp.com/tilitapahtumat/{id}</span></code>
+    </div>
+    <div>
+      <p>Hae rivin aikaleiman perusteella</p>
+      <code>GET</span><span> https://banksimul-g11.herokuapp.com/tilitapahtumat/{aikaleima} dd/mm/yyyy_hh:mm:ss</span></code>
+    </div>
+    <div>
+      <p>Hae  idn perusteella</p>
+      <code>GET</span><span> https://banksimul-g11.herokuapp.com/tilitapahtumat/asiakas/{id}</span></code>
+    </div>
+    <div>
+      <p>Hae tilin idn perusteella</p>
+      <code>GET</span><span> https://banksimul-g11.herokuapp.com/tilitapahtumat/tili/{id}</span></code>
     </div>
     <div>
       <p>Lisää asiakastili</p>
