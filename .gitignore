@@ -3,5 +3,13 @@ api/.env
 bankautomat/build/
 bankautomat/*.user
 .vscode/settings.json
+
+# QT_RFID
 bankautomat/libraries/DLL-RFID/build/
 bankautomat/libraries/DLL-RFID/*.user
+
+# DLLRestApi build and user
+bankautomat/libraries/DLLRestAPI/build/
+bankautomat/libraries/DLLRestAPI/*.user
+bankautomat/libraries/DLLRestAPI/*.user.bak
+
