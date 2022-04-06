@@ -19,6 +19,7 @@ void DLLRestAPI::fromExeLoginSlot(QString cardNumber, QString pinCode)
 {
     qDebug() << "Card: " << cardNumber << ", Pincode: " << pinCode;
     this->cardNumber = cardNumber;
+    qDebug() << "Cardnumber saved to dll: " << this->cardNumber;
     pRestAPIEngine->fromDllLoginSlot(cardNumber, pinCode);
 }
 
