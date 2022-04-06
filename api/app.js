@@ -3,13 +3,16 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
+const authenticateToken = require('./custom_modules/authentication')
+
 const indexRouter = require('./routes/index');
 const loginRouter = require('./routes/login');
 const asiakasRouter = require('./routes/asiakas');
 const tiliRouter = require('./routes/tili');
-const tilitapahtumaRouter = require('./routes/tilitapahtuma')
+const tilitapahtumaRouter = require('./routes/tilitapahtuma');
 const korttiRouter = require('./routes/kortti');
 const asiakastiliRouter = require('./routes/asiakastili');
+const operaatiotRouter = require('./routes/operaatiot');
 
 const app = express();
 
@@ -21,9 +24,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/login', loginRouter);
+//app.use(authenticateToken);
 app.use('/asiakas', asiakasRouter);
 app.use('/tili', tiliRouter);
 app.use('/tilitapahtuma', tilitapahtumaRouter)
 app.use('/kortti',korttiRouter)
 app.use('/asiakastili', asiakastiliRouter)
+app.use('/operaatiot', operaatiotRouter)
+
 module.exports = app;

@@ -1,5 +1,6 @@
 #include "restapiengine.h"
 
+#include <QJsonArray>
 #include <QJsonObject>
 #include <QJsonDocument>
 #include <QNetworkRequest>
@@ -33,9 +34,49 @@ void RestAPIEngine::fromDllLoginSlot(QString cardNumber, QString pinCode)
     reply = loginManager->post(req, QJsonDocument(jsonObj).toJson());
 }
 
+void RestAPIEngine::fromDllGetAccTransactsSlot(QString cardNumber)
+{
+    QNetworkRequest req((baseUrl + "/operaatiot/tilitapahtumat/" + cardNumber));
+    req.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+
+    loginManager = new QNetworkAccessManager(this);
+    connect(loginManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(fromEngineGetAccTransactsResponseSlot(QNetworkReply*)));
+
+    reply = loginManager->get(req);
+}
+
+void RestAPIEngine::fromDllGetAccBalanceSlot(QString cardNumber)
+{
+    QNetworkRequest req((baseUrl + "/operaatiot/saldo/" + cardNumber));
+    req.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+
+    loginManager = new QNetworkAccessManager(this);
+    connect(loginManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(fromEngineGetAccBalanceResponseSlot(QNetworkReply*)));
+
+    reply = loginManager->get(req);
+}
+
 void RestAPIEngine::fromEngineLoginResponseSlot(QNetworkReply *reply)
 {
     responseData = reply->readAll();
     qDebug() << responseData;
     emit toDllLoginProcessedSignal(responseData);
+}
+
+void RestAPIEngine::fromEngineGetAccTransactsResponseSlot(QNetworkReply *)
+{
+    responseData = reply->readAll();
+    QJsonDocument json_doc = QJsonDocument::fromJson(responseData);
+    QJsonArray json_array = json_doc.array();
+    qDebug() << json_array;
+    emit toDllGetAccTransactsSignal(json_array);
+}
+
+void RestAPIEngine::fromEngineGetAccBalanceResponseSlot(QNetworkReply *)
+{
+    responseData = reply->readAll();
+    QJsonDocument json_doc = QJsonDocument::fromJson(responseData);
+    double result = json_doc.array()[0].toObject()["saldo"].toDouble();
+    qDebug() << QString::number(result, 'f', 2);
+    emit toDllGetAccBalanceSignal(result);
 }

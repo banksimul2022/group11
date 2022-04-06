@@ -2,6 +2,7 @@
 #define RESTAPIENGINE_H
 
 #include <QString>
+#include <QJsonArray>
 #include <QNetworkAccessManager>
 
 class RestAPIEngine : public QObject
@@ -19,13 +20,19 @@ private:
     QByteArray token;
 
 signals:
-    void toDllLoginProcessedSignal(QString);
+    void toDllLoginProcessedSignal(QString result);
+    void toDllGetAccTransactsSignal(QJsonArray result);
+    void toDllGetAccBalanceSignal(double result);
 
 public slots:
     void fromDllLoginSlot(QString cardNumber, QString pinCode);
+    void fromDllGetAccTransactsSlot(QString cardNumber);
+    void fromDllGetAccBalanceSlot(QString cardNumber);
 
 private slots:
     void fromEngineLoginResponseSlot(QNetworkReply*);
+    void fromEngineGetAccTransactsResponseSlot(QNetworkReply*);
+    void fromEngineGetAccBalanceResponseSlot(QNetworkReply*);
 };
 
 #endif // RESTAPIENGINE_H
