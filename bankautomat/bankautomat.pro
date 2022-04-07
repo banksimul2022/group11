@@ -11,10 +11,12 @@ CONFIG += c++11
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    tilakone.cpp
 
 HEADERS += \
-    mainwindow.h
+    mainwindow.h \
+    tilakone.h
 
 FORMS += \
     mainwindow.ui
