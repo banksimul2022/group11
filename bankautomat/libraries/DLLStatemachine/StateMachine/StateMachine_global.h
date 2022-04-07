@@ -1,0 +1,12 @@
+#ifndef STATEMACHINE_GLOBAL_H
+#define STATEMACHINE_GLOBAL_H
+
+#include <QtCore/qglobal.h>
+
+#if defined(STATEMACHINE_LIBRARY)
+#  define STATEMACHINE_EXPORT Q_DECL_EXPORT
+#else
+#  define STATEMACHINE_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // STATEMACHINE_GLOBAL_H
