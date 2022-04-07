@@ -52,6 +52,16 @@ void DLLRestAPI::fromExeGetAccBalance()
     pRestAPIEngine->fromDllGetAccBalanceSlot(cardNumber);
 }
 
+void DLLRestAPI::fromExeWithdraw(double amount)
+{
+
+}
+
+void DLLRestAPI::fromExeTransact(double amount, QString targetCardNumber)
+{
+
+}
+
 void DLLRestAPI::fromEngineLoginProcessedSlot(QString result)
 {
     if(result != "false")
@@ -76,4 +86,14 @@ void DLLRestAPI::fromEngineGetAccBalanceProcessedSlot(double result)
 {
     qDebug() << "Get account balance processed. Sending result to exe";
     emit toExeGetAccBalanceProcessedSignal(result);
+}
+
+void DLLRestAPI::fromEngineWithdrawProcessedSlot(bool result)
+{
+
+}
+
+void DLLRestAPI::fromEngineTransactProcessedSlot(bool result)
+{
+
 }

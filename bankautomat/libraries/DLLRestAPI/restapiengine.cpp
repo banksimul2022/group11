@@ -64,6 +64,16 @@ void RestAPIEngine::fromDllGetAccBalanceSlot(QString cardNumber)
     reply = loginManager->post(req, QJsonDocument(jsonObj).toJson());
 }
 
+void RestAPIEngine::fromDllWithdrawSlot(QString cardNumber, double amount)
+{
+
+}
+
+void RestAPIEngine::fromDllTransactSlot(QString cardNumber, double amount, QString targetCardNumber)
+{
+
+}
+
 void RestAPIEngine::fromEngineLoginResponseSlot(QNetworkReply *reply)
 {
     responseData = reply->readAll();
@@ -77,7 +87,7 @@ void RestAPIEngine::fromEngineGetAccTransactsResponseSlot(QNetworkReply *)
     QJsonDocument json_doc = QJsonDocument::fromJson(responseData);
     QJsonArray json_array = json_doc.array();
     qDebug() << json_array;
-    emit toDllGetAccTransactsSignal(json_array);
+    emit toDllGetAccTransactsProcessedSignal(json_array);
 }
 
 void RestAPIEngine::fromEngineGetAccBalanceResponseSlot(QNetworkReply *)
@@ -86,5 +96,15 @@ void RestAPIEngine::fromEngineGetAccBalanceResponseSlot(QNetworkReply *)
     QJsonDocument json_doc = QJsonDocument::fromJson(responseData);
     double result = json_doc.array()[0].toObject()["saldo"].toDouble();
     qDebug() << QString::number(result, 'f', 2);
-    emit toDllGetAccBalanceSignal(result);
+    emit toDllGetAccBalanceProcessedSignal(result);
+}
+
+void RestAPIEngine::fromEngineWithdrawResponseSlot(QNetworkReply *)
+{
+
+}
+
+void RestAPIEngine::fromEngineTransactResponseSlot(QNetworkReply *)
+{
+
 }
