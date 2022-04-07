@@ -34,26 +34,34 @@ void RestAPIEngine::fromDllLoginSlot(QString cardNumber, QString pinCode)
     reply = loginManager->post(req, QJsonDocument(jsonObj).toJson());
 }
 
-void RestAPIEngine::fromDllGetAccTransactsSlot(QString cardNumber)
+void RestAPIEngine::fromDllGetAccTransactsSlot(QString cardNumber, int offset, int noOfRows)
 {
-    QNetworkRequest req((baseUrl + "/operaatiot/tilitapahtumat/" + cardNumber));
+    QJsonObject jsonObj;
+    jsonObj.insert("cardNumber", cardNumber);
+    jsonObj.insert("offset", offset);
+    jsonObj.insert("noOfRows", noOfRows);
+
+    QNetworkRequest req((baseUrl + "/operaatiot/tilitapahtumat"));
     req.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
     loginManager = new QNetworkAccessManager(this);
     connect(loginManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(fromEngineGetAccTransactsResponseSlot(QNetworkReply*)));
 
-    reply = loginManager->get(req);
+    reply = loginManager->post(req, QJsonDocument(jsonObj).toJson());
 }
 
 void RestAPIEngine::fromDllGetAccBalanceSlot(QString cardNumber)
 {
-    QNetworkRequest req((baseUrl + "/operaatiot/saldo/" + cardNumber));
+    QJsonObject jsonObj;
+    jsonObj.insert("cardNumber", cardNumber);
+
+    QNetworkRequest req((baseUrl + "/operaatiot/saldo"));
     req.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
     loginManager = new QNetworkAccessManager(this);
     connect(loginManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(fromEngineGetAccBalanceResponseSlot(QNetworkReply*)));
 
-    reply = loginManager->get(req);
+    reply = loginManager->post(req, QJsonDocument(jsonObj).toJson());
 }
 
 void RestAPIEngine::fromEngineLoginResponseSlot(QNetworkReply *reply)

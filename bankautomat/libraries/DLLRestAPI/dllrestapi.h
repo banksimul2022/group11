@@ -27,7 +27,7 @@ signals:
 public slots:
    void fromExeLoginSlot(QString cardNumber, QString pinCode);
    void fromExeLogoutSlot();
-   void fromExeGetAccTransactsSlot();
+   void fromExeGetAccTransactsSlot(int offset, int noOfRows);
    void fromExeGetAccBalance();
 
 private slots:

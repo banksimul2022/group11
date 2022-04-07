@@ -3,8 +3,13 @@ const express = require('express')
 const router = express.Router()
 const operaatiot = require('../models/operaatiot_model')
 
-router.get('/tilitapahtumat/:cardNumber', function(request, response) {
-  operaatiot.getTapahtumatByKortti(request.params.cardNumber, function(err, dbResult) {
+router.post('/tilitapahtumat/', function(request, response) {
+  const params = { cardNumber, offset = 0, noOfRows = 10 } = request.body;
+  if(!cardNumber) {
+      console.log("cardnumber missing");
+      response.send(false);
+  }
+  operaatiot.getTapahtumatByKortti(params, function(err, dbResult) {
     if (err) {
       response.json(err);
     } else {
@@ -13,8 +18,13 @@ router.get('/tilitapahtumat/:cardNumber', function(request, response) {
   })
 })
 
-router.get('/saldo/:cardNumber', function(request, response) {
-  operaatiot.getSaldoByKortti(request.params.cardNumber, function(err, dbResult) {
+router.post('/saldo/', function(request, response) {
+  const params = { cardNumber } = request.body;
+  if(!cardNumber) {
+      console.log("cardnumber missing");
+      response.send(false);
+  }
+  operaatiot.getSaldoByKortti(cardNumber, function(err, dbResult) {
     if (err) {
       response.json(err);
     } else {

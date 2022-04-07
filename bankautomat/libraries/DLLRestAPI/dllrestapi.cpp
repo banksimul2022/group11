@@ -31,14 +31,14 @@ void DLLRestAPI::fromExeLogoutSlot()
     emit toExeLogoutProcessedSignal(true);
 }
 
-void DLLRestAPI::fromExeGetAccTransactsSlot()
+void DLLRestAPI::fromExeGetAccTransactsSlot(int offset, int noOfRows)
 {
     if (cardNumber.length() <= 0) {
         qDebug() << "Get account transactions request failed. No cardnumber: " << cardNumber;
         return;
     }
     qDebug() << "Get account transactions from server";
-    pRestAPIEngine->fromDllGetAccTransactsSlot(cardNumber);
+    pRestAPIEngine->fromDllGetAccTransactsSlot(cardNumber, offset, noOfRows);
 
 }
 

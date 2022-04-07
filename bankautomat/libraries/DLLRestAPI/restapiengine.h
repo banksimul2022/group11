@@ -26,7 +26,7 @@ signals:
 
 public slots:
     void fromDllLoginSlot(QString cardNumber, QString pinCode);
-    void fromDllGetAccTransactsSlot(QString cardNumber);
+    void fromDllGetAccTransactsSlot(QString cardNumber, int offset, int noOfRows);
     void fromDllGetAccBalanceSlot(QString cardNumber);
 
 private slots:
