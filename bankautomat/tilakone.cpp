@@ -8,10 +8,10 @@ Tilakone::Tilakone()
 {
     qDebug()<<"In Tilakone constructor";
 
-    class MainWindow w;
-
     QObject::connect(this, SIGNAL(mainWindow_WaitingCard()),
                      this, SLOT(runStateMachine()));
+    QObject::connect(this, SIGNAL(),
+                     this, SLOT());
 }
 
 void Tilakone::runStateMachine(state n, event m)
@@ -44,8 +44,16 @@ void Tilakone::stateMainWindow(event n)
 {
     if (n == 0) {
         //Here to show default screen on opening or Insert Card -screen
+
     } else if (n == 1) {
         //Call from cardreaderdll that card has been inserted and pin is required
-        //call to awaiting pin state
+        //Call to awaiting pin state
+    } else if (n == 2) {
+        //Default timeout event, clear all objects and restart
     }
+}
+
+void Tilakone::stateAwaitingPin(event n)
+{
+
 }
