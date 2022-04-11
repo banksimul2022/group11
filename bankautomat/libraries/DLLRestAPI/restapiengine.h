@@ -3,6 +3,7 @@
 
 #include <QString>
 #include <QJsonArray>
+#include <QJsonObject>
 #include <QNetworkAccessManager>
 
 class RestAPIEngine : public QObject
@@ -20,7 +21,7 @@ private:
     QByteArray token;
 
 signals:
-    void toDllLoginProcessedSignal(QString result);
+    void toDllLoginProcessedSignal(QJsonObject result);
     void toDllGetAccTransactsProcessedSignal(QJsonArray result);
     void toDllGetAccBalanceProcessedSignal(double result);
     void toDllWithdrawProcessedSignal(double result);  // TODO

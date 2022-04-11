@@ -10,7 +10,7 @@ function(request, response) {
     const { cardNumber, pinCode} = request.body;
     if(!cardNumber || !pinCode) {
         console.log("cardnumber or pincode missing");
-        response.send(false);
+        response.json({ error: "cardnumber or pincode missing"});
     }
     else {
         login.checkPincode(cardNumber, function (dbError, dbResult) {
@@ -23,17 +23,19 @@ function(request, response) {
                         if(compareResult) {
                             console.log("pincode correct!");
                             const token = generateAccessToken({ cardNumber: cardNumber });
-                            response.json(token);
+                            response.json({ token: token,
+                                            result: "Login succeeded" 
+                                        });
                         }
                         else {
                             console.log("wrong pincode");
-                            response.send(false);
+                            response.json({ error: "wrong pincode" });
                         }
                     });
                 }
                 else {
                     console.log("card does not exist");
-                    response.send(false);
+                    response.json({ error: "card does not exist" });
                 }
             }
         });

@@ -19,8 +19,8 @@ private:
    QString cardNumber;
 
 signals:
-   void toExeLoginProcessedSignal(bool result);
-   void toExeLogoutProcessedSignal(bool result);
+   void toExeLoginProcessedSignal(QJsonObject result);
+   void toExeLogoutProcessedSignal(QJsonObject result);
    void toExeGetAccTransactsProcessedSignal(QJsonArray result);
    void toExeGetAccBalanceProcessedSignal(double result);
    void toExeWithdrawProcessedSignal(bool result); // TODO
@@ -35,7 +35,7 @@ public slots:
    void fromExeTransact(double amount, QString targetCardNumber); // TODO
 
 private slots:
-   void fromEngineLoginProcessedSlot(QString result);
+   void fromEngineLoginProcessedSlot(QJsonObject result);
    void fromEngineGetAccTransactsProcessedSlot(QJsonArray result);
    void fromEngineGetAccBalanceProcessedSlot(double result);
    void fromEngineWithdrawProcessedSlot(bool result); // TODO

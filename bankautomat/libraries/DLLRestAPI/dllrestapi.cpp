@@ -1,12 +1,13 @@
 #include "dllrestapi.h"
 #include <QDebug>
+#include <QJsonObject>
 
 DLLRestAPI::DLLRestAPI(QString baseUrl)
 {
     pRestAPIEngine = new RestAPIEngine(baseUrl);
-    connect(pRestAPIEngine, SIGNAL(toDllLoginProcessedSignal(QString)), this, SLOT(fromEngineLoginProcessedSlot(QString)));
-    connect(pRestAPIEngine, SIGNAL(toDllGetAccTransactsSignal(QJsonArray)), this, SLOT(fromEngineGetAccTransactsProcessedSlot(QJsonArray)));
-    connect(pRestAPIEngine, SIGNAL(toDllGetAccBalanceSignal(double)), this, SLOT(fromEngineGetAccBalanceProcessedSlot(double)));
+    connect(pRestAPIEngine, SIGNAL(toDllLoginProcessedSignal(QJsonObject)), this, SLOT(fromEngineLoginProcessedSlot(QJsonObject)));
+    connect(pRestAPIEngine, SIGNAL(toDllGetAccTransactsProcessedSignal(QJsonArray)), this, SLOT(fromEngineGetAccTransactsProcessedSlot(QJsonArray)));
+    connect(pRestAPIEngine, SIGNAL(toDllGetAccBalanceProcessedSignal(double)), this, SLOT(fromEngineGetAccBalanceProcessedSlot(double)));
 }
 
 DLLRestAPI::~DLLRestAPI()
@@ -28,15 +29,17 @@ void DLLRestAPI::fromExeLogoutSlot()
     qDebug() << "Logging out. Token and cardNumber values are cleared";
     token = "";
     cardNumber = "";
-    emit toExeLogoutProcessedSignal(true);
+    QJsonObject result;
+    result.insert("result", "Logout succeeded");
+    emit toExeLogoutProcessedSignal(result);
 }
 
 void DLLRestAPI::fromExeGetAccTransactsSlot(int offset, int noOfRows)
 {
-    if (cardNumber.length() <= 0) {
-        qDebug() << "Get account transactions request failed. No cardnumber: " << cardNumber;
-        return;
-    }
+//    if (cardNumber.length() <= 0) {
+//        qDebug() << "Get account transactions request failed. No cardnumber: " << cardNumber;
+//        return;
+//    }
     qDebug() << "Get account transactions from server";
     pRestAPIEngine->fromDllGetAccTransactsSlot(cardNumber, offset, noOfRows);
 
@@ -44,35 +47,45 @@ void DLLRestAPI::fromExeGetAccTransactsSlot(int offset, int noOfRows)
 
 void DLLRestAPI::fromExeGetAccBalance()
 {
-    if (cardNumber.length() <= 0) {
-        qDebug() << "Get account balance request failed. No cardnumber: " << cardNumber;
-        return;
-    }
+//    if (cardNumber.length() <= 0) {
+//        qDebug() << "Get account balance request failed. No cardnumber: " << cardNumber;
+//        return;
+//    }
     qDebug() << "Get account balance from server";
     pRestAPIEngine->fromDllGetAccBalanceSlot(cardNumber);
 }
 
 void DLLRestAPI::fromExeWithdraw(double amount)
 {
-
+//    if (cardNumber.length() <= 0) {
+//        qDebug() << "Withdraw request failed. No cardnumber: " << cardNumber;
+//        return;
+//    }
+    qDebug() << "Withdrawing " << amount << " €";
+    pRestAPIEngine->fromDllWithdrawSlot(cardNumber, amount);
 }
 
 void DLLRestAPI::fromExeTransact(double amount, QString targetCardNumber)
 {
-
+//    if (cardNumber.length() <= 0) {
+//        qDebug() << "Transfer request failed. No cardnumber: " << cardNumber;
+//        return;
+//    }
+    qDebug() << "Transfering " << amount << " € to cardnumber: " << targetCardNumber;
+    pRestAPIEngine->fromDllTransactSlot(cardNumber, amount, targetCardNumber);
 }
 
-void DLLRestAPI::fromEngineLoginProcessedSlot(QString result)
+void DLLRestAPI::fromEngineLoginProcessedSlot(QJsonObject result)
 {
-    if(result != "false")
+    if(result.contains("token"))
     {
         qDebug() << "Login succeeded. Sending result to exe";
-        token = result;
-        emit toExeLoginProcessedSignal(true);
+        token = result["token"].toString();
+        emit toExeLoginProcessedSignal(result);
     } else {
         qDebug() << "Login failed. Sending result to exe";
         cardNumber = "";
-        emit toExeLoginProcessedSignal(false);
+        emit toExeLoginProcessedSignal(result);
     }
 }
 
@@ -90,10 +103,12 @@ void DLLRestAPI::fromEngineGetAccBalanceProcessedSlot(double result)
 
 void DLLRestAPI::fromEngineWithdrawProcessedSlot(bool result)
 {
-
+    qDebug() << "Withdraw processed. Sending result to exe";
+    emit toExeWithdrawProcessedSignal(result);
 }
 
 void DLLRestAPI::fromEngineTransactProcessedSlot(bool result)
 {
-
+    qDebug() << "Transact processed. Sending result to exe";
+    emit toExeTransactProcessedSignal(result);
 }
