@@ -15,7 +15,7 @@ function(request, response) {
     else {
         login.checkPincode(cardNumber, function (dbError, dbResult) {
             if (dbError) {
-                response.json(dbError);
+                response.json({ error: dbError.sqlMessage });
             }
             else {
                 if (dbResult.length > 0) {

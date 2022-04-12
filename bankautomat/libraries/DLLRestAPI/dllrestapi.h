@@ -21,10 +21,10 @@ private:
 signals:
    void toExeLoginProcessedSignal(QJsonObject result);
    void toExeLogoutProcessedSignal(QJsonObject result);
-   void toExeGetAccTransactsProcessedSignal(QJsonArray result);
-   void toExeGetAccBalanceProcessedSignal(double result);
-   void toExeWithdrawProcessedSignal(bool result); // TODO
-   void toExeTransactProcessedSignal(bool result); // TODO
+   void toExeGetAccTransactsProcessedSignal(QJsonObject result);
+   void toExeGetAccBalanceProcessedSignal(QJsonObject result);
+   void toExeWithdrawProcessedSignal(QJsonObject result); // TODO
+   void toExeTransactProcessedSignal(QJsonObject result); // TODO
 
 public slots:
    void fromExeLoginSlot(QString cardNumber, QString pinCode);
@@ -36,10 +36,10 @@ public slots:
 
 private slots:
    void fromEngineLoginProcessedSlot(QJsonObject result);
-   void fromEngineGetAccTransactsProcessedSlot(QJsonArray result);
-   void fromEngineGetAccBalanceProcessedSlot(double result);
-   void fromEngineWithdrawProcessedSlot(bool result); // TODO
-   void fromEngineTransactProcessedSlot(bool result); // TODO
+   void fromEngineGetAccTransactsProcessedSlot(QJsonObject result);
+   void fromEngineGetAccBalanceProcessedSlot(QJsonObject result);
+   void fromEngineWithdrawProcessedSlot(QJsonObject result); // TODO
+   void fromEngineTransactProcessedSlot(QJsonObject result); // TODO
 };
 
 #endif // DLLRESTAPI_H

@@ -14,6 +14,8 @@ public:
     ~RestAPIEngine();
 
 private:
+    bool debugOn = true;
+    QJsonObject replyToJsonObject(QNetworkReply *reply, bool debugOn);
     QString baseUrl;
     QNetworkAccessManager *loginManager;
     QNetworkReply *reply;
@@ -22,10 +24,10 @@ private:
 
 signals:
     void toDllLoginProcessedSignal(QJsonObject result);
-    void toDllGetAccTransactsProcessedSignal(QJsonArray result);
-    void toDllGetAccBalanceProcessedSignal(double result);
-    void toDllWithdrawProcessedSignal(double result);  // TODO
-    void toDllTransactProcessedSignal(double result);  // TODO
+    void toDllGetAccTransactsProcessedSignal(QJsonObject result);
+    void toDllGetAccBalanceProcessedSignal(QJsonObject result);
+    void toDllWithdrawProcessedSignal(QJsonObject result);  // TODO
+    void toDllTransactProcessedSignal(QJsonObject result);  // TODO
 
 public slots:
     void fromDllLoginSlot(QString cardNumber, QString pinCode);

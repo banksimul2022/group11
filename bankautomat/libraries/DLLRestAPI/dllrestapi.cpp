@@ -6,8 +6,10 @@ DLLRestAPI::DLLRestAPI(QString baseUrl)
 {
     pRestAPIEngine = new RestAPIEngine(baseUrl);
     connect(pRestAPIEngine, SIGNAL(toDllLoginProcessedSignal(QJsonObject)), this, SLOT(fromEngineLoginProcessedSlot(QJsonObject)));
-    connect(pRestAPIEngine, SIGNAL(toDllGetAccTransactsProcessedSignal(QJsonArray)), this, SLOT(fromEngineGetAccTransactsProcessedSlot(QJsonArray)));
-    connect(pRestAPIEngine, SIGNAL(toDllGetAccBalanceProcessedSignal(double)), this, SLOT(fromEngineGetAccBalanceProcessedSlot(double)));
+    connect(pRestAPIEngine, SIGNAL(toDllGetAccTransactsProcessedSignal(QJsonObject)), this, SLOT(fromEngineGetAccTransactsProcessedSlot(QJsonObject)));
+    connect(pRestAPIEngine, SIGNAL(toDllGetAccBalanceProcessedSignal(QJsonObject)), this, SLOT(fromEngineGetAccBalanceProcessedSlot(QJsonObject)));
+    connect(pRestAPIEngine, SIGNAL(toDllWithdrawProcessedSignal(QJsonObject)), this, SLOT(fromEngineWithdrawProcessedSlot(QJsonObject)));
+    connect(pRestAPIEngine, SIGNAL(toDllTransactProcessedSignal(QJsonObject)), this, SLOT(fromEngineTransactProcessedSlot(QJsonObject)));
 }
 
 DLLRestAPI::~DLLRestAPI()
@@ -36,21 +38,12 @@ void DLLRestAPI::fromExeLogoutSlot()
 
 void DLLRestAPI::fromExeGetAccTransactsSlot(int offset, int noOfRows)
 {
-//    if (cardNumber.length() <= 0) {
-//        qDebug() << "Get account transactions request failed. No cardnumber: " << cardNumber;
-//        return;
-//    }
     qDebug() << "Get account transactions from server";
     pRestAPIEngine->fromDllGetAccTransactsSlot(cardNumber, offset, noOfRows);
-
 }
 
 void DLLRestAPI::fromExeGetAccBalance()
 {
-//    if (cardNumber.length() <= 0) {
-//        qDebug() << "Get account balance request failed. No cardnumber: " << cardNumber;
-//        return;
-//    }
     qDebug() << "Get account balance from server";
     pRestAPIEngine->fromDllGetAccBalanceSlot(cardNumber);
 }
@@ -89,25 +82,25 @@ void DLLRestAPI::fromEngineLoginProcessedSlot(QJsonObject result)
     }
 }
 
-void DLLRestAPI::fromEngineGetAccTransactsProcessedSlot(QJsonArray result)
+void DLLRestAPI::fromEngineGetAccTransactsProcessedSlot(QJsonObject result)
 {
     qDebug() << "Get account transactions processed. Sending result to exe";
     emit toExeGetAccTransactsProcessedSignal(result);
 }
 
-void DLLRestAPI::fromEngineGetAccBalanceProcessedSlot(double result)
+void DLLRestAPI::fromEngineGetAccBalanceProcessedSlot(QJsonObject result)
 {
     qDebug() << "Get account balance processed. Sending result to exe";
     emit toExeGetAccBalanceProcessedSignal(result);
 }
 
-void DLLRestAPI::fromEngineWithdrawProcessedSlot(bool result)
+void DLLRestAPI::fromEngineWithdrawProcessedSlot(QJsonObject result)
 {
     qDebug() << "Withdraw processed. Sending result to exe";
     emit toExeWithdrawProcessedSignal(result);
 }
 
-void DLLRestAPI::fromEngineTransactProcessedSlot(bool result)
+void DLLRestAPI::fromEngineTransactProcessedSlot(QJsonObject result)
 {
     qDebug() << "Transact processed. Sending result to exe";
     emit toExeTransactProcessedSignal(result);

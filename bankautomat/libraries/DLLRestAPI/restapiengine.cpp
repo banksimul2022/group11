@@ -19,6 +19,14 @@ RestAPIEngine::~RestAPIEngine()
     reply = nullptr;
 }
 
+QJsonObject RestAPIEngine::replyToJsonObject(QNetworkReply * reply, bool debugOn)
+{
+    QByteArray responseData = reply->readAll();
+    QJsonObject jsonObj = QJsonDocument::fromJson(responseData).object();
+    if(debugOn) qDebug() << jsonObj;
+    return jsonObj;
+}
+
 void RestAPIEngine::fromDllLoginSlot(QString cardNumber, QString pinCode)
 {
     QJsonObject jsonObj;
@@ -97,41 +105,25 @@ void RestAPIEngine::fromDllTransactSlot(QString cardNumber, double amount, QStri
 
 void RestAPIEngine::fromEngineLoginResponseSlot(QNetworkReply *reply)
 {
-    responseData = reply->readAll();
-    qDebug() << responseData;
-    QJsonObject jsonObj = QJsonDocument::fromJson(responseData).object();
-    emit toDllLoginProcessedSignal(jsonObj);
+    emit toDllLoginProcessedSignal(replyToJsonObject(reply, debugOn));
 }
 
-void RestAPIEngine::fromEngineGetAccTransactsResponseSlot(QNetworkReply *)
+void RestAPIEngine::fromEngineGetAccTransactsResponseSlot(QNetworkReply *reply)
 {
-    responseData = reply->readAll();
-    QJsonDocument json_doc = QJsonDocument::fromJson(responseData);
-    QJsonArray json_array = json_doc.array();
-    qDebug() << json_array;
-    emit toDllGetAccTransactsProcessedSignal(json_array);
+    emit toDllGetAccTransactsProcessedSignal(replyToJsonObject(reply, debugOn));
 }
 
 void RestAPIEngine::fromEngineGetAccBalanceResponseSlot(QNetworkReply *)
 {
-    responseData = reply->readAll();
-    QJsonDocument json_doc = QJsonDocument::fromJson(responseData);
-    double result = json_doc.array()[0].toObject()["saldo"].toDouble();
-    qDebug() << QString::number(result, 'f', 2);
-    emit toDllGetAccBalanceProcessedSignal(result);
+    emit toDllGetAccBalanceProcessedSignal(replyToJsonObject(reply, debugOn));
 }
 
 void RestAPIEngine::fromEngineWithdrawResponseSlot(QNetworkReply *)
 {
-    responseData = reply->readAll();
-    QJsonDocument json_doc = QJsonDocument::fromJson(responseData);
-    QJsonObject jsonObj = json_doc.array()[0].toObject();
-    qDebug() << json_doc["sqlMessage"];
+    emit toDllWithdrawProcessedSignal(replyToJsonObject(reply, debugOn));
 }
 
 void RestAPIEngine::fromEngineTransactResponseSlot(QNetworkReply *)
 {
-    responseData = reply->readAll();
-    QJsonDocument json_doc = QJsonDocument::fromJson(responseData);
-    qDebug() << json_doc;
+    emit toDllTransactProcessedSignal(replyToJsonObject(reply, debugOn));
 }
