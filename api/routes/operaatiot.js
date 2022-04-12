@@ -1,24 +1,47 @@
-const { response } = require('express')
 const express = require('express')
 const router = express.Router()
 const operaatiot = require('../models/operaatiot_model')
 
-router.get('/tilitapahtumat/:cardNumber', function(request, response) {
-  operaatiot.getTapahtumatByKortti(request.params.cardNumber, function(err, dbResult) {
+router.post('/tilitapahtumat/', function(request, response) {
+  const params = { cardNumber, offset = 0, noOfRows = 10 } = request.body;
+  operaatiot.getTapahtumatByKortti(params, function(err, dbResult) {
     if (err) {
-      response.json(err);
+      response.json({ error: err.sqlMessage });
     } else {
-      response.json(dbResult[0]);
+      response.json({ result: dbResult[0] });
     }
   })
 })
 
-router.get('/saldo/:cardNumber', function(request, response) {
-  operaatiot.getSaldoByKortti(request.params.cardNumber, function(err, dbResult) {
+router.post('/saldo/', function(request, response) {
+  const { cardNumber } = request.body;
+  operaatiot.getSaldoByKortti(cardNumber, function(err, dbResult) {
     if (err) {
-      response.json(err);
+      response.json({ error: err.sqlMessage });
     } else {
-      response.json(dbResult[0]);
+      response.json({ result: JSON.stringify(dbResult[0][0].saldo) });
+    }
+  })
+})
+
+router.post('/nosto/', function(request, response) {
+  const params = { cardNumber, amount } = request.body;
+  operaatiot.createWithdraw(params, function(err, dbResult) {
+    if (err) {
+      response.json({ error: err.sqlMessage });
+    } else {
+      response.json({ result: dbResult });
+    }
+  })
+})
+
+router.post('/siirto/', function(request, response) {
+  const params = { cardNumber, amount, targetCardNumber } = request.body;
+  operaatiot.createTransaction(params, function(err, dbResult) {
+    if (err) {
+      response.json({ error: err.sqlMessage });
+    } else {
+      response.json({ result: dbResult });
     }
   })
 })

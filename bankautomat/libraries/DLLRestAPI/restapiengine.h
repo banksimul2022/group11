@@ -3,6 +3,7 @@
 
 #include <QString>
 #include <QJsonArray>
+#include <QJsonObject>
 #include <QNetworkAccessManager>
 
 class RestAPIEngine : public QObject
@@ -13,6 +14,8 @@ public:
     ~RestAPIEngine();
 
 private:
+    bool debugOn = true;
+    QJsonObject replyToJsonObject(QNetworkReply *reply, bool debugOn);
     QString baseUrl;
     QNetworkAccessManager *loginManager;
     QNetworkReply *reply;
@@ -20,19 +23,25 @@ private:
     QByteArray token;
 
 signals:
-    void toDllLoginProcessedSignal(QString result);
-    void toDllGetAccTransactsSignal(QJsonArray result);
-    void toDllGetAccBalanceSignal(double result);
+    void toDllLoginProcessedSignal(QJsonObject result);
+    void toDllGetAccTransactsProcessedSignal(QJsonObject result);
+    void toDllGetAccBalanceProcessedSignal(QJsonObject result);
+    void toDllWithdrawProcessedSignal(QJsonObject result);  // TODO
+    void toDllTransactProcessedSignal(QJsonObject result);  // TODO
 
 public slots:
     void fromDllLoginSlot(QString cardNumber, QString pinCode);
-    void fromDllGetAccTransactsSlot(QString cardNumber);
+    void fromDllGetAccTransactsSlot(QString cardNumber, int offset, int noOfRows);
     void fromDllGetAccBalanceSlot(QString cardNumber);
+    void fromDllWithdrawSlot(QString cardNumber, double amount); // TODO
+    void fromDllTransactSlot(QString cardNumber, double amount, QString targetCardNumber); // TODO
 
 private slots:
     void fromEngineLoginResponseSlot(QNetworkReply*);
     void fromEngineGetAccTransactsResponseSlot(QNetworkReply*);
     void fromEngineGetAccBalanceResponseSlot(QNetworkReply*);
+    void fromEngineWithdrawResponseSlot(QNetworkReply*); // TODO
+    void fromEngineTransactResponseSlot(QNetworkReply*); // TODO
 };
 
 #endif // RESTAPIENGINE_H
