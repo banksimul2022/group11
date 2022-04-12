@@ -19,13 +19,18 @@ function(request, response) {
             }
             else {
                 if (dbResult.length > 0) {
+                    console.log(dbResult);
                     bcrypt.compare(pinCode,dbResult[0].pinKoodi, function (err, compareResult) {
-                        if(compareResult) {
-                            console.log("pincode correct!");
+                        if(compareResult && !dbResult[0].lukittu) {
+                            console.log("pincode correct");
                             const token = generateAccessToken({ cardNumber: cardNumber });
                             response.json({ token: token,
                                             result: "Login succeeded" 
                                         });
+                        }
+                        else if (dbResult[0].lukittu) {
+                            console.log("card is locked");
+                            response.json({ error: "card is locked"} )
                         }
                         else {
                             console.log("wrong pincode");

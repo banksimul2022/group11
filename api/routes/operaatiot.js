@@ -1,4 +1,4 @@
-const express = require('express')
+const express = require('express');
 const router = express.Router()
 const operaatiot = require('../models/operaatiot_model')
 
@@ -30,7 +30,7 @@ router.post('/nosto/', function(request, response) {
     if (err) {
       response.json({ error: err.sqlMessage });
     } else {
-      response.json({ result: dbResult });
+      response.json({ result: `Succesful withdraw ${amount} €` });
     }
   })
 })
@@ -41,7 +41,18 @@ router.post('/siirto/', function(request, response) {
     if (err) {
       response.json({ error: err.sqlMessage });
     } else {
-      response.json({ result: dbResult });
+      response.json({ result: `Succesful transfer ${amount} € to card ${targetCardNumber}` });
+    }
+  })
+})
+
+router.post('/muutalukitus/', function(request, response) {
+  const params = { cardNumber, lockStatus } = request.body;
+  operaatiot.changeLockCard(params, function(err, dbResult) {
+    if (err) {
+      response.json({ error: err.sqlMessage });
+    } else {
+      response.json({ result: `Cardnumber ${cardNumber} lock status changed to ${lockStatus == 1 ? 'locked' : 'unlocked'}` });
     }
   })
 })
