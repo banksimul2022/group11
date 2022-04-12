@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "tilakone.h"
 
 #include <QApplication>
 

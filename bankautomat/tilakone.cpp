@@ -2,7 +2,9 @@
 #include "mainwindow.h"
 #include <QObject>
 #include <QDebug>
+//#include "RFID125.h"
 
+class MainWindow w;
 
 Tilakone::Tilakone()
 {
@@ -42,9 +44,12 @@ void Tilakone::runStateMachine(state n, event m)
 
 void Tilakone::stateMainWindow(event n)
 {
+    QString enter = "Insert card into reader!";
     if (n == 0) {
         //Here to show default screen on opening or Insert Card -screen
-
+        w.show();
+        w.pinUiVisibility(false);
+        w.setMessageLabel(enter);
     } else if (n == 1) {
         //Call from cardreaderdll that card has been inserted and pin is required
         //Call to awaiting pin state

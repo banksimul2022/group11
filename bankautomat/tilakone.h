@@ -30,7 +30,7 @@ public:
         ShowTransactions,
         LogOut,             //Each screen show should have the opportunity to log out of endpoint
         Draw,
-        DrawDefault,
+        DrawDefault,        //Change to only one draw signal from ui obj
         DrawCustom,
         CheckBalance
     };
