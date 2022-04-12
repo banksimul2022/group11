@@ -1,5 +1,6 @@
 QT       += core gui
 QT       += network
+QT       += serialport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -31,3 +32,9 @@ else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/libraries/DLLRestAPI/bu
 
 INCLUDEPATH += $$PWD/libraries/DLLRestAPI
 DEPENDPATH += $$PWD/libraries/DLLRestAPI
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/libraries/build-RFID125-Desktop_Qt_5_15_2_MinGW_32_bit-Debug/release/ -lRFID125
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/libraries/build-RFID125-Desktop_Qt_5_15_2_MinGW_32_bit-Debug/debug/ -lRFID125
+
+INCLUDEPATH += $$PWD/libraries/build-RFID125-Desktop_Qt_5_15_2_MinGW_32_bit-Debug/debug
+DEPENDPATH += $$PWD/libraries/build-RFID125-Desktop_Qt_5_15_2_MinGW_32_bit-Debug/debug
