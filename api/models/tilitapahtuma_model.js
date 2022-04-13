@@ -6,14 +6,6 @@ const tilitapahtuma = {
   get: function (callback) {
     return db.query('select * from tilitapahtuma', callback)                     //Haetaan kaikki tapahtumat listausta varten
   },
-  getByTili: function (idKortti, callback) {                                     //Haetaan kaikki korttiin liittyvät tapahtumat esittämistä varten
-    return db.query('select * from tilitapahtuma where idKortti=? inner join kortti on tilitapahtuma.idKortti = kortti.id',
-    [idKortti], callback)
-  },
-  getByAikaleima: function (aikaleima, idKortti, callback) {                      //Haetaan yksittäinen tapahtuma aikaleiman mukaan
-    return db.query('select * from tilitapahtuma where aikaleima=? and idKortti=? inner join kortti on tilitapahtuma.idKortti = kortti.id', 
-    [aikaleima, idKortti], callback)
-  },
   getById: function (id, callback) {                                              //Haetaan yksittäinen tapahtuma id:n mukaan
     return db.query('select * from tilitapahtuma where id=?', [id], callback)
   },
