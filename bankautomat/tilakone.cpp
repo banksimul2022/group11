@@ -2,9 +2,15 @@
 #include "mainwindow.h"
 #include <QObject>
 #include <QDebug>
-//#include "RFID125.h"
+#include <rfid125.h>
+#include <thread>
 
-class MainWindow w;
+class MainWindow w;     //Create an object from class mainwindow to control GUI
+class RFID125 oRFID;
+
+std::thread t{
+
+    };
 
 Tilakone::Tilakone()
 {
@@ -12,8 +18,8 @@ Tilakone::Tilakone()
 
     QObject::connect(this, SIGNAL(mainWindow_WaitingCard()),
                      this, SLOT(runStateMachine()));
-    QObject::connect(this, SIGNAL(),
-                     this, SLOT());
+    QObject::connect(&oRFID, SIGNAL(sendToExe()),
+                     this, SLOT(recieveFromRFID125()));
 }
 
 void Tilakone::runStateMachine(state n, event m)
@@ -42,6 +48,11 @@ void Tilakone::runStateMachine(state n, event m)
     }
 }
 
+void Tilakone::handleTimeOut()
+{
+
+}
+
 void Tilakone::stateMainWindow(event n)
 {
     QString enter = "Insert card into reader!";
@@ -50,9 +61,9 @@ void Tilakone::stateMainWindow(event n)
         w.show();
         w.pinUiVisibility(false);
         w.setMessageLabel(enter);
-    } else if (n == 1) {
-        //Call from cardreaderdll that card has been inserted and pin is required
-        //Call to awaiting pin state
+        //Here wait for interrupt from rfid thread
+
+
     } else if (n == 2) {
         //Default timeout event, clear all objects and restart
     }
