@@ -26,22 +26,25 @@ signals:
     void toDllLoginProcessedSignal(QJsonObject result);
     void toDllGetAccTransactsProcessedSignal(QJsonObject result);
     void toDllGetAccBalanceProcessedSignal(QJsonObject result);
-    void toDllWithdrawProcessedSignal(QJsonObject result);  // TODO
-    void toDllTransactProcessedSignal(QJsonObject result);  // TODO
+    void toDllWithdrawProcessedSignal(QJsonObject result);
+    void toDllTransactProcessedSignal(QJsonObject result);
+    void toDllLockCardProcessedSignal(QJsonObject result);
 
 public slots:
     void fromDllLoginSlot(QString cardNumber, QString pinCode);
     void fromDllGetAccTransactsSlot(QString cardNumber, int offset, int noOfRows);
     void fromDllGetAccBalanceSlot(QString cardNumber);
-    void fromDllWithdrawSlot(QString cardNumber, double amount); // TODO
-    void fromDllTransactSlot(QString cardNumber, double amount, QString targetCardNumber); // TODO
+    void fromDllWithdrawSlot(QString cardNumber, double amount);
+    void fromDllTransactSlot(QString cardNumber, double amount, QString targetCardNumber);
+    void fromDllLockCardSlot(QString cardNumber);
 
 private slots:
     void fromEngineLoginResponseSlot(QNetworkReply*);
     void fromEngineGetAccTransactsResponseSlot(QNetworkReply*);
     void fromEngineGetAccBalanceResponseSlot(QNetworkReply*);
-    void fromEngineWithdrawResponseSlot(QNetworkReply*); // TODO
-    void fromEngineTransactResponseSlot(QNetworkReply*); // TODO
+    void fromEngineWithdrawResponseSlot(QNetworkReply*);
+    void fromEngineTransactResponseSlot(QNetworkReply*);
+    void fromEngineLockCardResponseSlot(QNetworkReply*);
 };
 
 #endif // RESTAPIENGINE_H

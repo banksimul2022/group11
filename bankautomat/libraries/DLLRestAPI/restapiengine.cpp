@@ -103,6 +103,21 @@ void RestAPIEngine::fromDllTransactSlot(QString cardNumber, double amount, QStri
     reply = loginManager->post(req, QJsonDocument(jsonObj).toJson());
 }
 
+void RestAPIEngine::fromDllLockCardSlot(QString cardNumber)
+{
+    QJsonObject jsonObj;
+    jsonObj.insert("cardNumber", cardNumber);
+    jsonObj.insert("lockStatus", 1);
+
+    QNetworkRequest req((baseUrl + "/operaatiot/muutalukitus"));
+    req.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+
+    loginManager = new QNetworkAccessManager(this);
+    connect(loginManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(fromEngineLockCardResponseSlot(QNetworkReply*)));
+
+    reply = loginManager->post(req, QJsonDocument(jsonObj).toJson());
+}
+
 void RestAPIEngine::fromEngineLoginResponseSlot(QNetworkReply *reply)
 {
     emit toDllLoginProcessedSignal(replyToJsonObject(reply, debugOn));
@@ -126,4 +141,9 @@ void RestAPIEngine::fromEngineWithdrawResponseSlot(QNetworkReply *)
 void RestAPIEngine::fromEngineTransactResponseSlot(QNetworkReply *)
 {
     emit toDllTransactProcessedSignal(replyToJsonObject(reply, debugOn));
+}
+
+void RestAPIEngine::fromEngineLockCardResponseSlot(QNetworkReply *)
+{
+    emit toDllLockCardProcessedSignal(replyToJsonObject(reply, debugOn));
 }
