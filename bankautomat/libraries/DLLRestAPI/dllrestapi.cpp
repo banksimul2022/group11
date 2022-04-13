@@ -8,6 +8,7 @@ DLLRestAPI::DLLRestAPI(QString baseUrl)
     connect(pRestAPIEngine, SIGNAL(toDllLoginProcessedSignal(QJsonObject)), this, SLOT(fromEngineLoginProcessedSlot(QJsonObject)));
     connect(pRestAPIEngine, SIGNAL(toDllGetAccTransactsProcessedSignal(QJsonObject)), this, SLOT(fromEngineGetAccTransactsProcessedSlot(QJsonObject)));
     connect(pRestAPIEngine, SIGNAL(toDllGetAccBalanceProcessedSignal(QJsonObject)), this, SLOT(fromEngineGetAccBalanceProcessedSlot(QJsonObject)));
+    connect(pRestAPIEngine, SIGNAL(toDllGetCustCardsProcessedSignal(QJsonObject)), this, SLOT(fromEngineGetCustCardsProcessedSlot(QJsonObject)));
     connect(pRestAPIEngine, SIGNAL(toDllWithdrawProcessedSignal(QJsonObject)), this, SLOT(fromEngineWithdrawProcessedSlot(QJsonObject)));
     connect(pRestAPIEngine, SIGNAL(toDllTransactProcessedSignal(QJsonObject)), this, SLOT(fromEngineTransactProcessedSlot(QJsonObject)));
     connect(pRestAPIEngine, SIGNAL(toDllLockCardProcessedSignal(QJsonObject)), this, SLOT(fromEngineLockCardProcessedSlot(QJsonObject)));
@@ -47,6 +48,12 @@ void DLLRestAPI::fromExeGetAccBalanceSlot()
 {
     qDebug() << "Get account balance from server";
     pRestAPIEngine->fromDllGetAccBalanceSlot(cardNumber);
+}
+
+void DLLRestAPI::fromExeGetCustCardsSlot()
+{
+    qDebug() << "Get customer cards from server";
+    pRestAPIEngine->fromDllGetCustCardsSlot(cardNumber);
 }
 
 void DLLRestAPI::fromExeWithdrawSlot(double amount)
@@ -91,6 +98,12 @@ void DLLRestAPI::fromEngineGetAccBalanceProcessedSlot(QJsonObject result)
 {
     qDebug() << "Get account balance processed. Sending result to exe";
     emit toExeGetAccBalanceProcessedSignal(result);
+}
+
+void DLLRestAPI::fromEngineGetCustCardsProcessedSlot(QJsonObject result)
+{
+    qDebug() << "Get customer cards processed. Sending result to exe";
+    emit toExeGetCustCardsProcessedSignal(result);
 }
 
 void DLLRestAPI::fromEngineWithdrawProcessedSlot(QJsonObject result)

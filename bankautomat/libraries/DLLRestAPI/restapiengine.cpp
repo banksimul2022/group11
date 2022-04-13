@@ -72,6 +72,20 @@ void RestAPIEngine::fromDllGetAccBalanceSlot(QString cardNumber)
     reply = loginManager->post(req, QJsonDocument(jsonObj).toJson());
 }
 
+void RestAPIEngine::fromDllGetCustCardsSlot(QString cardNumber)
+{
+    QJsonObject jsonObj;
+    jsonObj.insert("cardNumber", cardNumber);
+
+    QNetworkRequest req((baseUrl + "/operaatiot/kortit"));
+    req.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+
+    loginManager = new QNetworkAccessManager(this);
+    connect(loginManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(fromEngineGetAccBalanceResponseSlot(QNetworkReply*)));
+
+    reply = loginManager->post(req, QJsonDocument(jsonObj).toJson());
+}
+
 void RestAPIEngine::fromDllWithdrawSlot(QString cardNumber, double amount)
 {
     QJsonObject jsonObj;
@@ -131,6 +145,11 @@ void RestAPIEngine::fromEngineGetAccTransactsResponseSlot(QNetworkReply *reply)
 void RestAPIEngine::fromEngineGetAccBalanceResponseSlot(QNetworkReply *)
 {
     emit toDllGetAccBalanceProcessedSignal(replyToJsonObject(reply, debugOn));
+}
+
+void RestAPIEngine::fromEngineGetCustCardsResponseSlot(QNetworkReply *)
+{
+    emit toDllGetCustCardsProcessedSignal(replyToJsonObject(reply, debugOn));
 }
 
 void RestAPIEngine::fromEngineWithdrawResponseSlot(QNetworkReply *)
