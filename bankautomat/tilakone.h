@@ -2,6 +2,7 @@
 #define TILAKONE_H
 
 #include <QObject>
+#include <rfid125.h>
 
 class Tilakone : public QObject
 {
@@ -21,7 +22,7 @@ public:
     };
     enum event {
         SMStart,            //This is for resetting all variables and objects in case of unexpected restart
-        CardInserted,
+        CardInserted,       //**Maybe useless**
         Timeout,            //Timeout is a timed event for 30sec inactivity that is relevant in most states
         IncorrectPIN,
         TooMayIncorrectPINs,
@@ -38,7 +39,7 @@ public:
 public slots:
     void runStateMachine(state, event);
     void handleTimeOut();
-    //void cardInserted(); //for signal from cardreader dll
+    void recieveFromRFID125(QByteArray);          //rfid125.dll sends inserted card data here
 
 signals://send these to runStateMachine slot
     void mainWindow_WaitingCard(state, event);      //event to signal cardreader dll
@@ -56,6 +57,8 @@ private:
     void stateChooseAmount(event n);
     void stateEnterCustomAmount(event n);
 
+protected:
+    QByteArray cardID;
 };
 
 #endif // TILAKONE_H

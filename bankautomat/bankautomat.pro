@@ -27,14 +27,9 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/libraries/DLLRestAPI/build/release/ -lDLLRestAPI
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/libraries/DLLRestAPI/build/debug/ -lDLLRestAPI
-
-INCLUDEPATH += $$PWD/libraries/DLLRestAPI
-DEPENDPATH += $$PWD/libraries/DLLRestAPI
-
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/libraries/build-RFID125-Desktop_Qt_5_15_2_MinGW_32_bit-Debug/release/ -lRFID125
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/libraries/build-RFID125-Desktop_Qt_5_15_2_MinGW_32_bit-Debug/debug/ -lRFID125
+else:unix: LIBS += -L$$PWD/libraries/build-RFID125-Desktop_Qt_5_15_2_MinGW_32_bit-Debug/ -lRFID125
 
-INCLUDEPATH += $$PWD/libraries/build-RFID125-Desktop_Qt_5_15_2_MinGW_32_bit-Debug/debug
-DEPENDPATH += $$PWD/libraries/build-RFID125-Desktop_Qt_5_15_2_MinGW_32_bit-Debug/debug
+INCLUDEPATH += $$PWD/libraries/DLL-RFID
+DEPENDPATH += $$PWD/libraries/DLL-RFID
