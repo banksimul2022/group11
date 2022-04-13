@@ -11,6 +11,11 @@ const operaatiot = {
     return db.query('CALL sp_HaeSaldo(?)',
     [cardNumber], callback);
   },
+  getCustomerCardsByKortti: function (cardNumber, callback) { 
+    console.log(cardNumber);
+    return db.query('CALL sp_HaeKortinOmistajanKortit(?)',
+    [cardNumber], callback);
+  },
   createWithdraw: function (params, callback) {
     console.log(params);
     return db.query('Call sp_NostaRahaa(?, ?)',

@@ -13,6 +13,17 @@ router.post('/tilitapahtumat/', function(request, response) {
   })
 })
 
+router.post('/kortit/', function(request, response) {
+  const { cardNumber } = request.body;
+  operaatiot.getCustomerCardsByKortti(cardNumber, function(err, dbResult) {
+    if (err) {
+      response.json({ error: err.sqlMessage });
+    } else {
+      response.json({ result: dbResult[0] });
+    }
+  })
+})
+
 router.post('/saldo/', function(request, response) {
   const { cardNumber } = request.body;
   operaatiot.getSaldoByKortti(cardNumber, function(err, dbResult) {
