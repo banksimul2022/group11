@@ -5,7 +5,6 @@ const logger = require('morgan');
 
 const authenticateToken = require('./custom_modules/authentication')
 
-const indexRouter = require('./routes/index');
 const loginRouter = require('./routes/login');
 const asiakasRouter = require('./routes/asiakas');
 const tiliRouter = require('./routes/tili');
@@ -22,7 +21,6 @@ app.use(logger('dev'));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use('/', indexRouter);
 app.use('/login', loginRouter);
 //app.use(authenticateToken);
 app.use('/asiakas', asiakasRouter);
