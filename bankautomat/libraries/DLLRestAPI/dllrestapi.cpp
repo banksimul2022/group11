@@ -10,6 +10,7 @@ DLLRestAPI::DLLRestAPI(QString baseUrl)
     connect(pRestAPIEngine, SIGNAL(toDllGetAccBalanceProcessedSignal(QJsonObject)), this, SLOT(fromEngineGetAccBalanceProcessedSlot(QJsonObject)));
     connect(pRestAPIEngine, SIGNAL(toDllWithdrawProcessedSignal(QJsonObject)), this, SLOT(fromEngineWithdrawProcessedSlot(QJsonObject)));
     connect(pRestAPIEngine, SIGNAL(toDllTransactProcessedSignal(QJsonObject)), this, SLOT(fromEngineTransactProcessedSlot(QJsonObject)));
+    connect(pRestAPIEngine, SIGNAL(toDllLockCardProcessedSignal(QJsonObject)), this, SLOT(fromEngineLockCardProcessedSlot(QJsonObject)));
 }
 
 DLLRestAPI::~DLLRestAPI()
@@ -42,30 +43,28 @@ void DLLRestAPI::fromExeGetAccTransactsSlot(int offset, int noOfRows)
     pRestAPIEngine->fromDllGetAccTransactsSlot(cardNumber, offset, noOfRows);
 }
 
-void DLLRestAPI::fromExeGetAccBalance()
+void DLLRestAPI::fromExeGetAccBalanceSlot()
 {
     qDebug() << "Get account balance from server";
     pRestAPIEngine->fromDllGetAccBalanceSlot(cardNumber);
 }
 
-void DLLRestAPI::fromExeWithdraw(double amount)
+void DLLRestAPI::fromExeWithdrawSlot(double amount)
 {
-//    if (cardNumber.length() <= 0) {
-//        qDebug() << "Withdraw request failed. No cardnumber: " << cardNumber;
-//        return;
-//    }
     qDebug() << "Withdrawing " << amount << " €";
     pRestAPIEngine->fromDllWithdrawSlot(cardNumber, amount);
 }
 
-void DLLRestAPI::fromExeTransact(double amount, QString targetCardNumber)
+void DLLRestAPI::fromExeTransactSlot(double amount, QString targetCardNumber)
 {
-//    if (cardNumber.length() <= 0) {
-//        qDebug() << "Transfer request failed. No cardnumber: " << cardNumber;
-//        return;
-//    }
     qDebug() << "Transfering " << amount << " € to cardnumber: " << targetCardNumber;
     pRestAPIEngine->fromDllTransactSlot(cardNumber, amount, targetCardNumber);
+}
+
+void DLLRestAPI::fromExeLockCardSlot()
+{
+    qDebug() << "Changing card lock status to locked";
+    pRestAPIEngine->fromDllLockCardSlot(cardNumber);
 }
 
 void DLLRestAPI::fromEngineLoginProcessedSlot(QJsonObject result)
@@ -104,4 +103,10 @@ void DLLRestAPI::fromEngineTransactProcessedSlot(QJsonObject result)
 {
     qDebug() << "Transact processed. Sending result to exe";
     emit toExeTransactProcessedSignal(result);
+}
+
+void DLLRestAPI::fromEngineLockCardProcessedSlot(QJsonObject result)
+{
+    qDebug() << "Lock status changed. Sending result to exe";
+    emit toExeLockCardProcessedSignal(result);
 }
