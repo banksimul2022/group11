@@ -1,6 +1,7 @@
 #ifndef TILAKONE_H
 #define TILAKONE_H
 
+#include <QJsonObject>
 #include <QObject>
 #include <rfid125.h>
 
@@ -14,15 +15,14 @@ public:
 
     enum state {
         MainWindow,
-        AwaitingPin,        //Is/can this be done in cardreader dll
+        AwaitingPin,
         AwaitingDecision,
         Transactions,
-        ChooseAmount,       //UI of chooseamount could have the opportynity to enter custom amount
-        EnterCustomAmount   //so that the entercustomamount screen wouldn't be needed
+        ChooseAmount
     };
     enum event {
         SMStart,            //This is for resetting all variables and objects in case of unexpected restart
-        CardInserted,       //**Maybe useless**
+        CardInserted,
         Timeout,            //Timeout is a timed event for 30sec inactivity that is relevant in most states
         IncorrectPIN,
         TooMayIncorrectPINs,
@@ -31,22 +31,35 @@ public:
         ShowTransactions,
         LogOut,             //Each screen show should have the opportunity to log out of endpoint
         Draw,
-        DrawDefault,        //Change to only one draw signal from ui obj
-        DrawCustom,
+        DrawMoney,
         CheckBalance
     };
 
 public slots:
-    void runStateMachine(state, event);
+    void runStateMachine(Tilakone::state, Tilakone::event);
     void handleTimeOut();
+
+    //RFID slots
     void recieveFromRFID125(QByteArray);          //rfid125.dll sends inserted card data here
 
-signals://send these to runStateMachine slot
-    void mainWindow_WaitingCard(state, event);      //event to signal cardreader dll
-    void decisionWindow_drawDecision(state, event);
-    void decisionWindow_transactionDecision(state, event);
-    void decisionWindow_balanceDecision(state, event);
-    void drawWindow_drawDecision(state, event);
+    //RESTAPI slots
+    void fromRESTAPILogin(QJsonObject);
+    void fromRESTAPILogout(QJsonObject);
+    void fromRESTAPIGetAccTransactions(QJsonObject);
+    void fromRESTAPIGetAccBalance(QJsonObject);
+    void fromRESTAPIwithdraw(QJsonObject);
+
+signals:
+    //send these to runStateMachine slot
+    void mainWindow_WaitingCard(Tilakone::state, Tilakone::event);
+    void decisionWindow_drawDecision(Tilakone::state, Tilakone::event);
+    void decisionWindow_transactionDecision(Tilakone::state, Tilakone::event);
+    void decisionWindow_balanceDecision(Tilakone::state, Tilakone::event);
+    void drawWindow_drawDecision(Tilakone::state, Tilakone::event);
+
+    //send to restapi
+    void loginCheck(QString, QString);
+    void logoutCheck();
 
 private:
     //Handler for each state with values for any event related
@@ -58,7 +71,9 @@ private:
     void stateEnterCustomAmount(event n);
 
 protected:
-    QByteArray cardID;
+    QString stringID;
+    QString insertedPIN;
+    QJsonObject loginINFO;
 };
 
 #endif // TILAKONE_H

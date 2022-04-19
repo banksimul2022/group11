@@ -33,3 +33,9 @@ else:unix: LIBS += -L$$PWD/libraries/build-RFID125-Desktop_Qt_5_15_2_MinGW_32_bi
 
 INCLUDEPATH += $$PWD/libraries/DLL-RFID
 DEPENDPATH += $$PWD/libraries/DLL-RFID
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/libraries/build-DLLRestAPI-Desktop_Qt_5_15_2_MinGW_32_bit-Debug/release/ -lDLLRestAPI
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/libraries/build-DLLRestAPI-Desktop_Qt_5_15_2_MinGW_32_bit-Debug/debug/ -lDLLRestAPI
+
+INCLUDEPATH += $$PWD/libraries/DLLRestAPI
+DEPENDPATH += $$PWD/libraries/DLLRestAPI
