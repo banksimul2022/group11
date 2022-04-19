@@ -16,7 +16,6 @@ Tilakone::Tilakone()
 {
     qDebug()<<"In Tilakone constructor";
 
-    //RFID connections
     QObject::connect(this, SIGNAL(mainWindow_WaitingCard()),
                      this, SLOT(runStateMachine()));
     QObject::connect(&oRFID, SIGNAL(sendToExe()),
