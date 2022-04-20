@@ -74,6 +74,21 @@ void Tilakone::fromRESTAPILogout(QJsonObject)
 
 }
 
+void Tilakone::fromRESTAPIGetAccTransactions(QJsonObject)
+{
+
+}
+
+void Tilakone::fromRESTAPIGetAccBalance(QJsonObject)
+{
+
+}
+
+void Tilakone::fromRESTAPIwithdraw(QJsonObject)
+{
+
+}
+
 void Tilakone::stateMainWindow(event n)
 {
     QString enter = "Insert card into reader!";

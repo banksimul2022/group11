@@ -10,6 +10,26 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     //Tähän connect() metodit
+    QObject::connect(this, SIGNAL(on_number0_clicked()),
+                     this, SLOT(numberClickHandler()));
+    QObject::connect(this, SIGNAL(on_number1_clicked()),
+                     this, SLOT(numberClickHandler()));
+    QObject::connect(this, SIGNAL(on_number2_clicked()),
+                     this, SLOT(numberClickHandler()));
+    QObject::connect(this, SIGNAL(on_number3_clicked()),
+                     this, SLOT(numberClickHandler()));
+    QObject::connect(this, SIGNAL(on_number4_clicked()),
+                     this, SLOT(numberClickHandler()));
+    QObject::connect(this, SIGNAL(on_number5_clicked()),
+                     this, SLOT(numberClickHandler()));
+    QObject::connect(this, SIGNAL(on_number6_clicked()),
+                     this, SLOT(numberClickHandler()));
+    QObject::connect(this, SIGNAL(on_number7_clicked()),
+                     this, SLOT(numberClickHandler()));
+    QObject::connect(this, SIGNAL(on_number8_clicked()),
+                     this, SLOT(numberClickHandler()));
+    QObject::connect(this, SIGNAL(on_number9_clicked()),
+                     this, SLOT(numberClickHandler()));
 }
 
 MainWindow::~MainWindow()
@@ -45,8 +65,7 @@ void clickHandler() {
 
 void MainWindow::on_number1_clicked()
 {
-    qDebug()<<sender()->objectName();
-    pinCheck.append(sender()->objectName());
+
 }
 
 
@@ -101,5 +120,12 @@ void MainWindow::on_number9_clicked()
 void MainWindow::on_number0_clicked()
 {
 
+}
+
+void MainWindow::numberClickHandler()
+{
+    qDebug()<<sender()->objectName();
+    qDebug()<<sender();
+    //pinCheck.append(this->sender());
 }
 

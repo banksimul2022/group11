@@ -39,11 +39,13 @@ private slots:
 
     void on_number0_clicked();
 
+    void numberClickHandler();
 private:
     Ui::MainWindow *ui;
     void clickHandler();
 
 protected:
     QString pinCheck;
+
 };
 #endif // MAINWINDOW_H
