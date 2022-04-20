@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use('/login', loginRouter);
-//app.use(authenticateToken);
+app.use(authenticateToken);
 app.use('/asiakas', asiakasRouter);
 app.use('/tili', tiliRouter);
 app.use('/tilitapahtuma', tilitapahtumaRouter);

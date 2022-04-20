@@ -15,7 +15,6 @@ public:
 
 private:
    RestAPIEngine *pRestAPIEngine;
-   QString token;
    QString cardNumber;
 
 signals:
