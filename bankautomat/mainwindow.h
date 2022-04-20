@@ -2,8 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "dllrestapi.h"
-
+#include <seconddialog.h>
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -16,8 +15,15 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void on_Button_Login_clicked();
+
+    void digit_pressed();
+
+    void on_clearButton_clicked();
+
 private:
     Ui::MainWindow *ui;
-    DLLRestAPI *pDLLRestApi;
+    SecondDialog *secondDialog;
 };
 #endif // MAINWINDOW_H
