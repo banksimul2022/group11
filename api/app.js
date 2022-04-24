@@ -1,6 +1,5 @@
 const express = require('express');
 const path = require('path');
-const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
 const authenticateToken = require('./custom_modules/authentication')
@@ -19,7 +18,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(logger('dev'));
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 
 app.use('/login', loginRouter);
 app.use(authenticateToken);
@@ -34,16 +32,5 @@ const unknownEndpoint = (request, response) => {
     response.status(404).send({ error: 'unknown endpoint' });
 }
 app.use(unknownEndpoint);
-
-const errorHandler = (error, request, response, next) => {
-    console.error(error.message);
-  
-    if (error.name === 'CastError') {
-      return response.status(400).send({ error: 'malformatted id' });
-    }
-  
-    next(error)
-  }
-app.use(errorHandler);
 
 module.exports = app;
