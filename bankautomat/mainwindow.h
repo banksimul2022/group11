@@ -18,6 +18,13 @@ public:
     void pinUiVisibility(bool);
     void setMessageLabel(QString);
 
+public slots:
+    void numberClickHandler();
+    void on_pushButton_clicked();
+
+signals:
+    void testCardInserted(QByteArray);
+
 private slots:
     void on_number1_clicked();
 
@@ -39,7 +46,7 @@ private slots:
 
     void on_number0_clicked();
 
-    void numberClickHandler();
+
 private:
     Ui::MainWindow *ui;
     void clickHandler();

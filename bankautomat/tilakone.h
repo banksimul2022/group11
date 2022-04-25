@@ -4,6 +4,7 @@
 #include <QJsonObject>
 #include <QObject>
 #include <rfid125.h>
+#include <mainwindow.h>
 
 class Tilakone : public QObject
 {
@@ -11,7 +12,7 @@ class Tilakone : public QObject
     Q_OBJECT
 
 public:
-    Tilakone();
+    Tilakone(MainWindow*);
 
     enum state {
         MainWindow,

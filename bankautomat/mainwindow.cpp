@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+
 #include <QObject>
 #include <QDebug>
 
@@ -8,28 +9,6 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
-    //Tähän connect() metodit
-    QObject::connect(this, SIGNAL(on_number0_clicked()),
-                     this, SLOT(numberClickHandler()));
-    QObject::connect(this, SIGNAL(on_number1_clicked()),
-                     this, SLOT(numberClickHandler()));
-    QObject::connect(this, SIGNAL(on_number2_clicked()),
-                     this, SLOT(numberClickHandler()));
-    QObject::connect(this, SIGNAL(on_number3_clicked()),
-                     this, SLOT(numberClickHandler()));
-    QObject::connect(this, SIGNAL(on_number4_clicked()),
-                     this, SLOT(numberClickHandler()));
-    QObject::connect(this, SIGNAL(on_number5_clicked()),
-                     this, SLOT(numberClickHandler()));
-    QObject::connect(this, SIGNAL(on_number6_clicked()),
-                     this, SLOT(numberClickHandler()));
-    QObject::connect(this, SIGNAL(on_number7_clicked()),
-                     this, SLOT(numberClickHandler()));
-    QObject::connect(this, SIGNAL(on_number8_clicked()),
-                     this, SLOT(numberClickHandler()));
-    QObject::connect(this, SIGNAL(on_number9_clicked()),
-                     this, SLOT(numberClickHandler()));
 }
 
 MainWindow::~MainWindow()
@@ -122,10 +101,19 @@ void MainWindow::on_number0_clicked()
 
 }
 
+
 void MainWindow::numberClickHandler()
 {
     qDebug()<<sender()->objectName();
     qDebug()<<sender();
     //pinCheck.append(this->sender());
+}
+
+
+void MainWindow::on_pushButton_clicked()
+{
+    qDebug()<<"card1 pressed!";
+    QByteArray test = "05009B3106";
+    emit testCardInserted(test);
 }
 

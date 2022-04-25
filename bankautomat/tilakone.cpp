@@ -1,25 +1,34 @@
 #include "tilakone.h"
 #include "mainwindow.h"
-#include <QObject>
-#include <QDebug>
-#include <QJsonObject>
 #include "rfid125.h"
 #include "dllrestapi.h"
 
-class MainWindow w;     //Create an object from class mainwindow to control GUI in Tilakone rahter than main
+#include <QObject>
+#include <QDebug>
+#include <QJsonObject>
+
+//class MainWindow w;
 class RFID125 oRFID;
-//class DLLRestAPI RESTAPI(QString baseURL);
-
 DLLRestAPI* oRestAPI = new DLLRestAPI("https://banksimul-g11.herokuapp.com/");
+MainWindow* w = nullptr;
 
-Tilakone::Tilakone()
+Tilakone::Tilakone(class MainWindow* p)
 {
     qDebug()<<"In Tilakone constructor";
 
+    qDebug()<<"MainWindow is "<<p;
+
+    w = p;
+
     QObject::connect(this, SIGNAL(mainWindow_WaitingCard()),
                      this, SLOT(runStateMachine()));
+
+    //RFID connections
     QObject::connect(&oRFID, SIGNAL(sendToExe()),
                      this, SLOT(recieveFromRFID125()));
+    QObject::connect(&oRFID, SIGNAL(testCardID()),
+                     this, SLOT(recieveFromRFID125()));
+
     //RESTAPI connections
     QObject::connect(this, SIGNAL(loginCheck()),
                      oRestAPI, SLOT(fromExeLoginSlot()));
@@ -29,6 +38,10 @@ Tilakone::Tilakone()
                      this, SLOT(fromRESTAPILogin()));
     QObject::connect(oRestAPI, SIGNAL(toExeLogoutProcessedSignal()),
                      this, SLOT(fromRESTAPILogout()));
+
+    //TESTI connections
+    QObject::connect(w, SIGNAL(testCardInserted()),
+                     this, SLOT(recieveFromRFID125()));
 }
 
 void Tilakone::runStateMachine(state n, event m)
@@ -62,6 +75,7 @@ void Tilakone::handleTimeOut()
 void Tilakone::recieveFromRFID125(QByteArray n)
 {
     this->stringID = QString(n);
+    qDebug()<<stringID<<" recieved from rfiddll";
 }
 
 void Tilakone::fromRESTAPILogin(QJsonObject)
@@ -94,10 +108,14 @@ void Tilakone::stateMainWindow(event n)
     QString enter = "Insert card into reader!";
     if (n == 0) {
         //Here to show default screen on opening or Insert Card -screen
-        w.show();
-        w.pinUiVisibility(false);
-        w.setMessageLabel(enter);
-        oRFID.readCardID();
+        w->show();
+        w->pinUiVisibility(false);
+        w->setMessageLabel(enter);
+        try {
+            oRFID.readCardID();
+        } catch (QString error) {
+            qDebug()<<"readCardID error: "<<error;
+        }
         //wait for answer
 
         //Move to next state
@@ -112,8 +130,8 @@ void Tilakone::stateAwaitingPin(event n)
     if (n == 1) {
         QString login = "Please insert PIN.";
         //Open login info here
-        w.pinUiVisibility(true);
-        w.setMessageLabel(login);
+        w->pinUiVisibility(true);
+        w->setMessageLabel(login);
         //TODO: put a method here to wait until pin has been inserted into insertedPIN
 
         //Test for login with restapidll
