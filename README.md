@@ -1,25 +1,18 @@
-# Group11
+# Group11 BankSimul Project
 
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
   <a href="https://github.com/banksimul2022/group11">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="assets/project_logo.png" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">Bank ATM Demo Project</h3>
+<h3 align="center">Project BankSimul</h3>
 
   <p align="center">
-    project_description
-    <br />
-    <a href="https://github.com/github_username/repo_name"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="https://github.com/github_username/repo_name">View Demo</a>
-    ·
-    <a href="https://github.com/github_username/repo_name/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/github_username/repo_name/issues">Request Feature</a>
+    Project BankSimul is a practice project for Oamk Software Development course IN00CS90-3003.
+    Aim of this project was to build something real using techniques learned with Express.js, MySQL
+    and Qt before this project course beginning of year 2022.
   </p>
 </div>
 
