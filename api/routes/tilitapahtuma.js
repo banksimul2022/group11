@@ -24,40 +24,6 @@ router.get('/:id?',
   }
 })
 
-router.get('/:idkortti?', 
-function(req, res) {
-  if (req.params.idkortti) {
-    tilitapahtuma.getByTili(req.params.idkortti, function (err, dbres) {
-      if (err) {
-        res.json(err)
-      } else {
-        res.json(dbres)
-      }
-    })
-  }
-})
-
-router.get('/:aikaleima?', 
-function(req, res) {
-    if (req.params.aikaleima) {
-        tilitapahtuma.getByAikaleima(req.params.aikaleima, req.params.idkortti, function(err, dbres) {
-            if (err) {
-                response.json(err)
-            } else {
-                response.json(dbres)
-            }
-        })
-    } else {
-        tilitapahtuma.get(function(err, dbres) {
-            if (err) {
-                response.json(err)
-            } else {
-                response.json(dbres)
-            }
-        })
-    }
-})
-
 router.post('/', 
 function(request, response) {
   tilitapahtuma.add(request.body, function(err, count) {

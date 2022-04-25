@@ -22,7 +22,6 @@ public slots:
     void receiveCardID();
 private:
     QSerialPort *m_serialPort = nullptr;
-    QSerialPortInfo *m_serialPortInfo = nullptr;
     QByteArray ID;
 };
 
