@@ -13,6 +13,9 @@ public:
     RestAPIEngine(QString baseUrl);
     ~RestAPIEngine();
 
+    const QByteArray &getToken() const;
+    void setToken(const QByteArray &newToken);
+
 private:
     bool debugOn = true;
     QJsonObject replyToJsonObject(QNetworkReply *reply, bool debugOn);

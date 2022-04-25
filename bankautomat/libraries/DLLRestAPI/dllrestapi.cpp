@@ -31,7 +31,7 @@ void DLLRestAPI::fromExeLoginSlot(QString cardNumber, QString pinCode)
 void DLLRestAPI::fromExeLogoutSlot()
 {
     qDebug() << "Logging out. Token and cardNumber values are cleared";
-    token = "";
+    pRestAPIEngine->setToken("");
     cardNumber = "";
     QJsonObject result;
     result.insert("result", "Logout succeeded");
@@ -79,7 +79,7 @@ void DLLRestAPI::fromEngineLoginProcessedSlot(QJsonObject result)
     if(result.contains("token"))
     {
         qDebug() << "Login succeeded. Sending result to exe";
-        token = result["token"].toString();
+        pRestAPIEngine->setToken(result["token"].toString().toUtf8());
         emit toExeLoginProcessedSignal(result);
     } else {
         qDebug() << "Login failed. Sending result to exe";
@@ -120,6 +120,6 @@ void DLLRestAPI::fromEngineTransactProcessedSlot(QJsonObject result)
 
 void DLLRestAPI::fromEngineLockCardProcessedSlot(QJsonObject result)
 {
-    qDebug() << "Lock status changed. Sending result to exe";
+    qDebug() << "Lock status change request processed. Sending result to exe";
     emit toExeLockCardProcessedSignal(result);
 }

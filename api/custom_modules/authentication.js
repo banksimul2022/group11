@@ -1,20 +1,19 @@
 const jwt = require('jsonwebtoken');
 
-
 function authenticateToken(req, res, next) {
+
+    // Extract token from header
     const authHeader = req.headers['authorization']
     const token = authHeader && authHeader.split(' ')[1]
-  
     console.log("token = "+token);
-    if (token == null) return res.sendStatus(401)
-  
-    jwt.verify(token, process.env.MY_TOKEN, (err, user) => {
-      console.log(err)
-  
-      if (err) return res.sendStatus(403)
-  
-      req.user = user
-      console.log(user);
+    
+    // Return error if token is null
+    if (!token) return res.status(401).send( {error: "Unauthorized access. Token is null"} );
+
+
+    jwt.verify(token, process.env.MY_TOKEN, (err, decodedToken) => {  
+      // Return error if token does not match cardnumber
+      if (err || req.body.cardNumber !== decodedToken.cardNumber) return res.status(403).send( {error: "Unauthorized access. Token is invalid"} );
       next()
     })
   }

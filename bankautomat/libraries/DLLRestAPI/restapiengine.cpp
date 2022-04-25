@@ -27,6 +27,16 @@ QJsonObject RestAPIEngine::replyToJsonObject(QNetworkReply * reply, bool debugOn
     return jsonObj;
 }
 
+const QByteArray &RestAPIEngine::getToken() const
+{
+    return token;
+}
+
+void RestAPIEngine::setToken(const QByteArray &newToken)
+{
+    token = newToken;
+}
+
 void RestAPIEngine::fromDllLoginSlot(QString cardNumber, QString pinCode)
 {
     QJsonObject jsonObj;
@@ -51,6 +61,7 @@ void RestAPIEngine::fromDllGetAccTransactsSlot(QString cardNumber, int offset, i
 
     QNetworkRequest req((baseUrl + "/operaatiot/tilitapahtumat"));
     req.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+    req.setRawHeader(QByteArray("Authorization"),QString("bearer ").append(token).toUtf8());
 
     loginManager = new QNetworkAccessManager(this);
     connect(loginManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(fromEngineGetAccTransactsResponseSlot(QNetworkReply*)));
@@ -65,6 +76,7 @@ void RestAPIEngine::fromDllGetAccBalanceSlot(QString cardNumber)
 
     QNetworkRequest req((baseUrl + "/operaatiot/saldo"));
     req.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+    req.setRawHeader(QByteArray("Authorization"),QString("bearer ").append(token).toUtf8());
 
     loginManager = new QNetworkAccessManager(this);
     connect(loginManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(fromEngineGetAccBalanceResponseSlot(QNetworkReply*)));
@@ -79,6 +91,7 @@ void RestAPIEngine::fromDllGetCustCardsSlot(QString cardNumber)
 
     QNetworkRequest req((baseUrl + "/operaatiot/kortit"));
     req.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+    req.setRawHeader(QByteArray("Authorization"),QString("bearer ").append(token).toUtf8());
 
     loginManager = new QNetworkAccessManager(this);
     connect(loginManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(fromEngineGetAccBalanceResponseSlot(QNetworkReply*)));
@@ -94,6 +107,7 @@ void RestAPIEngine::fromDllWithdrawSlot(QString cardNumber, double amount)
 
     QNetworkRequest req((baseUrl + "/operaatiot/nosto"));
     req.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+    req.setRawHeader(QByteArray("Authorization"),QString("bearer ").append(token).toUtf8());
 
     loginManager = new QNetworkAccessManager(this);
     connect(loginManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(fromEngineWithdrawResponseSlot(QNetworkReply*)));
@@ -110,6 +124,7 @@ void RestAPIEngine::fromDllTransactSlot(QString cardNumber, double amount, QStri
 
     QNetworkRequest req((baseUrl + "/operaatiot/siirto"));
     req.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+    req.setRawHeader(QByteArray("Authorization"),QString("bearer ").append(token).toUtf8());
 
     loginManager = new QNetworkAccessManager(this);
     connect(loginManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(fromEngineTransactResponseSlot(QNetworkReply*)));
@@ -125,6 +140,7 @@ void RestAPIEngine::fromDllLockCardSlot(QString cardNumber)
 
     QNetworkRequest req((baseUrl + "/operaatiot/muutalukitus"));
     req.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+    req.setRawHeader(QByteArray("Authorization"),QString("bearer ").append(token).toUtf8());
 
     loginManager = new QNetworkAccessManager(this);
     connect(loginManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(fromEngineLockCardResponseSlot(QNetworkReply*)));

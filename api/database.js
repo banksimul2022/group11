@@ -2,7 +2,7 @@ require('dotenv').config()
 
 const mysql = require('mysql');
 
-// Kehityskäytössä käytä LOCAL_DATABASE tietokantaa, muuten DATABASE tietokantaa
+// Use LOCAL_DATABASE in development. Use DATABASE in production
 const connection = process.env.NODE_ENV === 'development' 
   ? mysql.createPool({
     host: process.env.LOCAL_DATABASE_HOST,
