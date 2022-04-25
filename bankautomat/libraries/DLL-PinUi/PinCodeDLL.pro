@@ -1,8 +1,8 @@
 QT -= gui
-QT += network
+QT += widgets
 
 TEMPLATE = lib
-DEFINES += DLLRESTAPI_LIBRARY
+DEFINES += PINCODEDLL_LIBRARY
 
 CONFIG += c++11
 
@@ -11,13 +11,13 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    dllrestapi.cpp \
-    restapiengine.cpp
+    pincodedll.cpp \
+    pinui.cpp
 
 HEADERS += \
-    DLLRestAPI_global.h \
-    dllrestapi.h \
-    restapiengine.h
+    PinCodeDLL_global.h \
+    pincodedll.h \
+    pinui.h
 
 # Default rules for deployment.
 unix {
@@ -25,4 +25,5 @@ unix {
 }
 !isEmpty(target.path): INSTALLS += target
 
-DISTFILES +=
+FORMS += \
+    pinui.ui
