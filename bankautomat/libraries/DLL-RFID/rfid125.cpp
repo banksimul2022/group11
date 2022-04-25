@@ -4,26 +4,28 @@
 RFID125::RFID125(QObject *parent) : QObject (parent)
 {
     // allocate space in memory
-    m_serialPort = new QSerialPort();
-    m_serialPortInfo = new QSerialPortInfo();
+    m_serialPort = new QSerialPort(this);
 }
 
 RFID125::~RFID125()
 {
-    disconnect(m_serialPort, SIGNAL(readyRead()), this, SLOT(receiveCardID()));
     delete m_serialPort;
-    delete m_serialPortInfo;
 }
 
 void RFID125::readCardID()
 {
     Q_FOREACH(QSerialPortInfo port, QSerialPortInfo::availablePorts()) {
-        if (port.productIdentifier() == 22 && port.vendorIdentifier() == 5562) *m_serialPortInfo = port;
+        if (port.productIdentifier() == 22 && port.vendorIdentifier() == 5562) {
+            m_serialPort->setPort(port);
+        }
     }
-    m_serialPort->setPort(*m_serialPortInfo);
-    m_serialPort->open(QIODevice::ReadOnly);
+
+    if (!m_serialPort->open(QIODevice::ReadOnly)) {
+        throw 404;
+    }
+
     connect(m_serialPort, SIGNAL(readyRead()), this, SLOT(receiveCardID()));
-    qDebug() << "Waiting for bankcard...";
+    qDebug() << "Waiting for a card...";
 }
 
 void RFID125::testCardID()
