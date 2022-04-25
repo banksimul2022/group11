@@ -10,8 +10,7 @@
 <h3 align="center">Project BankSimul</h3>
 
   <p>
-    Project BankSimul is a practice project for Oamk Software Development course IN00CS90-3003.
-
+    Project is a practice project for Oamk Software Development course IN00CS90-3003.
   </p>
 </div>
 
@@ -49,9 +48,11 @@ Aim of this project was to build something real using techniques learned with Ex
 Part of the aim was also handle project like a real world software project (only a lighter version) where are two parties 
 involved: software deliverer and the customer.
 
-Following planning and documenting steps were made during the planning phase:
+Following planning and documenting steps were made during the planning phase. Full documentation is not attached to this project page.
+Only the essential ones are e.g. ER-diagram, component diagram and class diagrams.
+
 * Pre-study
-* Project agreement with the customer
+* Project contract with the customer
 * Functional description (includes use cases, user stories, ER-diagram)
 * Technical implementation description (includes UML component diagram and class diagram)
 * Final report
@@ -66,7 +67,11 @@ Following planning and documenting steps were made during the planning phase:
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-<!-- GETTING STARTED -->
+<details> 
+  <summary>### ER-diagram</summary>
+  ![Database ER Diagram [database-erdiagram]]
+</details>
+
 ## Getting Started
 
 This is an example of how you may give instructions on setting up your project locally.
