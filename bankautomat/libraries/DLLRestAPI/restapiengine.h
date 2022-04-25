@@ -17,7 +17,8 @@ public:
     void setToken(const QByteArray &newToken);
 
 private:
-    bool debugOn = true;
+    // Turn to true to see debug messages from engine
+    bool debugOn = false;
     QJsonObject replyToJsonObject(QNetworkReply *reply, bool debugOn);
     QString baseUrl;
     QNetworkAccessManager *loginManager;
