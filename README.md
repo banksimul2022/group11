@@ -10,19 +10,17 @@
 <h3 align="center">Project BankSimul</h3>
 
   <p>
-    Project is a practice project for Oamk Software Development course IN00CS90-3003.
+    Project is a practice software development for Oamk Software Development course IN00CS90-3003.
   </p>
 </div>
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Aim of this project was to build something real using techniques learned with Express.js, MySQL and Qt before this project course.
-Part of the aim was also handle project like a real world software project (only a lighter version) where are two parties 
-involved: software deliverer and the customer.
+Aim of this project was to build ATM machine software and a REST API server with database to store bank-related data. These softwares were programmed using techniques learned with Express.js, MySQL and Qt before this project course. Part of the aim was also handle project like a real world software project (only a lighter version) where are two parties involved: software deliverer and the customer.
 
-Following planning and documenting steps were made during the planning phase. Full documentation is not attached to this project page.
-Only the essential ones are attached e.g. ER-diagram, component diagram and class diagrams.
+Full documentation is not attached to this project page. Only the essential ones are attached e.g. ER-diagram, component diagram and class diagrams.
+Following planning and documenting steps were made during the planning phase:
 
 * Pre-study
 * Project contract with the customer
@@ -32,9 +30,9 @@ Only the essential ones are attached e.g. ER-diagram, component diagram and clas
 
 ### Built With
 
-* [MySQL](https://www.mysql.com/)
-* [Express.js](https://expressjs.com/)
-* [Qt](https://www.qt.io/)
+* [MySQL](https://www.mysql.com/) Data storage
+* [Express.js](https://expressjs.com/) REST API server
+* [Qt](https://www.qt.io/) ATM software and graphical user interface
 
 <details>
   <summary>ER-Diagram and class diagrams</summary>
