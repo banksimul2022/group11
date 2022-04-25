@@ -67,3 +67,12 @@ void PinUi::reset()
 {
     setPinCode("");
 }
+
+void PinUi::InsertNumber(char number)
+{
+    if(pinCode.length() >= 4)
+    {
+        emit toExePinCodeEntered(pinCode);
+        setPinCode("");
+    }
+}
