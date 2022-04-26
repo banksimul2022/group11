@@ -55,6 +55,6 @@ Following planning and documenting steps were made during the planning phase:
 
 * [Santeri Knihtilä](https://www.linkedin.com/in/santeri-knihtil%C3%A4-475570143/)
 * [Aappo Launonen](https://www.linkedin.com/in/aappo-launonen-957640233/)
-* [Jan-Erik Lapinoja](https://www.linkedin.com/in/jan-henrik-lapinoja/)
+* [Jan-Henrik Lapinoja](https://www.linkedin.com/in/jan-henrik-lapinoja/)
 * [Esa Salminen](https://www.linkedin.com/in/esa-salminen-9398421ba/)
 
