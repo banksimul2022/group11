@@ -6,8 +6,6 @@
 
 Tilakone::state n = Tilakone::MainWindow;
 Tilakone::event m = Tilakone::SMStart;
-QString insertCard = "Please insert card to reader!";
-QString insertPin = "Please insert pin!";
 
 int main(int argc, char *argv[])
 {

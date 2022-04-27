@@ -29,91 +29,73 @@ void MainWindow::setMessageLabel(QString n)             //Method for changing te
     this->ui->MessageLabel->setText(n);
 }
 
-
-
-//Tästä eteenpäin appon koodia
-
-
-//NumberInput click handler for storing inserted numbers
-
-void clickHandler() {
-
-}
-
 //Here NumberInput clicks
 
 void MainWindow::on_number1_clicked()
 {
-
+    pinCheck = pinCheck + 1;
+    qDebug()<<pinCheck;
 }
 
 
 void MainWindow::on_number2_clicked()
 {
-
+    pinCheck = pinCheck + 2;
+    qDebug()<<pinCheck;
 }
 
 
 void MainWindow::on_number3_clicked()
 {
-
+    pinCheck = pinCheck + 3;
+    qDebug()<<pinCheck;
 }
 
 
 void MainWindow::on_number4_clicked()
 {
-
+    pinCheck = pinCheck + 4;
+    qDebug()<<pinCheck;
 }
 
 
 void MainWindow::on_number5_clicked()
 {
-
+    pinCheck = pinCheck + 5;
+    qDebug()<<pinCheck;
 }
 
 
 void MainWindow::on_number6_clicked()
 {
-
+    pinCheck = pinCheck + 6;
+    qDebug()<<pinCheck;
 }
 
 
 void MainWindow::on_number7_clicked()
 {
-
+    pinCheck = pinCheck + 7;
+    qDebug()<<pinCheck;
 }
 
 
 void MainWindow::on_number8_clicked()
 {
-
+    pinCheck = pinCheck + 8;
+    qDebug()<<pinCheck;
 }
 
 
 void MainWindow::on_number9_clicked()
 {
-
+    pinCheck = pinCheck + 9;
+    qDebug()<<pinCheck;
 }
 
 
 void MainWindow::on_number0_clicked()
 {
-
+    pinCheck = pinCheck + 0;
+    qDebug()<<pinCheck;
 }
-
-
-void MainWindow::numberClickHandler()
-{
-    qDebug()<<sender()->objectName();
-    qDebug()<<sender();
-    //pinCheck.append(this->sender());
-}
-
-
-void MainWindow::on_pushButton_clicked()
-{
-    qDebug()<<"card1 pressed!";
-    QByteArray test = "05009B3106";
-    emit testCardInserted(test);
-}
-

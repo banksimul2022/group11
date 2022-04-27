@@ -19,8 +19,7 @@ public:
     void setMessageLabel(QString);
 
 public slots:
-    void numberClickHandler();
-    void on_pushButton_clicked();
+
 
 signals:
     void testCardInserted(QByteArray);
@@ -49,10 +48,9 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    void clickHandler();
 
 protected:
-    QString pinCheck;
+    short int pinCheck;
 
 };
 #endif // MAINWINDOW_H

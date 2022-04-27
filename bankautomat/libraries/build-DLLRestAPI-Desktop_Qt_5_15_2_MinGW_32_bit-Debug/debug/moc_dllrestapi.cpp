@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_DLLRestAPI_t {
-    QByteArrayData data[26];
-    char stringdata0[543];
+    QByteArrayData data[32];
+    char stringdata0[729];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -39,42 +39,53 @@ QT_MOC_LITERAL(3, 38, 6), // "result"
 QT_MOC_LITERAL(4, 45, 26), // "toExeLogoutProcessedSignal"
 QT_MOC_LITERAL(5, 72, 35), // "toExeGetAccTransactsProcessed..."
 QT_MOC_LITERAL(6, 108, 33), // "toExeGetAccBalanceProcessedSi..."
-QT_MOC_LITERAL(7, 142, 28), // "toExeWithdrawProcessedSignal"
-QT_MOC_LITERAL(8, 171, 28), // "toExeTransactProcessedSignal"
-QT_MOC_LITERAL(9, 200, 16), // "fromExeLoginSlot"
-QT_MOC_LITERAL(10, 217, 10), // "cardNumber"
-QT_MOC_LITERAL(11, 228, 7), // "pinCode"
-QT_MOC_LITERAL(12, 236, 17), // "fromExeLogoutSlot"
-QT_MOC_LITERAL(13, 254, 26), // "fromExeGetAccTransactsSlot"
-QT_MOC_LITERAL(14, 281, 6), // "offset"
-QT_MOC_LITERAL(15, 288, 8), // "noOfRows"
-QT_MOC_LITERAL(16, 297, 20), // "fromExeGetAccBalance"
-QT_MOC_LITERAL(17, 318, 15), // "fromExeWithdraw"
-QT_MOC_LITERAL(18, 334, 6), // "amount"
-QT_MOC_LITERAL(19, 341, 15), // "fromExeTransact"
-QT_MOC_LITERAL(20, 357, 16), // "targetCardNumber"
-QT_MOC_LITERAL(21, 374, 28), // "fromEngineLoginProcessedSlot"
-QT_MOC_LITERAL(22, 403, 38), // "fromEngineGetAccTransactsProc..."
-QT_MOC_LITERAL(23, 442, 36), // "fromEngineGetAccBalanceProces..."
-QT_MOC_LITERAL(24, 479, 31), // "fromEngineWithdrawProcessedSlot"
-QT_MOC_LITERAL(25, 511, 31) // "fromEngineTransactProcessedSlot"
+QT_MOC_LITERAL(7, 142, 32), // "toExeGetCustCardsProcessedSignal"
+QT_MOC_LITERAL(8, 175, 28), // "toExeWithdrawProcessedSignal"
+QT_MOC_LITERAL(9, 204, 28), // "toExeTransactProcessedSignal"
+QT_MOC_LITERAL(10, 233, 28), // "toExeLockCardProcessedSignal"
+QT_MOC_LITERAL(11, 262, 16), // "fromExeLoginSlot"
+QT_MOC_LITERAL(12, 279, 10), // "cardNumber"
+QT_MOC_LITERAL(13, 290, 7), // "pinCode"
+QT_MOC_LITERAL(14, 298, 17), // "fromExeLogoutSlot"
+QT_MOC_LITERAL(15, 316, 26), // "fromExeGetAccTransactsSlot"
+QT_MOC_LITERAL(16, 343, 6), // "offset"
+QT_MOC_LITERAL(17, 350, 8), // "noOfRows"
+QT_MOC_LITERAL(18, 359, 24), // "fromExeGetAccBalanceSlot"
+QT_MOC_LITERAL(19, 384, 23), // "fromExeGetCustCardsSlot"
+QT_MOC_LITERAL(20, 408, 19), // "fromExeWithdrawSlot"
+QT_MOC_LITERAL(21, 428, 6), // "amount"
+QT_MOC_LITERAL(22, 435, 19), // "fromExeTransactSlot"
+QT_MOC_LITERAL(23, 455, 16), // "targetCardNumber"
+QT_MOC_LITERAL(24, 472, 19), // "fromExeLockCardSlot"
+QT_MOC_LITERAL(25, 492, 28), // "fromEngineLoginProcessedSlot"
+QT_MOC_LITERAL(26, 521, 38), // "fromEngineGetAccTransactsProc..."
+QT_MOC_LITERAL(27, 560, 36), // "fromEngineGetAccBalanceProces..."
+QT_MOC_LITERAL(28, 597, 35), // "fromEngineGetCustCardsProcess..."
+QT_MOC_LITERAL(29, 633, 31), // "fromEngineWithdrawProcessedSlot"
+QT_MOC_LITERAL(30, 665, 31), // "fromEngineTransactProcessedSlot"
+QT_MOC_LITERAL(31, 697, 31) // "fromEngineLockCardProcessedSlot"
 
     },
     "DLLRestAPI\0toExeLoginProcessedSignal\0"
     "\0result\0toExeLogoutProcessedSignal\0"
     "toExeGetAccTransactsProcessedSignal\0"
     "toExeGetAccBalanceProcessedSignal\0"
+    "toExeGetCustCardsProcessedSignal\0"
     "toExeWithdrawProcessedSignal\0"
     "toExeTransactProcessedSignal\0"
+    "toExeLockCardProcessedSignal\0"
     "fromExeLoginSlot\0cardNumber\0pinCode\0"
     "fromExeLogoutSlot\0fromExeGetAccTransactsSlot\0"
-    "offset\0noOfRows\0fromExeGetAccBalance\0"
-    "fromExeWithdraw\0amount\0fromExeTransact\0"
-    "targetCardNumber\0fromEngineLoginProcessedSlot\0"
+    "offset\0noOfRows\0fromExeGetAccBalanceSlot\0"
+    "fromExeGetCustCardsSlot\0fromExeWithdrawSlot\0"
+    "amount\0fromExeTransactSlot\0targetCardNumber\0"
+    "fromExeLockCardSlot\0fromEngineLoginProcessedSlot\0"
     "fromEngineGetAccTransactsProcessedSlot\0"
     "fromEngineGetAccBalanceProcessedSlot\0"
+    "fromEngineGetCustCardsProcessedSlot\0"
     "fromEngineWithdrawProcessedSlot\0"
-    "fromEngineTransactProcessedSlot"
+    "fromEngineTransactProcessedSlot\0"
+    "fromEngineLockCardProcessedSlot"
 };
 #undef QT_MOC_LITERAL
 
@@ -84,33 +95,39 @@ static const uint qt_meta_data_DLLRestAPI[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-      17,   14, // methods
+      23,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       6,       // signalCount
+       8,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   99,    2, 0x06 /* Public */,
-       4,    1,  102,    2, 0x06 /* Public */,
-       5,    1,  105,    2, 0x06 /* Public */,
-       6,    1,  108,    2, 0x06 /* Public */,
-       7,    1,  111,    2, 0x06 /* Public */,
-       8,    1,  114,    2, 0x06 /* Public */,
+       1,    1,  129,    2, 0x06 /* Public */,
+       4,    1,  132,    2, 0x06 /* Public */,
+       5,    1,  135,    2, 0x06 /* Public */,
+       6,    1,  138,    2, 0x06 /* Public */,
+       7,    1,  141,    2, 0x06 /* Public */,
+       8,    1,  144,    2, 0x06 /* Public */,
+       9,    1,  147,    2, 0x06 /* Public */,
+      10,    1,  150,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       9,    2,  117,    2, 0x0a /* Public */,
-      12,    0,  122,    2, 0x0a /* Public */,
-      13,    2,  123,    2, 0x0a /* Public */,
-      16,    0,  128,    2, 0x0a /* Public */,
-      17,    1,  129,    2, 0x0a /* Public */,
-      19,    2,  132,    2, 0x0a /* Public */,
-      21,    1,  137,    2, 0x08 /* Private */,
-      22,    1,  140,    2, 0x08 /* Private */,
-      23,    1,  143,    2, 0x08 /* Private */,
-      24,    1,  146,    2, 0x08 /* Private */,
-      25,    1,  149,    2, 0x08 /* Private */,
+      11,    2,  153,    2, 0x0a /* Public */,
+      14,    0,  158,    2, 0x0a /* Public */,
+      15,    2,  159,    2, 0x0a /* Public */,
+      18,    0,  164,    2, 0x0a /* Public */,
+      19,    0,  165,    2, 0x0a /* Public */,
+      20,    1,  166,    2, 0x0a /* Public */,
+      22,    2,  169,    2, 0x0a /* Public */,
+      24,    0,  174,    2, 0x0a /* Public */,
+      25,    1,  175,    2, 0x08 /* Private */,
+      26,    1,  178,    2, 0x08 /* Private */,
+      27,    1,  181,    2, 0x08 /* Private */,
+      28,    1,  184,    2, 0x08 /* Private */,
+      29,    1,  187,    2, 0x08 /* Private */,
+      30,    1,  190,    2, 0x08 /* Private */,
+      31,    1,  193,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::QJsonObject,    3,
@@ -119,14 +136,20 @@ static const uint qt_meta_data_DLLRestAPI[] = {
     QMetaType::Void, QMetaType::QJsonObject,    3,
     QMetaType::Void, QMetaType::QJsonObject,    3,
     QMetaType::Void, QMetaType::QJsonObject,    3,
+    QMetaType::Void, QMetaType::QJsonObject,    3,
+    QMetaType::Void, QMetaType::QJsonObject,    3,
 
  // slots: parameters
-    QMetaType::Void, QMetaType::QString, QMetaType::QString,   10,   11,
+    QMetaType::Void, QMetaType::QString, QMetaType::QString,   12,   13,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Int, QMetaType::Int,   14,   15,
+    QMetaType::Void, QMetaType::Int, QMetaType::Int,   16,   17,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Double,   18,
-    QMetaType::Void, QMetaType::Double, QMetaType::QString,   18,   20,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::Double,   21,
+    QMetaType::Void, QMetaType::Double, QMetaType::QString,   21,   23,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::QJsonObject,    3,
+    QMetaType::Void, QMetaType::QJsonObject,    3,
     QMetaType::Void, QMetaType::QJsonObject,    3,
     QMetaType::Void, QMetaType::QJsonObject,    3,
     QMetaType::Void, QMetaType::QJsonObject,    3,
@@ -146,19 +169,25 @@ void DLLRestAPI::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 1: _t->toExeLogoutProcessedSignal((*reinterpret_cast< QJsonObject(*)>(_a[1]))); break;
         case 2: _t->toExeGetAccTransactsProcessedSignal((*reinterpret_cast< QJsonObject(*)>(_a[1]))); break;
         case 3: _t->toExeGetAccBalanceProcessedSignal((*reinterpret_cast< QJsonObject(*)>(_a[1]))); break;
-        case 4: _t->toExeWithdrawProcessedSignal((*reinterpret_cast< QJsonObject(*)>(_a[1]))); break;
-        case 5: _t->toExeTransactProcessedSignal((*reinterpret_cast< QJsonObject(*)>(_a[1]))); break;
-        case 6: _t->fromExeLoginSlot((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
-        case 7: _t->fromExeLogoutSlot(); break;
-        case 8: _t->fromExeGetAccTransactsSlot((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
-        case 9: _t->fromExeGetAccBalance(); break;
-        case 10: _t->fromExeWithdraw((*reinterpret_cast< double(*)>(_a[1]))); break;
-        case 11: _t->fromExeTransact((*reinterpret_cast< double(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
-        case 12: _t->fromEngineLoginProcessedSlot((*reinterpret_cast< QJsonObject(*)>(_a[1]))); break;
-        case 13: _t->fromEngineGetAccTransactsProcessedSlot((*reinterpret_cast< QJsonObject(*)>(_a[1]))); break;
-        case 14: _t->fromEngineGetAccBalanceProcessedSlot((*reinterpret_cast< QJsonObject(*)>(_a[1]))); break;
-        case 15: _t->fromEngineWithdrawProcessedSlot((*reinterpret_cast< QJsonObject(*)>(_a[1]))); break;
-        case 16: _t->fromEngineTransactProcessedSlot((*reinterpret_cast< QJsonObject(*)>(_a[1]))); break;
+        case 4: _t->toExeGetCustCardsProcessedSignal((*reinterpret_cast< QJsonObject(*)>(_a[1]))); break;
+        case 5: _t->toExeWithdrawProcessedSignal((*reinterpret_cast< QJsonObject(*)>(_a[1]))); break;
+        case 6: _t->toExeTransactProcessedSignal((*reinterpret_cast< QJsonObject(*)>(_a[1]))); break;
+        case 7: _t->toExeLockCardProcessedSignal((*reinterpret_cast< QJsonObject(*)>(_a[1]))); break;
+        case 8: _t->fromExeLoginSlot((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
+        case 9: _t->fromExeLogoutSlot(); break;
+        case 10: _t->fromExeGetAccTransactsSlot((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
+        case 11: _t->fromExeGetAccBalanceSlot(); break;
+        case 12: _t->fromExeGetCustCardsSlot(); break;
+        case 13: _t->fromExeWithdrawSlot((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 14: _t->fromExeTransactSlot((*reinterpret_cast< double(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
+        case 15: _t->fromExeLockCardSlot(); break;
+        case 16: _t->fromEngineLoginProcessedSlot((*reinterpret_cast< QJsonObject(*)>(_a[1]))); break;
+        case 17: _t->fromEngineGetAccTransactsProcessedSlot((*reinterpret_cast< QJsonObject(*)>(_a[1]))); break;
+        case 18: _t->fromEngineGetAccBalanceProcessedSlot((*reinterpret_cast< QJsonObject(*)>(_a[1]))); break;
+        case 19: _t->fromEngineGetCustCardsProcessedSlot((*reinterpret_cast< QJsonObject(*)>(_a[1]))); break;
+        case 20: _t->fromEngineWithdrawProcessedSlot((*reinterpret_cast< QJsonObject(*)>(_a[1]))); break;
+        case 21: _t->fromEngineTransactProcessedSlot((*reinterpret_cast< QJsonObject(*)>(_a[1]))); break;
+        case 22: _t->fromEngineLockCardProcessedSlot((*reinterpret_cast< QJsonObject(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -193,15 +222,29 @@ void DLLRestAPI::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         }
         {
             using _t = void (DLLRestAPI::*)(QJsonObject );
-            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&DLLRestAPI::toExeWithdrawProcessedSignal)) {
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&DLLRestAPI::toExeGetCustCardsProcessedSignal)) {
                 *result = 4;
                 return;
             }
         }
         {
             using _t = void (DLLRestAPI::*)(QJsonObject );
-            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&DLLRestAPI::toExeTransactProcessedSignal)) {
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&DLLRestAPI::toExeWithdrawProcessedSignal)) {
                 *result = 5;
+                return;
+            }
+        }
+        {
+            using _t = void (DLLRestAPI::*)(QJsonObject );
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&DLLRestAPI::toExeTransactProcessedSignal)) {
+                *result = 6;
+                return;
+            }
+        }
+        {
+            using _t = void (DLLRestAPI::*)(QJsonObject );
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&DLLRestAPI::toExeLockCardProcessedSignal)) {
+                *result = 7;
                 return;
             }
         }
@@ -237,13 +280,13 @@ int DLLRestAPI::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 17)
+        if (_id < 23)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 17;
+        _id -= 23;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 17)
+        if (_id < 23)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 17;
+        _id -= 23;
     }
     return _id;
 }
@@ -277,17 +320,31 @@ void DLLRestAPI::toExeGetAccBalanceProcessedSignal(QJsonObject _t1)
 }
 
 // SIGNAL 4
-void DLLRestAPI::toExeWithdrawProcessedSignal(QJsonObject _t1)
+void DLLRestAPI::toExeGetCustCardsProcessedSignal(QJsonObject _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
     QMetaObject::activate(this, &staticMetaObject, 4, _a);
 }
 
 // SIGNAL 5
-void DLLRestAPI::toExeTransactProcessedSignal(QJsonObject _t1)
+void DLLRestAPI::toExeWithdrawProcessedSignal(QJsonObject _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
     QMetaObject::activate(this, &staticMetaObject, 5, _a);
+}
+
+// SIGNAL 6
+void DLLRestAPI::toExeTransactProcessedSignal(QJsonObject _t1)
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
+    QMetaObject::activate(this, &staticMetaObject, 6, _a);
+}
+
+// SIGNAL 7
+void DLLRestAPI::toExeLockCardProcessedSignal(QJsonObject _t1)
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
+    QMetaObject::activate(this, &staticMetaObject, 7, _a);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

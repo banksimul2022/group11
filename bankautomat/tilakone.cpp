@@ -6,6 +6,7 @@
 #include <QObject>
 #include <QDebug>
 #include <QJsonObject>
+#include <QJsonDocument>
 
 //class MainWindow w;
 class RFID125 oRFID;
@@ -14,34 +15,45 @@ MainWindow* w = nullptr;
 
 Tilakone::Tilakone(class MainWindow* p)
 {
-    qDebug()<<"In Tilakone constructor";
-
-    qDebug()<<"MainWindow is "<<p;
+    //Set variables to be nothing on
+    stringID = "";
+    insertedPIN = "";
 
     w = p;
 
-    QObject::connect(this, SIGNAL(mainWindow_WaitingCard()),
-                     this, SLOT(runStateMachine()));
+    //STATEMACHINE connections
+    connect(this, SIGNAL(mainWindow_WaitingCard(Tilakone::state,Tilakone::event)),
+                     this, SLOT(runStateMachine(Tilakone::state,Tilakone::event)));
 
     //RFID connections
-    QObject::connect(&oRFID, SIGNAL(sendToExe()),
-                     this, SLOT(recieveFromRFID125()));
-    QObject::connect(&oRFID, SIGNAL(testCardID()),
-                     this, SLOT(recieveFromRFID125()));
+    connect(&oRFID, SIGNAL(sendToExe(QByteArray)),
+                     this, SLOT(recieveFromRFID125(QByteArray)));
 
     //RESTAPI connections
-    QObject::connect(this, SIGNAL(loginCheck()),
-                     oRestAPI, SLOT(fromExeLoginSlot()));
-    QObject::connect(this, SIGNAL(logoutCheck()),
+    connect(this, SIGNAL(loginCheck(QString,QString)),
+                     oRestAPI, SLOT(fromExeLoginSlot(QString,QString)));
+    connect(this, SIGNAL(logoutCheck()),
                      oRestAPI, SLOT(fromExeLogoutSlot()));
-    QObject::connect(oRestAPI, SIGNAL(toExeLoginProcessedSignal()),
-                     this, SLOT(fromRESTAPILogin()));
-    QObject::connect(oRestAPI, SIGNAL(toExeLogoutProcessedSignal()),
-                     this, SLOT(fromRESTAPILogout()));
+    connect(this, SIGNAL(lockCard()),
+                     oRestAPI, SLOT(fromExeLockCardSlot()));
+    connect(this, SIGNAL(getAccTransactions(int,int)),
+                     oRestAPI, SLOT(fromExeGetAccTransactsSlot(int,int)));
+    connect(this, SIGNAL(getAccBalance()),
+                     oRestAPI, SLOT(fromExeGetAccBalanceSlot()));
+
+    connect(oRestAPI, SIGNAL(toExeLoginProcessedSignal(QJsonObject)),
+                     this, SLOT(fromRESTAPILogin(QJsonObject)));
+    connect(oRestAPI, SIGNAL(toExeLogoutProcessedSignal(QJsonObject)),
+                     this, SLOT(fromRESTAPILogout(QJsonObject)));
+    connect(oRestAPI, SIGNAL(toExeGetAccTransactsProcessedSignal(QJsonObject)),
+                     this, SLOT(fromRESTAPIGetAccTransactions(QJsonObject)));
+    connect(oRestAPI, SIGNAL(toExeGetAccBalanceProcessedSignal(QJsonObject)),
+                     this, SLOT(fromRESTAPIGetAccBalance(QJsonObject)));
+
 
     //TESTI connections
-    QObject::connect(w, SIGNAL(testCardInserted()),
-                     this, SLOT(recieveFromRFID125()));
+    connect(w, SIGNAL(testCardInserted(QByteArray)),
+                     this, SLOT(recieveFromRFID125(QByteArray)));
 }
 
 void Tilakone::runStateMachine(state n, event m)
@@ -54,7 +66,7 @@ void Tilakone::runStateMachine(state n, event m)
         stateAwaitingPin(m);
         break;
     case 2:
-        //AwaitingDecision
+        stateAwaitingDecision(m);
         break;
     case 3:
         //Transactions
@@ -88,14 +100,20 @@ void Tilakone::fromRESTAPILogout(QJsonObject)
 
 }
 
-void Tilakone::fromRESTAPIGetAccTransactions(QJsonObject)
+void Tilakone::fromRESTAPIGetAccTransactions(QJsonObject t)
 {
-
+    foreach(const QString& key, t.keys()) {
+        QJsonValue value = t.value(key);
+        accTransactions.insert(key, value.toString());
+    }
 }
 
-void Tilakone::fromRESTAPIGetAccBalance(QJsonObject)
+void Tilakone::fromRESTAPIGetAccBalance(QJsonObject b)
 {
-
+    foreach(const QString& key, b.keys()) {
+        QJsonValue value = b.value(key);
+        accBalance.insert(key, value.toString());
+    }
 }
 
 void Tilakone::fromRESTAPIwithdraw(QJsonObject)
@@ -105,21 +123,33 @@ void Tilakone::fromRESTAPIwithdraw(QJsonObject)
 
 void Tilakone::stateMainWindow(event n)
 {
+
+    qDebug()<<"stateMainWindow";
+
     QString enter = "Insert card into reader!";
     if (n == 0) {
         //Here to show default screen on opening or Insert Card -screen
         w->show();
         w->pinUiVisibility(false);
         w->setMessageLabel(enter);
+
+
+        /*
         try {
             oRFID.readCardID();
         } catch (QString error) {
             qDebug()<<"readCardID error: "<<error;
+            runStateMachine(stateMainWindow, SMStart);
         }
         //wait for answer
+        */
+
+
+        //here we do a pirkka solution because trycatch only crashes the program without rfid reader
+        oRFID.testCardID();
 
         //Move to next state
-        runStateMachine(AwaitingPin, CardInserted);     //Pirkka ratkasut toistaiseksi
+        runStateMachine(AwaitingPin, CardInserted);
     } else if (n == 2) {
         //Default timeout event, clear all objects and restart
     }
@@ -128,23 +158,59 @@ void Tilakone::stateMainWindow(event n)
 void Tilakone::stateAwaitingPin(event n)
 {
     if (n == 1) {
+
+        qDebug()<<"StateAwaitingPin";
+
         QString login = "Please insert PIN.";
+
         //Open login info here
         w->pinUiVisibility(true);
         w->setMessageLabel(login);
-        //TODO: put a method here to wait until pin has been inserted into insertedPIN
+
+        //Wait for pin
+
+        //TODO: Kysele aappolta tähän koodi
+
+        //Pirkka(tm) ratkasu palvelimen yhdistystä varten
+        if (insertedPIN.length() < 1) {
+            insertedPIN = "1234";
+        }
 
         //Test for login with restapidll
         emit loginCheck(stringID, insertedPIN);
         if (loginINFO.contains("response")) {
             //this means login succesful
+            qDebug()<< "loginINFO contains key:response";
+            foreach(const QString& key, loginINFO.keys()) {
+                QJsonValue value = loginINFO.value(key);
+                qDebug()<< "key: " << key << " value: " << value.toString();
+            }
+
+            //move to next state
+            runStateMachine(AwaitingDecision, CorrectPIN);
         } else if (loginINFO.contains("error")) {
             //this means login was not succesful
+            qDebug()<< "loginINFO contains key:error";
+            foreach(const QString& key, loginINFO.keys()) {
+                QJsonValue value = loginINFO.value(key);
+                qDebug()<< "key: " << key << " value: " << value.toString();
+            }
+
             //invoke incorrectpin event
+            runStateMachine(AwaitingPin, IncorrectPIN);     //TODO: should propably check that the error is pin related
         }
 
     } else if (n == 3) {
         //incorrect pin
+        if (wrongPIN >= 3) {
+            runStateMachine(AwaitingPin, TooManyIncorrectPINs);
+            //Card will be locked
+        }
+        wrongPIN++;
+        qDebug()<< "number of incorrect pins: " << wrongPIN;
+        runStateMachine(AwaitingPin, CardInserted);
+    } else if (n == 4) {
+        //Send lock pin requesti to server
     } else if (n == 2) {
         //Default timeout event, clear all objects and restart
     }
@@ -152,14 +218,26 @@ void Tilakone::stateAwaitingPin(event n)
 
 void Tilakone::stateAwaitingDecision(event n)
 {
-    if (n == 7) {
-        //Show transactions ->
-    } else if (n == 10) {
-        //Draw money ->
-    } else if (n == 11) {
-        //Check balance ->
+    qDebug()<< "stateAwaitingDecision";
+    //ui change here
+    if (n == 7) {           //Show transactions ->
+
+        //restapidll request for transactions 10 offset 0
+        emit getAccTransactions(10, 0);
+        foreach(const QString& key, accTransactions.keys()) {
+            QJsonValue value = accTransactions.value(key);
+            //place into ui element each transaction
+            qDebug()<<"key: "<< key << " value: " << value;
+        }
+        //move to show transactions
+        runStateMachine(Transactions, ShowTransactions);
+    } else if (n == 10) {   //Draw money ->
+            runStateMachine(ChooseAmount, Draw);
+    } else if (n == 11) {   //Check balance ->
+
     } else if (n == 2) {
         //Default timeout event, clear all objects and restart
     } //Maybe also have logout option on all states
 }
+
 

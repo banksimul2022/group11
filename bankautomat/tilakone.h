@@ -26,7 +26,7 @@ public:
         CardInserted,
         Timeout,            //Timeout is a timed event for 30sec inactivity that is relevant in most states
         IncorrectPIN,
-        TooMayIncorrectPINs,
+        TooManyIncorrectPINs,
         LockCard,
         CorrectPIN,
         ShowTransactions,
@@ -41,7 +41,7 @@ public slots:
     void handleTimeOut();
 
     //RFID slots
-    void recieveFromRFID125(QByteArray);          //rfid125.dll sends inserted card data here
+    void recieveFromRFID125(QByteArray);
 
     //RESTAPI slots
     void fromRESTAPILogin(QJsonObject);
@@ -61,6 +61,9 @@ signals:
     //send to restapi
     void loginCheck(QString, QString);
     void logoutCheck();
+    void lockCard();
+    void getAccTransactions(int, int);
+    void getAccBalance();
 
 private:
     //Handler for each state with values for any event related
@@ -74,7 +77,12 @@ private:
 protected:
     QString stringID;
     QString insertedPIN;
+
     QJsonObject loginINFO;
+    QJsonObject accTransactions;
+    QJsonObject accBalance;
+
+    short int wrongPIN;
 };
 
 #endif // TILAKONE_H
