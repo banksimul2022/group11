@@ -15,8 +15,26 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+    //Methods to control ui elements
     void pinUiVisibility(bool);
+    void withdrawOptionsVisibility(bool);
+    void messageLabelVisibility(bool);
+    void customAmountVisibility(bool);
+    void optionsVisibility(bool);
     void setMessageLabel(QString);
+
+    //Different display settings for each state
+    void displayPinMenu();      //This is for if PinUi.dll doesn't work
+    void displayOptions();
+    void displayTransactions();
+    void displayChooseAmount();
+    void displayTransfer();
+    void displayBalance();
+
+    void displayMessage();
+
+     Ui::MainWindow *ui;
 
 public slots:
 
@@ -25,29 +43,11 @@ signals:
     void testCardInserted(QByteArray);
 
 private slots:
-    void on_number1_clicked();
-
-    void on_number2_clicked();
-
-    void on_number3_clicked();
-
-    void on_number4_clicked();
-
-    void on_number5_clicked();
-
-    void on_number6_clicked();
-
-    void on_number7_clicked();
-
-    void on_number8_clicked();
-
-    void on_number9_clicked();
-
-    void on_number0_clicked();
-
+    void numberPressed();
+    void clearPressed();
 
 private:
-    Ui::MainWindow *ui;
+
 
 protected:
     short int pinCheck;

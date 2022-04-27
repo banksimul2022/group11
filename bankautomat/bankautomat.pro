@@ -39,3 +39,10 @@ else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/libraries/build-DLLRest
 
 INCLUDEPATH += $$PWD/libraries/DLLRestAPI
 DEPENDPATH += $$PWD/libraries/DLLRestAPI
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/libraries/build-PinUi3-Desktop_Qt_5_15_2_MinGW_32_bit-Debug/release/ -lPinUi3
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/libraries/build-PinUi3-Desktop_Qt_5_15_2_MinGW_32_bit-Debug/debug/ -lPinUi3
+else:unix: LIBS += -L$$PWD/libraries/build-PinUi3-Desktop_Qt_5_15_2_MinGW_32_bit-Debug/ -lPinUi3
+
+INCLUDEPATH += $$PWD/libraries/DLLPinUi
+DEPENDPATH += $$PWD/libraries/DLLPinUi

@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Tilakone_t {
-    QByteArrayData data[22];
-    char stringdata0[407];
+    QByteArrayData data[34];
+    char stringdata0[613];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -46,14 +46,26 @@ QT_MOC_LITERAL(10, 194, 11), // "logoutCheck"
 QT_MOC_LITERAL(11, 206, 8), // "lockCard"
 QT_MOC_LITERAL(12, 215, 18), // "getAccTransactions"
 QT_MOC_LITERAL(13, 234, 13), // "getAccBalance"
-QT_MOC_LITERAL(14, 248, 15), // "runStateMachine"
-QT_MOC_LITERAL(15, 264, 13), // "handleTimeOut"
-QT_MOC_LITERAL(16, 278, 18), // "recieveFromRFID125"
-QT_MOC_LITERAL(17, 297, 16), // "fromRESTAPILogin"
-QT_MOC_LITERAL(18, 314, 17), // "fromRESTAPILogout"
-QT_MOC_LITERAL(19, 332, 29), // "fromRESTAPIGetAccTransactions"
-QT_MOC_LITERAL(20, 362, 24), // "fromRESTAPIGetAccBalance"
-QT_MOC_LITERAL(21, 387, 19) // "fromRESTAPIwithdraw"
+QT_MOC_LITERAL(14, 248, 8), // "withdraw"
+QT_MOC_LITERAL(15, 257, 12), // "getCustCards"
+QT_MOC_LITERAL(16, 270, 13), // "transferMoney"
+QT_MOC_LITERAL(17, 284, 15), // "runStateMachine"
+QT_MOC_LITERAL(18, 300, 13), // "handleTimeOut"
+QT_MOC_LITERAL(19, 314, 9), // "handlePIN"
+QT_MOC_LITERAL(20, 324, 18), // "recieveFromRFID125"
+QT_MOC_LITERAL(21, 343, 16), // "fromRESTAPILogin"
+QT_MOC_LITERAL(22, 360, 17), // "fromRESTAPILogout"
+QT_MOC_LITERAL(23, 378, 29), // "fromRESTAPIGetAccTransactions"
+QT_MOC_LITERAL(24, 408, 24), // "fromRESTAPIGetAccBalance"
+QT_MOC_LITERAL(25, 433, 23), // "fromRESTAPIGetCustCards"
+QT_MOC_LITERAL(26, 457, 19), // "fromRESTAPIWithdraw"
+QT_MOC_LITERAL(27, 477, 19), // "fromRESTAPITransact"
+QT_MOC_LITERAL(28, 497, 21), // "fromRESTAPICardLocked"
+QT_MOC_LITERAL(29, 519, 19), // "fromPINUIPinEntered"
+QT_MOC_LITERAL(30, 539, 21), // "fromPINUIPinCancelled"
+QT_MOC_LITERAL(31, 561, 22), // "fromPINUIButtonPressed"
+QT_MOC_LITERAL(32, 584, 12), // "uiConfirmPin"
+QT_MOC_LITERAL(33, 597, 15) // "uiConfirmAmount"
 
     },
     "Tilakone\0mainWindow_WaitingCard\0\0"
@@ -63,11 +75,17 @@ QT_MOC_LITERAL(21, 387, 19) // "fromRESTAPIwithdraw"
     "decisionWindow_balanceDecision\0"
     "drawWindow_drawDecision\0loginCheck\0"
     "logoutCheck\0lockCard\0getAccTransactions\0"
-    "getAccBalance\0runStateMachine\0"
-    "handleTimeOut\0recieveFromRFID125\0"
+    "getAccBalance\0withdraw\0getCustCards\0"
+    "transferMoney\0runStateMachine\0"
+    "handleTimeOut\0handlePIN\0recieveFromRFID125\0"
     "fromRESTAPILogin\0fromRESTAPILogout\0"
     "fromRESTAPIGetAccTransactions\0"
-    "fromRESTAPIGetAccBalance\0fromRESTAPIwithdraw"
+    "fromRESTAPIGetAccBalance\0"
+    "fromRESTAPIGetCustCards\0fromRESTAPIWithdraw\0"
+    "fromRESTAPITransact\0fromRESTAPICardLocked\0"
+    "fromPINUIPinEntered\0fromPINUIPinCancelled\0"
+    "fromPINUIButtonPressed\0uiConfirmPin\0"
+    "uiConfirmAmount"
 };
 #undef QT_MOC_LITERAL
 
@@ -77,34 +95,46 @@ static const uint qt_meta_data_Tilakone[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-      18,   14, // methods
+      30,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-      10,       // signalCount
+      13,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    2,  104,    2, 0x06 /* Public */,
-       5,    2,  109,    2, 0x06 /* Public */,
-       6,    2,  114,    2, 0x06 /* Public */,
-       7,    2,  119,    2, 0x06 /* Public */,
-       8,    2,  124,    2, 0x06 /* Public */,
-       9,    2,  129,    2, 0x06 /* Public */,
-      10,    0,  134,    2, 0x06 /* Public */,
-      11,    0,  135,    2, 0x06 /* Public */,
-      12,    2,  136,    2, 0x06 /* Public */,
-      13,    0,  141,    2, 0x06 /* Public */,
+       1,    2,  164,    2, 0x06 /* Public */,
+       5,    2,  169,    2, 0x06 /* Public */,
+       6,    2,  174,    2, 0x06 /* Public */,
+       7,    2,  179,    2, 0x06 /* Public */,
+       8,    2,  184,    2, 0x06 /* Public */,
+       9,    2,  189,    2, 0x06 /* Public */,
+      10,    0,  194,    2, 0x06 /* Public */,
+      11,    0,  195,    2, 0x06 /* Public */,
+      12,    2,  196,    2, 0x06 /* Public */,
+      13,    0,  201,    2, 0x06 /* Public */,
+      14,    1,  202,    2, 0x06 /* Public */,
+      15,    0,  205,    2, 0x06 /* Public */,
+      16,    2,  206,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      14,    2,  142,    2, 0x0a /* Public */,
-      15,    0,  147,    2, 0x0a /* Public */,
-      16,    1,  148,    2, 0x0a /* Public */,
-      17,    1,  151,    2, 0x0a /* Public */,
-      18,    1,  154,    2, 0x0a /* Public */,
-      19,    1,  157,    2, 0x0a /* Public */,
-      20,    1,  160,    2, 0x0a /* Public */,
-      21,    1,  163,    2, 0x0a /* Public */,
+      17,    2,  211,    2, 0x0a /* Public */,
+      18,    0,  216,    2, 0x0a /* Public */,
+      19,    0,  217,    2, 0x0a /* Public */,
+      20,    1,  218,    2, 0x0a /* Public */,
+      21,    1,  221,    2, 0x0a /* Public */,
+      22,    1,  224,    2, 0x0a /* Public */,
+      23,    1,  227,    2, 0x0a /* Public */,
+      24,    1,  230,    2, 0x0a /* Public */,
+      25,    1,  233,    2, 0x0a /* Public */,
+      26,    1,  236,    2, 0x0a /* Public */,
+      27,    1,  239,    2, 0x0a /* Public */,
+      28,    1,  242,    2, 0x0a /* Public */,
+      29,    1,  245,    2, 0x0a /* Public */,
+      30,    0,  248,    2, 0x0a /* Public */,
+      31,    0,  249,    2, 0x0a /* Public */,
+      32,    0,  250,    2, 0x0a /* Public */,
+      33,    0,  251,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, 0x80000000 | 3, 0x80000000 | 4,    2,    2,
@@ -117,16 +147,28 @@ static const uint qt_meta_data_Tilakone[] = {
     QMetaType::Void,
     QMetaType::Void, QMetaType::Int, QMetaType::Int,    2,    2,
     QMetaType::Void,
+    QMetaType::Void, QMetaType::Double,    2,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::Double, QMetaType::QString,    2,    2,
 
  // slots: parameters
     QMetaType::Void, 0x80000000 | 3, 0x80000000 | 4,    2,    2,
     QMetaType::Void,
+    QMetaType::Bool,
     QMetaType::Void, QMetaType::QByteArray,    2,
     QMetaType::Void, QMetaType::QJsonObject,    2,
     QMetaType::Void, QMetaType::QJsonObject,    2,
     QMetaType::Void, QMetaType::QJsonObject,    2,
     QMetaType::Void, QMetaType::QJsonObject,    2,
     QMetaType::Void, QMetaType::QJsonObject,    2,
+    QMetaType::Void, QMetaType::QJsonObject,    2,
+    QMetaType::Void, QMetaType::QJsonObject,    2,
+    QMetaType::Void, QMetaType::QJsonObject,    2,
+    QMetaType::Void, QMetaType::QString,    2,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -147,14 +189,27 @@ void Tilakone::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, vo
         case 7: _t->lockCard(); break;
         case 8: _t->getAccTransactions((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
         case 9: _t->getAccBalance(); break;
-        case 10: _t->runStateMachine((*reinterpret_cast< Tilakone::state(*)>(_a[1])),(*reinterpret_cast< Tilakone::event(*)>(_a[2]))); break;
-        case 11: _t->handleTimeOut(); break;
-        case 12: _t->recieveFromRFID125((*reinterpret_cast< QByteArray(*)>(_a[1]))); break;
-        case 13: _t->fromRESTAPILogin((*reinterpret_cast< QJsonObject(*)>(_a[1]))); break;
-        case 14: _t->fromRESTAPILogout((*reinterpret_cast< QJsonObject(*)>(_a[1]))); break;
-        case 15: _t->fromRESTAPIGetAccTransactions((*reinterpret_cast< QJsonObject(*)>(_a[1]))); break;
-        case 16: _t->fromRESTAPIGetAccBalance((*reinterpret_cast< QJsonObject(*)>(_a[1]))); break;
-        case 17: _t->fromRESTAPIwithdraw((*reinterpret_cast< QJsonObject(*)>(_a[1]))); break;
+        case 10: _t->withdraw((*reinterpret_cast< double(*)>(_a[1]))); break;
+        case 11: _t->getCustCards(); break;
+        case 12: _t->transferMoney((*reinterpret_cast< double(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
+        case 13: _t->runStateMachine((*reinterpret_cast< Tilakone::state(*)>(_a[1])),(*reinterpret_cast< Tilakone::event(*)>(_a[2]))); break;
+        case 14: _t->handleTimeOut(); break;
+        case 15: { bool _r = _t->handlePIN();
+            if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = std::move(_r); }  break;
+        case 16: _t->recieveFromRFID125((*reinterpret_cast< QByteArray(*)>(_a[1]))); break;
+        case 17: _t->fromRESTAPILogin((*reinterpret_cast< QJsonObject(*)>(_a[1]))); break;
+        case 18: _t->fromRESTAPILogout((*reinterpret_cast< QJsonObject(*)>(_a[1]))); break;
+        case 19: _t->fromRESTAPIGetAccTransactions((*reinterpret_cast< QJsonObject(*)>(_a[1]))); break;
+        case 20: _t->fromRESTAPIGetAccBalance((*reinterpret_cast< QJsonObject(*)>(_a[1]))); break;
+        case 21: _t->fromRESTAPIGetCustCards((*reinterpret_cast< QJsonObject(*)>(_a[1]))); break;
+        case 22: _t->fromRESTAPIWithdraw((*reinterpret_cast< QJsonObject(*)>(_a[1]))); break;
+        case 23: _t->fromRESTAPITransact((*reinterpret_cast< QJsonObject(*)>(_a[1]))); break;
+        case 24: _t->fromRESTAPICardLocked((*reinterpret_cast< QJsonObject(*)>(_a[1]))); break;
+        case 25: _t->fromPINUIPinEntered((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 26: _t->fromPINUIPinCancelled(); break;
+        case 27: _t->fromPINUIButtonPressed(); break;
+        case 28: _t->uiConfirmPin(); break;
+        case 29: _t->uiConfirmAmount(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -229,6 +284,27 @@ void Tilakone::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, vo
                 return;
             }
         }
+        {
+            using _t = void (Tilakone::*)(double );
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&Tilakone::withdraw)) {
+                *result = 10;
+                return;
+            }
+        }
+        {
+            using _t = void (Tilakone::*)();
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&Tilakone::getCustCards)) {
+                *result = 11;
+                return;
+            }
+        }
+        {
+            using _t = void (Tilakone::*)(double , QString );
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&Tilakone::transferMoney)) {
+                *result = 12;
+                return;
+            }
+        }
     }
 }
 
@@ -261,13 +337,13 @@ int Tilakone::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 18)
+        if (_id < 30)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 18;
+        _id -= 30;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 18)
+        if (_id < 30)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 18;
+        _id -= 30;
     }
     return _id;
 }
@@ -337,6 +413,26 @@ void Tilakone::getAccTransactions(int _t1, int _t2)
 void Tilakone::getAccBalance()
 {
     QMetaObject::activate(this, &staticMetaObject, 9, nullptr);
+}
+
+// SIGNAL 10
+void Tilakone::withdraw(double _t1)
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
+    QMetaObject::activate(this, &staticMetaObject, 10, _a);
+}
+
+// SIGNAL 11
+void Tilakone::getCustCards()
+{
+    QMetaObject::activate(this, &staticMetaObject, 11, nullptr);
+}
+
+// SIGNAL 12
+void Tilakone::transferMoney(double _t1, QString _t2)
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))), const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t2))) };
+    QMetaObject::activate(this, &staticMetaObject, 12, _a);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

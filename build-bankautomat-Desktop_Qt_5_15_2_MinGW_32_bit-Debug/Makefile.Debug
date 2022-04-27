@@ -16,10 +16,10 @@ CXX           = g++
 DEFINES       = -DUNICODE -D_UNICODE -DWIN32 -DMINGW_HAS_SECURE_API=1 -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_SERIALPORT_LIB -DQT_CORE_LIB -DQT_NEEDS_QMAIN
 CFLAGS        = -fno-keep-inline-dllexport -g -Wall -Wextra -Wextra $(DEFINES)
 CXXFLAGS      = -fno-keep-inline-dllexport -g -std=gnu++11 -Wall -Wextra -Wextra -fexceptions -mthreads $(DEFINES)
-INCPATH       = -I..\bankautomat -I. -I..\bankautomat\libraries\DLL-RFID -I..\bankautomat\libraries\DLLRestAPI -ID:\Koulu\QtIDE\5.15.2\mingw81_32\include -ID:\Koulu\QtIDE\5.15.2\mingw81_32\include\QtWidgets -ID:\Koulu\QtIDE\5.15.2\mingw81_32\include\QtGui -ID:\Koulu\QtIDE\5.15.2\mingw81_32\include\QtANGLE -ID:\Koulu\QtIDE\5.15.2\mingw81_32\include\QtNetwork -ID:\Koulu\QtIDE\5.15.2\mingw81_32\include\QtSerialPort -ID:\Koulu\QtIDE\5.15.2\mingw81_32\include\QtCore -Idebug -I. -ID:\Koulu\QtIDE\5.15.2\mingw81_32\mkspecs\win32-g++ 
+INCPATH       = -I..\bankautomat -I. -I..\bankautomat\libraries\DLL-RFID -I..\bankautomat\libraries\DLLRestAPI -I..\bankautomat\libraries\DLLPinUi -ID:\Koulu\QtIDE\5.15.2\mingw81_32\include -ID:\Koulu\QtIDE\5.15.2\mingw81_32\include\QtWidgets -ID:\Koulu\QtIDE\5.15.2\mingw81_32\include\QtGui -ID:\Koulu\QtIDE\5.15.2\mingw81_32\include\QtANGLE -ID:\Koulu\QtIDE\5.15.2\mingw81_32\include\QtNetwork -ID:\Koulu\QtIDE\5.15.2\mingw81_32\include\QtSerialPort -ID:\Koulu\QtIDE\5.15.2\mingw81_32\include\QtCore -Idebug -I. -ID:\Koulu\QtIDE\5.15.2\mingw81_32\mkspecs\win32-g++ 
 LINKER      =        g++
 LFLAGS        =        -Wl,-subsystem,windows -mthreads
-LIBS        =        -L"D:\Koulu\Vuosi 1\Periodi 4\Git\group11\bankautomat\libraries\build-RFID125-Desktop_Qt_5_15_2_MinGW_32_bit-Debug\debug" -lRFID125 -L"D:\Koulu\Vuosi 1\Periodi 4\Git\group11\bankautomat\libraries\build-DLLRestAPI-Desktop_Qt_5_15_2_MinGW_32_bit-Debug\debug" -lDLLRestAPI D:\Koulu\QtIDE\5.15.2\mingw81_32\lib\libQt5Widgets.a D:\Koulu\QtIDE\5.15.2\mingw81_32\lib\libQt5Gui.a D:\Koulu\QtIDE\5.15.2\mingw81_32\lib\libQt5Network.a D:\Koulu\QtIDE\5.15.2\mingw81_32\lib\libQt5SerialPort.a D:\Koulu\QtIDE\5.15.2\mingw81_32\lib\libQt5Core.a  -lmingw32 D:\Koulu\QtIDE\5.15.2\mingw81_32\lib\libqtmain.a -LC:\openssl\lib -LC:\Utils\my_sql\mysql-5.7.25-win32\lib -LC:\Utils\postgresql\pgsql\lib -lshell32 
+LIBS        =        -L"D:\Koulu\Vuosi 1\Periodi 4\Git\group11\bankautomat\libraries\build-RFID125-Desktop_Qt_5_15_2_MinGW_32_bit-Debug\debug" -lRFID125 -L"D:\Koulu\Vuosi 1\Periodi 4\Git\group11\bankautomat\libraries\build-DLLRestAPI-Desktop_Qt_5_15_2_MinGW_32_bit-Debug\debug" -lDLLRestAPI -L"D:\Koulu\Vuosi 1\Periodi 4\Git\group11\bankautomat\libraries\build-PinUi3-Desktop_Qt_5_15_2_MinGW_32_bit-Debug\debug" -lPinUi3 D:\Koulu\QtIDE\5.15.2\mingw81_32\lib\libQt5Widgets.a D:\Koulu\QtIDE\5.15.2\mingw81_32\lib\libQt5Gui.a D:\Koulu\QtIDE\5.15.2\mingw81_32\lib\libQt5Network.a D:\Koulu\QtIDE\5.15.2\mingw81_32\lib\libQt5SerialPort.a D:\Koulu\QtIDE\5.15.2\mingw81_32\lib\libQt5Core.a  -lmingw32 D:\Koulu\QtIDE\5.15.2\mingw81_32\lib\libqtmain.a -LC:\openssl\lib -LC:\Utils\my_sql\mysql-5.7.25-win32\lib -LC:\Utils\postgresql\pgsql\lib -lshell32 
 QMAKE         = D:\Koulu\QtIDE\5.15.2\mingw81_32\bin\qmake.exe
 DEL_FILE      = del
 CHK_DIR_EXISTS= if not exist
@@ -223,7 +223,7 @@ debug/moc_mainwindow.cpp: ../bankautomat/mainwindow.h \
 		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtGui/qicon.h \
 		debug/moc_predefs.h \
 		D:/Koulu/QtIDE/5.15.2/mingw81_32/bin/moc.exe
-	D:\Koulu\QtIDE\5.15.2\mingw81_32\bin\moc.exe $(DEFINES) --include "D:/Koulu/Vuosi 1/Periodi 4/Git/group11/build-bankautomat-Desktop_Qt_5_15_2_MinGW_32_bit-Debug/debug/moc_predefs.h" -ID:/Koulu/QtIDE/5.15.2/mingw81_32/mkspecs/win32-g++ -I"D:/Koulu/Vuosi 1/Periodi 4/Git/group11/bankautomat" -I"D:/Koulu/Vuosi 1/Periodi 4/Git/group11/bankautomat/libraries/DLL-RFID" -I"D:/Koulu/Vuosi 1/Periodi 4/Git/group11/bankautomat/libraries/DLLRestAPI" -ID:/Koulu/QtIDE/5.15.2/mingw81_32/include -ID:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtWidgets -ID:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtGui -ID:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtANGLE -ID:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtNetwork -ID:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtSerialPort -ID:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtCore -I. -ID:/Koulu/QtIDE/Tools/mingw810_32/lib/gcc/i686-w64-mingw32/8.1.0/include/c++ -ID:/Koulu/QtIDE/Tools/mingw810_32/lib/gcc/i686-w64-mingw32/8.1.0/include/c++/i686-w64-mingw32 -ID:/Koulu/QtIDE/Tools/mingw810_32/lib/gcc/i686-w64-mingw32/8.1.0/include/c++/backward -ID:/Koulu/QtIDE/Tools/mingw810_32/lib/gcc/i686-w64-mingw32/8.1.0/include -ID:/Koulu/QtIDE/Tools/mingw810_32/lib/gcc/i686-w64-mingw32/8.1.0/include-fixed -ID:/Koulu/QtIDE/Tools/mingw810_32/i686-w64-mingw32/include ..\bankautomat\mainwindow.h -o debug\moc_mainwindow.cpp
+	D:\Koulu\QtIDE\5.15.2\mingw81_32\bin\moc.exe $(DEFINES) --include "D:/Koulu/Vuosi 1/Periodi 4/Git/group11/build-bankautomat-Desktop_Qt_5_15_2_MinGW_32_bit-Debug/debug/moc_predefs.h" -ID:/Koulu/QtIDE/5.15.2/mingw81_32/mkspecs/win32-g++ -I"D:/Koulu/Vuosi 1/Periodi 4/Git/group11/bankautomat" -I"D:/Koulu/Vuosi 1/Periodi 4/Git/group11/bankautomat/libraries/DLL-RFID" -I"D:/Koulu/Vuosi 1/Periodi 4/Git/group11/bankautomat/libraries/DLLRestAPI" -I"D:/Koulu/Vuosi 1/Periodi 4/Git/group11/bankautomat/libraries/DLLPinUi" -ID:/Koulu/QtIDE/5.15.2/mingw81_32/include -ID:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtWidgets -ID:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtGui -ID:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtANGLE -ID:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtNetwork -ID:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtSerialPort -ID:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtCore -I. -ID:/Koulu/QtIDE/Tools/mingw810_32/lib/gcc/i686-w64-mingw32/8.1.0/include/c++ -ID:/Koulu/QtIDE/Tools/mingw810_32/lib/gcc/i686-w64-mingw32/8.1.0/include/c++/i686-w64-mingw32 -ID:/Koulu/QtIDE/Tools/mingw810_32/lib/gcc/i686-w64-mingw32/8.1.0/include/c++/backward -ID:/Koulu/QtIDE/Tools/mingw810_32/lib/gcc/i686-w64-mingw32/8.1.0/include -ID:/Koulu/QtIDE/Tools/mingw810_32/lib/gcc/i686-w64-mingw32/8.1.0/include-fixed -ID:/Koulu/QtIDE/Tools/mingw810_32/i686-w64-mingw32/include ..\bankautomat\mainwindow.h -o debug\moc_mainwindow.cpp
 
 debug/moc_tilakone.cpp: ../bankautomat/tilakone.h \
 		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtCore/QJsonObject \
@@ -301,15 +301,6 @@ debug/moc_tilakone.cpp: ../bankautomat/tilakone.h \
 		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtCore/qurlquery.h \
 		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtCore/quuid.h \
 		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtCore/QObject \
-		../bankautomat/libraries/DLL-RFID/rfid125.h \
-		../bankautomat/libraries/DLL-RFID/RFID125_global.h \
-		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtCore/QDebug \
-		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtSerialPort/QSerialPort \
-		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtSerialPort/qserialport.h \
-		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtSerialPort/qserialportglobal.h \
-		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtSerialPort/QSerialPortInfo \
-		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtSerialPort/qserialportinfo.h \
-		../bankautomat/mainwindow.h \
 		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtWidgets/QMainWindow \
 		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtWidgets/qmainwindow.h \
 		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtWidgets/qtwidgetsglobal.h \
@@ -350,9 +341,23 @@ debug/moc_tilakone.cpp: ../bankautomat/tilakone.h \
 		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtGui/qtouchdevice.h \
 		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtWidgets/qtabwidget.h \
 		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtGui/qicon.h \
+		../bankautomat/libraries/DLL-RFID/rfid125.h \
+		../bankautomat/libraries/DLL-RFID/RFID125_global.h \
+		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtCore/QDebug \
+		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtSerialPort/QSerialPort \
+		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtSerialPort/qserialport.h \
+		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtSerialPort/qserialportglobal.h \
+		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtSerialPort/QSerialPortInfo \
+		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtSerialPort/qserialportinfo.h \
+		../bankautomat/mainwindow.h \
+		../bankautomat/libraries/DLLPinUi/pinui3.h \
+		../bankautomat/libraries/DLLPinUi/PinUi3_global.h \
+		../bankautomat/libraries/DLLPinUi/pincode.h \
+		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtWidgets/QDialog \
+		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtWidgets/qdialog.h \
 		debug/moc_predefs.h \
 		D:/Koulu/QtIDE/5.15.2/mingw81_32/bin/moc.exe
-	D:\Koulu\QtIDE\5.15.2\mingw81_32\bin\moc.exe $(DEFINES) --include "D:/Koulu/Vuosi 1/Periodi 4/Git/group11/build-bankautomat-Desktop_Qt_5_15_2_MinGW_32_bit-Debug/debug/moc_predefs.h" -ID:/Koulu/QtIDE/5.15.2/mingw81_32/mkspecs/win32-g++ -I"D:/Koulu/Vuosi 1/Periodi 4/Git/group11/bankautomat" -I"D:/Koulu/Vuosi 1/Periodi 4/Git/group11/bankautomat/libraries/DLL-RFID" -I"D:/Koulu/Vuosi 1/Periodi 4/Git/group11/bankautomat/libraries/DLLRestAPI" -ID:/Koulu/QtIDE/5.15.2/mingw81_32/include -ID:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtWidgets -ID:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtGui -ID:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtANGLE -ID:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtNetwork -ID:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtSerialPort -ID:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtCore -I. -ID:/Koulu/QtIDE/Tools/mingw810_32/lib/gcc/i686-w64-mingw32/8.1.0/include/c++ -ID:/Koulu/QtIDE/Tools/mingw810_32/lib/gcc/i686-w64-mingw32/8.1.0/include/c++/i686-w64-mingw32 -ID:/Koulu/QtIDE/Tools/mingw810_32/lib/gcc/i686-w64-mingw32/8.1.0/include/c++/backward -ID:/Koulu/QtIDE/Tools/mingw810_32/lib/gcc/i686-w64-mingw32/8.1.0/include -ID:/Koulu/QtIDE/Tools/mingw810_32/lib/gcc/i686-w64-mingw32/8.1.0/include-fixed -ID:/Koulu/QtIDE/Tools/mingw810_32/i686-w64-mingw32/include ..\bankautomat\tilakone.h -o debug\moc_tilakone.cpp
+	D:\Koulu\QtIDE\5.15.2\mingw81_32\bin\moc.exe $(DEFINES) --include "D:/Koulu/Vuosi 1/Periodi 4/Git/group11/build-bankautomat-Desktop_Qt_5_15_2_MinGW_32_bit-Debug/debug/moc_predefs.h" -ID:/Koulu/QtIDE/5.15.2/mingw81_32/mkspecs/win32-g++ -I"D:/Koulu/Vuosi 1/Periodi 4/Git/group11/bankautomat" -I"D:/Koulu/Vuosi 1/Periodi 4/Git/group11/bankautomat/libraries/DLL-RFID" -I"D:/Koulu/Vuosi 1/Periodi 4/Git/group11/bankautomat/libraries/DLLRestAPI" -I"D:/Koulu/Vuosi 1/Periodi 4/Git/group11/bankautomat/libraries/DLLPinUi" -ID:/Koulu/QtIDE/5.15.2/mingw81_32/include -ID:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtWidgets -ID:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtGui -ID:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtANGLE -ID:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtNetwork -ID:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtSerialPort -ID:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtCore -I. -ID:/Koulu/QtIDE/Tools/mingw810_32/lib/gcc/i686-w64-mingw32/8.1.0/include/c++ -ID:/Koulu/QtIDE/Tools/mingw810_32/lib/gcc/i686-w64-mingw32/8.1.0/include/c++/i686-w64-mingw32 -ID:/Koulu/QtIDE/Tools/mingw810_32/lib/gcc/i686-w64-mingw32/8.1.0/include/c++/backward -ID:/Koulu/QtIDE/Tools/mingw810_32/lib/gcc/i686-w64-mingw32/8.1.0/include -ID:/Koulu/QtIDE/Tools/mingw810_32/lib/gcc/i686-w64-mingw32/8.1.0/include-fixed -ID:/Koulu/QtIDE/Tools/mingw810_32/i686-w64-mingw32/include ..\bankautomat\tilakone.h -o debug\moc_tilakone.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -502,6 +507,11 @@ debug/main.o: ../bankautomat/main.cpp ../bankautomat/mainwindow.h \
 		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtSerialPort/qserialportglobal.h \
 		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtSerialPort/QSerialPortInfo \
 		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtSerialPort/qserialportinfo.h \
+		../bankautomat/libraries/DLLPinUi/pinui3.h \
+		../bankautomat/libraries/DLLPinUi/PinUi3_global.h \
+		../bankautomat/libraries/DLLPinUi/pincode.h \
+		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtWidgets/QDialog \
+		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtWidgets/qdialog.h \
 		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtWidgets/QApplication \
 		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtWidgets/qapplication.h \
 		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtCore/qcoreapplication.h \
@@ -732,15 +742,6 @@ debug/tilakone.o: ../bankautomat/tilakone.cpp ../bankautomat/tilakone.h \
 		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtCore/qurlquery.h \
 		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtCore/quuid.h \
 		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtCore/QObject \
-		../bankautomat/libraries/DLL-RFID/rfid125.h \
-		../bankautomat/libraries/DLL-RFID/RFID125_global.h \
-		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtCore/QDebug \
-		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtSerialPort/QSerialPort \
-		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtSerialPort/qserialport.h \
-		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtSerialPort/qserialportglobal.h \
-		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtSerialPort/QSerialPortInfo \
-		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtSerialPort/qserialportinfo.h \
-		../bankautomat/mainwindow.h \
 		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtWidgets/QMainWindow \
 		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtWidgets/qmainwindow.h \
 		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtWidgets/qtwidgetsglobal.h \
@@ -781,6 +782,20 @@ debug/tilakone.o: ../bankautomat/tilakone.cpp ../bankautomat/tilakone.h \
 		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtGui/qtouchdevice.h \
 		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtWidgets/qtabwidget.h \
 		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtGui/qicon.h \
+		../bankautomat/libraries/DLL-RFID/rfid125.h \
+		../bankautomat/libraries/DLL-RFID/RFID125_global.h \
+		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtCore/QDebug \
+		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtSerialPort/QSerialPort \
+		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtSerialPort/qserialport.h \
+		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtSerialPort/qserialportglobal.h \
+		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtSerialPort/QSerialPortInfo \
+		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtSerialPort/qserialportinfo.h \
+		../bankautomat/mainwindow.h \
+		../bankautomat/libraries/DLLPinUi/pinui3.h \
+		../bankautomat/libraries/DLLPinUi/PinUi3_global.h \
+		../bankautomat/libraries/DLLPinUi/pincode.h \
+		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtWidgets/QDialog \
+		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtWidgets/qdialog.h \
 		../bankautomat/libraries/DLLRestAPI/dllrestapi.h \
 		../bankautomat/libraries/DLLRestAPI/DLLRestAPI_global.h \
 		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtCore/QJsonArray \
@@ -808,7 +823,9 @@ debug/tilakone.o: ../bankautomat/tilakone.cpp ../bankautomat/tilakone.h \
 		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtCore/QFlags \
 		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtNetwork/QSslPreSharedKeyAuthenticator \
 		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtNetwork/qsslpresharedkeyauthenticator.h \
-		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtCore/QMetaType
+		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtCore/QMetaType \
+		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtCore/QJsonDocument \
+		D:/Koulu/QtIDE/5.15.2/mingw81_32/include/QtCore/qjsondocument.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\tilakone.o ..\bankautomat\tilakone.cpp
 
 debug/moc_mainwindow.o: debug/moc_mainwindow.cpp 

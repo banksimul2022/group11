@@ -9,6 +9,28 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    //Connect numbers like Aappo does
+    connect(ui->number0, SIGNAL(clicked()),
+            this, SLOT(numberPressed()));
+    connect(ui->number1, SIGNAL(clicked()),
+            this, SLOT(numberPressed()));
+    connect(ui->number2, SIGNAL(clicked()),
+            this, SLOT(numberPressed()));
+    connect(ui->number3, SIGNAL(clicked()),
+            this, SLOT(numberPressed()));
+    connect(ui->number4, SIGNAL(clicked()),
+            this, SLOT(numberPressed()));
+    connect(ui->number5, SIGNAL(clicked()),
+            this, SLOT(numberPressed()));
+    connect(ui->number6, SIGNAL(clicked()),
+            this, SLOT(numberPressed()));
+    connect(ui->number7, SIGNAL(clicked()),
+            this, SLOT(numberPressed()));
+    connect(ui->number8, SIGNAL(clicked()),
+            this, SLOT(numberPressed()));
+    connect(ui->number9, SIGNAL(clicked()),
+            this, SLOT(numberPressed()));
 }
 
 MainWindow::~MainWindow()
@@ -20,82 +42,160 @@ MainWindow::~MainWindow()
 
 void MainWindow::pinUiVisibility(bool b = true)         //Method for handling pinUI visibility
 {
-    this->ui->NumberInput->setEnabled(b);
+    //pirkka
+    this->ui->number0->setVisible(b);
+    this->ui->number1->setVisible(b);
+    this->ui->number2->setVisible(b);
+    this->ui->number3->setVisible(b);
+    this->ui->number4->setVisible(b);
+    this->ui->number5->setVisible(b);
+    this->ui->number6->setVisible(b);
+    this->ui->number7->setVisible(b);
+    this->ui->number8->setVisible(b);
+    this->ui->number9->setVisible(b);
+    this->ui->clearButton->setVisible(b);
+    this->ui->confirmButton->setVisible(b);
+    this->ui->lineEdit->setVisible(b);
+
     qDebug()<<"NumberInput visibility changed to " << b;
 }
 
-void MainWindow::setMessageLabel(QString n)             //Method for changing text on MessageLabel
+void MainWindow::withdrawOptionsVisibility(bool b)
+{
+    //En jaksa tapella, pirkka ratkasut is go
+    this->ui->pushButton->setVisible(b);
+    this->ui->pushButton_2->setVisible(b);
+    this->ui->pushButton_3->setVisible(b);
+    this->ui->pushButton_4->setVisible(b);
+    this->ui->pushButton_5->setVisible(b);
+    this->ui->pushButton_6->setVisible(b);
+    this->ui->pushButton_7->setVisible(b);
+    this->ui->amountOther->setVisible(b);
+
+    qDebug()<<"withdrawOptions visibility changed to " << b;
+}
+
+void MainWindow::messageLabelVisibility(bool b)
+{
+    this->ui->MessageLabel->setVisible(b);
+
+    qDebug()<<"messageLabel visibility changed to " <<b;
+}
+
+void MainWindow::customAmountVisibility(bool b)
+{
+    //pirkka
+    this->ui->number0_2->setVisible(b);
+    this->ui->number1_2->setVisible(b);
+    this->ui->number2_2->setVisible(b);
+    this->ui->number3_2->setVisible(b);
+    this->ui->number4_2->setVisible(b);
+    this->ui->number5_2->setVisible(b);
+    this->ui->number6_2->setVisible(b);
+    this->ui->number7_2->setVisible(b);
+    this->ui->number8_2->setVisible(b);
+    this->ui->number9_2->setVisible(b);
+    this->ui->clearButton_2->setVisible(b);
+    this->ui->confirmButton_2->setVisible(b);
+    this->ui->lineEdit_2->setVisible(b);
+
+    qDebug()<<"AmountInput visibility chaged to " << b;
+}
+
+void MainWindow::optionsVisibility(bool b)
+{
+    this->ui->drawCashButton->setVisible(b);
+    this->ui->transactionsButton->setVisible(b);
+    this->ui->transferButton->setVisible(b);
+    this->ui->balanceButton->setVisible(b);
+
+    qDebug()<<"options visibility changed to " << b;
+}
+
+void MainWindow::setMessageLabel(QString n)
 {
     this->ui->MessageLabel->setText(n);
 }
 
-//Here NumberInput clicks
-
-void MainWindow::on_number1_clicked()
+void MainWindow::displayPinMenu()
 {
-    pinCheck = pinCheck + 1;
-    qDebug()<<pinCheck;
+    QString enter = "Insert card into reader!";
+
+    this->messageLabelVisibility(true);
+    this->setMessageLabel(enter);
+    this->pinUiVisibility(true);
+
+    this->withdrawOptionsVisibility(false);
+    this->customAmountVisibility(false);
+    this->optionsVisibility(false);
+    this->ui->DisplaySum->setVisible(false);
 }
 
-
-void MainWindow::on_number2_clicked()
+void MainWindow::displayOptions()
 {
-    pinCheck = pinCheck + 2;
-    qDebug()<<pinCheck;
+    QString message = "Choose action!";
+    this->pinUiVisibility(false);
+    this->customAmountVisibility(false);
+    this->withdrawOptionsVisibility(false);
+
+    this->messageLabelVisibility(true);
+    this->optionsVisibility(true);
+    this->setMessageLabel(message);
 }
 
-
-void MainWindow::on_number3_clicked()
+void MainWindow::displayTransactions()
 {
-    pinCheck = pinCheck + 3;
-    qDebug()<<pinCheck;
+
 }
 
-
-void MainWindow::on_number4_clicked()
+void MainWindow::displayChooseAmount()
 {
-    pinCheck = pinCheck + 4;
-    qDebug()<<pinCheck;
+    QString message = "Choose amount to withdraw!";
+
+    this->withdrawOptionsVisibility(true);
+    this->customAmountVisibility(true);
+    this->messageLabelVisibility(true);
+
+    this->optionsVisibility(false);
+    this->pinUiVisibility(false);
+    this->setMessageLabel(message);
 }
 
-
-void MainWindow::on_number5_clicked()
+void MainWindow::displayTransfer()
 {
-    pinCheck = pinCheck + 5;
-    qDebug()<<pinCheck;
+
 }
 
-
-void MainWindow::on_number6_clicked()
+void MainWindow::displayBalance()
 {
-    pinCheck = pinCheck + 6;
-    qDebug()<<pinCheck;
+
 }
 
-
-void MainWindow::on_number7_clicked()
+void MainWindow::displayMessage()
 {
-    pinCheck = pinCheck + 7;
-    qDebug()<<pinCheck;
+    this->messageLabelVisibility(true);
+
+    this->withdrawOptionsVisibility(false);
+    this->customAmountVisibility(false);
+    this->optionsVisibility(false);
+    this->pinUiVisibility(false);
+    this->ui->DisplaySum->setVisible(false);
 }
 
-
-void MainWindow::on_number8_clicked()
+void MainWindow::numberPressed()
 {
-    pinCheck = pinCheck + 8;
-    qDebug()<<pinCheck;
+    QPushButton * button = (QPushButton*)sender();
+
+    double buttonNumber;
+    QString newNumber;
+
+    buttonNumber = (ui->lineEdit->text() + button->text()).toDouble();
+    newNumber = QString::number(buttonNumber);
+    ui->lineEdit->setText(newNumber);
 }
 
-
-void MainWindow::on_number9_clicked()
+void MainWindow::clearPressed()
 {
-    pinCheck = pinCheck + 9;
-    qDebug()<<pinCheck;
+    ui->lineEdit->setText("");
 }
 
-
-void MainWindow::on_number0_clicked()
-{
-    pinCheck = pinCheck + 0;
-    qDebug()<<pinCheck;
-}
