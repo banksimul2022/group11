@@ -13,3 +13,6 @@ bankautomat/libraries/DLLRestAPI/build/
 bankautomat/libraries/DLLRestAPI/*.user
 bankautomat/libraries/DLLRestAPI/*.user.bak
 
+# DLL-PinUi
+bankautomat/libraries/DLL-PinUi/build/
+bankautomat/libraries/DLL-PinUi/*.user
