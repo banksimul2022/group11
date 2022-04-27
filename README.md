@@ -53,7 +53,7 @@ Following planning and documenting steps were made during the planning phase:
   
 </details>
 
-## Acknowledgments
+## Authors
 
 * [Santeri Knihtilä](https://www.linkedin.com/in/santeri-knihtil%C3%A4-475570143/)
 * [Aappo Launonen](https://www.linkedin.com/in/aappo-launonen-957640233/)
