@@ -14,8 +14,8 @@ bankautomat/libraries/DLLRestAPI/build/
 bankautomat/libraries/DLLRestAPI/*.user
 bankautomat/libraries/DLLRestAPI/*.user.bak
 
-<<<<<<< HEAD
-=======
 build-bankautomat-Desktop_Qt_5_15_2_MinGW_32_bit-Debug/
 bankautomat/libraries/DLLStatemachine/build-StateMachine-Desktop_Qt_5_15_2_MinGW_32_bit-Debug/
->>>>>>> b413a14... statemachine korjaus
+# DLL-PinUi
+bankautomat/libraries/DLL-PinUi/build/
+bankautomat/libraries/DLL-PinUi/*.user
