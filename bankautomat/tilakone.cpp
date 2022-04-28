@@ -24,7 +24,6 @@ Tilakone::Tilakone(class MainWindow* p)
     //Set variables to be nothing on
     stringID = "";
     insertedPIN = "";
-    pinloop = true;
 
     w = p;
 
@@ -212,16 +211,18 @@ void Tilakone::fromPINUIButtonPressed()
 
 }
 
-void Tilakone::uiConfirmPin()
+void Tilakone::uiConfirmPin()           //TODO: propably pointless
 {
     insertedPIN = w->ui->lineEdit->text();
     qDebug()<<"PIN inserted is " << insertedPIN;
-    pinloop = false;
+    //errorhandling PIN
+    //emit a signal to signify confirmButton was pressed
 }
 
 void Tilakone::uiConfirmAmount()
 {
     qDebug()<<"Amount to be withdrawn is ";
+    //errorhandling for withdraw amount
 }
 
 void Tilakone::stateMainWindow(event n)
@@ -271,7 +272,6 @@ void Tilakone::stateAwaitingPin(event n)
         /*
         pPinCode->pinui();      //Opens dialog for entering pin
         */  //commented out until fix is found
-
 
 
         /*      //Pirkka(tm) ratkasu palvelimen yhdistystä varten

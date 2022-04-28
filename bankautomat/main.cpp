@@ -3,7 +3,7 @@
 
 #include <QApplication>
 
-
+//TODO: test if main could control Tilakone as each loop would invoke runStateMachine
 Tilakone::state n = Tilakone::MainWindow;
 Tilakone::event m = Tilakone::SMStart;
 

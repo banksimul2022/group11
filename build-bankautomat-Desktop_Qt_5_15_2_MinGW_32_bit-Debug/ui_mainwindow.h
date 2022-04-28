@@ -46,37 +46,37 @@ public:
     QLineEdit *DisplaySum;
     QWidget *layoutWidget_2;
     QGridLayout *NumberInput_2;
-    QPushButton *number6_2;
-    QPushButton *number2_2;
+    QPushButton *number0_2;
     QPushButton *number5_2;
     QPushButton *number9_2;
     QPushButton *number8_2;
-    QPushButton *number7_2;
-    QPushButton *number3_2;
-    QPushButton *number0_2;
     QPushButton *confirmButton_2;
-    QPushButton *number1_2;
-    QPushButton *clearButton_2;
     QPushButton *number4_2;
-    QLineEdit *lineEdit_2;
-    QWidget *widget;
+    QPushButton *clearButton_2;
+    QPushButton *number1_2;
+    QPushButton *number7_2;
+    QPushButton *number6_2;
+    QPushButton *number2_2;
+    QPushButton *number3_2;
+    QWidget *layoutWidget1;
     QFormLayout *Withdraw1;
     QPushButton *pushButton;
     QPushButton *pushButton_2;
     QPushButton *pushButton_3;
     QPushButton *pushButton_4;
-    QWidget *widget1;
+    QWidget *layoutWidget2;
     QFormLayout *Withdraw2;
     QPushButton *pushButton_5;
     QPushButton *pushButton_6;
     QPushButton *pushButton_7;
     QPushButton *amountOther;
-    QWidget *widget2;
+    QWidget *layoutWidget3;
     QGridLayout *gridLayout;
     QPushButton *drawCashButton;
     QPushButton *transactionsButton;
     QPushButton *balanceButton;
     QPushButton *transferButton;
+    QLineEdit *lineEdit_2;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -172,150 +172,148 @@ public:
         NumberInput_2->setObjectName(QString::fromUtf8("NumberInput_2"));
         NumberInput_2->setSizeConstraint(QLayout::SetFixedSize);
         NumberInput_2->setContentsMargins(0, 0, 0, 0);
-        number6_2 = new QPushButton(layoutWidget_2);
-        number6_2->setObjectName(QString::fromUtf8("number6_2"));
+        number0_2 = new QPushButton(layoutWidget_2);
+        number0_2->setObjectName(QString::fromUtf8("number0_2"));
 
-        NumberInput_2->addWidget(number6_2, 3, 2, 1, 1);
-
-        number2_2 = new QPushButton(layoutWidget_2);
-        number2_2->setObjectName(QString::fromUtf8("number2_2"));
-
-        NumberInput_2->addWidget(number2_2, 2, 1, 1, 1);
+        NumberInput_2->addWidget(number0_2, 4, 1, 1, 1);
 
         number5_2 = new QPushButton(layoutWidget_2);
         number5_2->setObjectName(QString::fromUtf8("number5_2"));
 
-        NumberInput_2->addWidget(number5_2, 3, 1, 1, 1);
+        NumberInput_2->addWidget(number5_2, 2, 1, 1, 1);
 
         number9_2 = new QPushButton(layoutWidget_2);
         number9_2->setObjectName(QString::fromUtf8("number9_2"));
 
-        NumberInput_2->addWidget(number9_2, 4, 2, 1, 1);
+        NumberInput_2->addWidget(number9_2, 3, 2, 1, 1);
 
         number8_2 = new QPushButton(layoutWidget_2);
         number8_2->setObjectName(QString::fromUtf8("number8_2"));
 
-        NumberInput_2->addWidget(number8_2, 4, 1, 1, 1);
-
-        number7_2 = new QPushButton(layoutWidget_2);
-        number7_2->setObjectName(QString::fromUtf8("number7_2"));
-
-        NumberInput_2->addWidget(number7_2, 4, 0, 1, 1);
-
-        number3_2 = new QPushButton(layoutWidget_2);
-        number3_2->setObjectName(QString::fromUtf8("number3_2"));
-
-        NumberInput_2->addWidget(number3_2, 2, 2, 1, 1);
-
-        number0_2 = new QPushButton(layoutWidget_2);
-        number0_2->setObjectName(QString::fromUtf8("number0_2"));
-
-        NumberInput_2->addWidget(number0_2, 5, 1, 1, 1);
+        NumberInput_2->addWidget(number8_2, 3, 1, 1, 1);
 
         confirmButton_2 = new QPushButton(layoutWidget_2);
         confirmButton_2->setObjectName(QString::fromUtf8("confirmButton_2"));
 
-        NumberInput_2->addWidget(confirmButton_2, 5, 2, 1, 1);
-
-        number1_2 = new QPushButton(layoutWidget_2);
-        number1_2->setObjectName(QString::fromUtf8("number1_2"));
-
-        NumberInput_2->addWidget(number1_2, 2, 0, 1, 1);
-
-        clearButton_2 = new QPushButton(layoutWidget_2);
-        clearButton_2->setObjectName(QString::fromUtf8("clearButton_2"));
-
-        NumberInput_2->addWidget(clearButton_2, 5, 0, 1, 1);
+        NumberInput_2->addWidget(confirmButton_2, 4, 2, 1, 1);
 
         number4_2 = new QPushButton(layoutWidget_2);
         number4_2->setObjectName(QString::fromUtf8("number4_2"));
 
-        NumberInput_2->addWidget(number4_2, 3, 0, 1, 1);
+        NumberInput_2->addWidget(number4_2, 2, 0, 1, 1);
 
-        lineEdit_2 = new QLineEdit(layoutWidget_2);
-        lineEdit_2->setObjectName(QString::fromUtf8("lineEdit_2"));
+        clearButton_2 = new QPushButton(layoutWidget_2);
+        clearButton_2->setObjectName(QString::fromUtf8("clearButton_2"));
 
-        NumberInput_2->addWidget(lineEdit_2, 1, 2, 1, 1);
+        NumberInput_2->addWidget(clearButton_2, 4, 0, 1, 1);
 
-        widget = new QWidget(centralwidget);
-        widget->setObjectName(QString::fromUtf8("widget"));
-        widget->setGeometry(QRect(30, 90, 88, 251));
-        Withdraw1 = new QFormLayout(widget);
+        number1_2 = new QPushButton(layoutWidget_2);
+        number1_2->setObjectName(QString::fromUtf8("number1_2"));
+
+        NumberInput_2->addWidget(number1_2, 1, 0, 1, 1);
+
+        number7_2 = new QPushButton(layoutWidget_2);
+        number7_2->setObjectName(QString::fromUtf8("number7_2"));
+
+        NumberInput_2->addWidget(number7_2, 3, 0, 1, 1);
+
+        number6_2 = new QPushButton(layoutWidget_2);
+        number6_2->setObjectName(QString::fromUtf8("number6_2"));
+
+        NumberInput_2->addWidget(number6_2, 2, 2, 1, 1);
+
+        number2_2 = new QPushButton(layoutWidget_2);
+        number2_2->setObjectName(QString::fromUtf8("number2_2"));
+
+        NumberInput_2->addWidget(number2_2, 1, 1, 1, 1);
+
+        number3_2 = new QPushButton(layoutWidget_2);
+        number3_2->setObjectName(QString::fromUtf8("number3_2"));
+
+        NumberInput_2->addWidget(number3_2, 1, 2, 1, 1);
+
+        layoutWidget1 = new QWidget(centralwidget);
+        layoutWidget1->setObjectName(QString::fromUtf8("layoutWidget1"));
+        layoutWidget1->setGeometry(QRect(30, 90, 88, 251));
+        Withdraw1 = new QFormLayout(layoutWidget1);
         Withdraw1->setObjectName(QString::fromUtf8("Withdraw1"));
         Withdraw1->setContentsMargins(0, 0, 0, 0);
-        pushButton = new QPushButton(widget);
+        pushButton = new QPushButton(layoutWidget1);
         pushButton->setObjectName(QString::fromUtf8("pushButton"));
         pushButton->setEnabled(true);
 
         Withdraw1->setWidget(0, QFormLayout::LabelRole, pushButton);
 
-        pushButton_2 = new QPushButton(widget);
+        pushButton_2 = new QPushButton(layoutWidget1);
         pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
 
         Withdraw1->setWidget(1, QFormLayout::LabelRole, pushButton_2);
 
-        pushButton_3 = new QPushButton(widget);
+        pushButton_3 = new QPushButton(layoutWidget1);
         pushButton_3->setObjectName(QString::fromUtf8("pushButton_3"));
 
         Withdraw1->setWidget(2, QFormLayout::LabelRole, pushButton_3);
 
-        pushButton_4 = new QPushButton(widget);
+        pushButton_4 = new QPushButton(layoutWidget1);
         pushButton_4->setObjectName(QString::fromUtf8("pushButton_4"));
 
         Withdraw1->setWidget(3, QFormLayout::LabelRole, pushButton_4);
 
-        widget1 = new QWidget(centralwidget);
-        widget1->setObjectName(QString::fromUtf8("widget1"));
-        widget1->setGeometry(QRect(540, 90, 88, 251));
-        Withdraw2 = new QFormLayout(widget1);
+        layoutWidget2 = new QWidget(centralwidget);
+        layoutWidget2->setObjectName(QString::fromUtf8("layoutWidget2"));
+        layoutWidget2->setGeometry(QRect(540, 90, 88, 251));
+        Withdraw2 = new QFormLayout(layoutWidget2);
         Withdraw2->setObjectName(QString::fromUtf8("Withdraw2"));
         Withdraw2->setContentsMargins(0, 0, 0, 0);
-        pushButton_5 = new QPushButton(widget1);
+        pushButton_5 = new QPushButton(layoutWidget2);
         pushButton_5->setObjectName(QString::fromUtf8("pushButton_5"));
 
         Withdraw2->setWidget(0, QFormLayout::LabelRole, pushButton_5);
 
-        pushButton_6 = new QPushButton(widget1);
+        pushButton_6 = new QPushButton(layoutWidget2);
         pushButton_6->setObjectName(QString::fromUtf8("pushButton_6"));
 
         Withdraw2->setWidget(1, QFormLayout::LabelRole, pushButton_6);
 
-        pushButton_7 = new QPushButton(widget1);
+        pushButton_7 = new QPushButton(layoutWidget2);
         pushButton_7->setObjectName(QString::fromUtf8("pushButton_7"));
 
         Withdraw2->setWidget(2, QFormLayout::LabelRole, pushButton_7);
 
-        amountOther = new QPushButton(widget1);
+        amountOther = new QPushButton(layoutWidget2);
         amountOther->setObjectName(QString::fromUtf8("amountOther"));
 
         Withdraw2->setWidget(3, QFormLayout::LabelRole, amountOther);
 
-        widget2 = new QWidget(centralwidget);
-        widget2->setObjectName(QString::fromUtf8("widget2"));
-        widget2->setGeometry(QRect(150, 310, 340, 26));
-        gridLayout = new QGridLayout(widget2);
+        layoutWidget3 = new QWidget(centralwidget);
+        layoutWidget3->setObjectName(QString::fromUtf8("layoutWidget3"));
+        layoutWidget3->setGeometry(QRect(150, 310, 340, 26));
+        gridLayout = new QGridLayout(layoutWidget3);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
         gridLayout->setContentsMargins(0, 0, 0, 0);
-        drawCashButton = new QPushButton(widget2);
+        drawCashButton = new QPushButton(layoutWidget3);
         drawCashButton->setObjectName(QString::fromUtf8("drawCashButton"));
 
         gridLayout->addWidget(drawCashButton, 0, 0, 1, 1);
 
-        transactionsButton = new QPushButton(widget2);
+        transactionsButton = new QPushButton(layoutWidget3);
         transactionsButton->setObjectName(QString::fromUtf8("transactionsButton"));
 
         gridLayout->addWidget(transactionsButton, 0, 1, 1, 1);
 
-        balanceButton = new QPushButton(widget2);
+        balanceButton = new QPushButton(layoutWidget3);
         balanceButton->setObjectName(QString::fromUtf8("balanceButton"));
 
         gridLayout->addWidget(balanceButton, 0, 2, 1, 1);
 
-        transferButton = new QPushButton(widget2);
+        transferButton = new QPushButton(layoutWidget3);
         transferButton->setObjectName(QString::fromUtf8("transferButton"));
 
         gridLayout->addWidget(transferButton, 0, 3, 1, 1);
 
+        lineEdit_2 = new QLineEdit(centralwidget);
+        lineEdit_2->setObjectName(QString::fromUtf8("lineEdit_2"));
+        lineEdit_2->setGeometry(QRect(270, 10, 80, 24));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
@@ -346,18 +344,18 @@ public:
         number8->setText(QCoreApplication::translate("MainWindow", "8", nullptr));
         clearButton->setText(QCoreApplication::translate("MainWindow", "Clear", nullptr));
         confirmButton->setText(QCoreApplication::translate("MainWindow", "Confirm", nullptr));
-        number6_2->setText(QCoreApplication::translate("MainWindow", "6", nullptr));
-        number2_2->setText(QCoreApplication::translate("MainWindow", "2", nullptr));
+        number0_2->setText(QCoreApplication::translate("MainWindow", "0", nullptr));
         number5_2->setText(QCoreApplication::translate("MainWindow", "5", nullptr));
         number9_2->setText(QCoreApplication::translate("MainWindow", "9", nullptr));
         number8_2->setText(QCoreApplication::translate("MainWindow", "8", nullptr));
-        number7_2->setText(QCoreApplication::translate("MainWindow", "7", nullptr));
-        number3_2->setText(QCoreApplication::translate("MainWindow", "3", nullptr));
-        number0_2->setText(QCoreApplication::translate("MainWindow", "0", nullptr));
         confirmButton_2->setText(QCoreApplication::translate("MainWindow", "Confirm", nullptr));
-        number1_2->setText(QCoreApplication::translate("MainWindow", "1", nullptr));
-        clearButton_2->setText(QCoreApplication::translate("MainWindow", "Clear", nullptr));
         number4_2->setText(QCoreApplication::translate("MainWindow", "4", nullptr));
+        clearButton_2->setText(QCoreApplication::translate("MainWindow", "Clear", nullptr));
+        number1_2->setText(QCoreApplication::translate("MainWindow", "1", nullptr));
+        number7_2->setText(QCoreApplication::translate("MainWindow", "7", nullptr));
+        number6_2->setText(QCoreApplication::translate("MainWindow", "6", nullptr));
+        number2_2->setText(QCoreApplication::translate("MainWindow", "2", nullptr));
+        number3_2->setText(QCoreApplication::translate("MainWindow", "3", nullptr));
         pushButton->setText(QCoreApplication::translate("MainWindow", "20", nullptr));
         pushButton_2->setText(QCoreApplication::translate("MainWindow", "50", nullptr));
         pushButton_3->setText(QCoreApplication::translate("MainWindow", "100", nullptr));
