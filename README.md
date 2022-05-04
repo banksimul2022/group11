@@ -40,6 +40,8 @@ Following planning and documenting steps were made during the planning phase:
   ### Entity Relationship Diagram  
   <img src="assets/Database%20ER%20diagram.png" alt="ER-Diagram" height="500">
   
+  ### Component Diagram
+  <img src="assets/Component%20diagram.png" alt="Component Diagram" height="500">
 
   ### Class Diagrams
 
@@ -51,7 +53,7 @@ Following planning and documenting steps were made during the planning phase:
   
 </details>
 
-## Acknowledgments
+## Authors
 
 * [Santeri Knihtilä](https://www.linkedin.com/in/santeri-knihtil%C3%A4-475570143/)
 * [Aappo Launonen](https://www.linkedin.com/in/aappo-launonen-957640233/)
