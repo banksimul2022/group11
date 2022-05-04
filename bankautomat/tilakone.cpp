@@ -10,26 +10,41 @@
 #include <QDebug>
 #include <QJsonObject>
 #include <QJsonDocument>
+#include <QJsonValue>
 #include <QMainWindow>
+#include <QTableView>
+#include <QList>
+#include <QStandardItemModel>
+#include <QTableWidgetItem>
+#include <QTimer>
 
 
-class RFID125 oRFID;
+class RFID125 oRFID;    //Muuta siten että on tilakoneen lapsia
 DLLRestAPI* oRestAPI = new DLLRestAPI("https://banksimul-g11.herokuapp.com/");
 MainWindow* w = nullptr;
-//class PinUi3 oPinUi;
-//Must construct Qapplication before qwidget
 
 Tilakone::Tilakone(class MainWindow* p)
 {
-    //Set variables to be nothing on
+    //Set variables to be nothing
     stringID = "";
     insertedPIN = "";
 
+    pPinUi3 = new PinUi3(this); //Pass this pointer so that if Tilakone is deleted, the PinUi will be also
+    timer = new QTimer(this);
+
     w = p;
 
-    //STATEMACHINE connections
+    //STATEMACHINE connections TODO: most are pointless
     connect(this, SIGNAL(mainWindow_WaitingCard(Tilakone::state,Tilakone::event)),
-                     this, SLOT(runStateMachine(Tilakone::state,Tilakone::event)));
+            this, SLOT(runStateMachine(Tilakone::state,Tilakone::event)));
+    connect(this, SIGNAL(decisionWindow_drawDecision(Tilakone::state,Tilakone::event)),
+            this, SLOT(runStateMachine(Tilakone::state,Tilakone::event)));
+    connect(this, SIGNAL(decisionWindow_transactionDecision(Tilakone::state,Tilakone::event)),
+            this, SLOT(runStateMachine(Tilakone::state,Tilakone::event)));
+    connect(this, SIGNAL(decisionWindow_balanceDecision(Tilakone::state,Tilakone::event)),
+            this, SLOT(runStateMachine(Tilakone::state,Tilakone::event)));
+    connect(this, SIGNAL(mainWindow_AwaitingPin(Tilakone::state,Tilakone::event)),
+            this, SLOT(runStateMachine(Tilakone::state,Tilakone::event)));
 
     //RFID connections
     connect(&oRFID, SIGNAL(sendToExe(QByteArray)),
@@ -70,20 +85,61 @@ Tilakone::Tilakone(class MainWindow* p)
     connect(oRestAPI, SIGNAL(toExeLockCardProcessedSignal(QJsonObject)),        //CardLock
             this, SLOT(fromRESTAPICardLocked(QJsonObject)));
 
-    /*
+
     //PINUI connections
-    connect(oPinUi, SIGNAL(toExePinCodeEntered(QString)),
+    connect(pPinUi3, SIGNAL(toExePinCodeEntered(QString)),
             this, SLOT(fromPINUIPinEntered(QString)));
-    connect(oPinUi, SIGNAL(toExeCancelPinCode()),
+    connect(pPinUi3, SIGNAL(toExeCancelPinCode()),
             this, SLOT(fromPINUIPinCancelled()));
-    connect(oPinUi, SIGNAL(toExeButtonPressed()),
-            this, SLOT(fromPINUIButtonPressed));
-    */  //Commented out until fix is found
+    connect(pPinUi3, SIGNAL(toExeButtonPressed()),
+            this, SLOT(fromPINUIButtonPressed()));
+
 
     //UI connections
+    connect(w->ui->transactionsButton, SIGNAL(clicked()),
+            this, SLOT(clickTransactions()));
+    connect(w->ui->drawCashButton, SIGNAL(clicked()),
+            this, SLOT(clickDraw()));
+    connect(w->ui->balanceButton, SIGNAL(clicked()),
+            this, SLOT(clickBalance()));
+    connect(w->ui->transferButton, SIGNAL(clicked()),
+            this, SLOT(clickTransfer()));
+    connect(w->ui->transactionMore, SIGNAL(clicked()),
+            this, SLOT(clickMore()));
+    connect(w->ui->transactionLess, SIGNAL(clicked()),
+            this, SLOT(clickLess()));
+    connect(w->ui->backButton, SIGNAL(clicked()),
+            this, SLOT(clickBack()));
     connect(w->ui->confirmButton, SIGNAL(clicked()),
-            this, SLOT(uiConfirmPin()));
+            this, SLOT(uiConfirmAmount()));
+    connect(w->ui->logoutButton, SIGNAL(clicked()),
+            this, SLOT(clickLogout()));
 
+    //UI timer reset connects
+    connect(w->ui->number0, SIGNAL(clicked()),
+            this, SLOT(fromPINUIButtonPressed()));
+    connect(w->ui->number1, SIGNAL(clicked()),
+            this, SLOT(fromPINUIButtonPressed()));
+    connect(w->ui->number2, SIGNAL(clicked()),
+            this, SLOT(fromPINUIButtonPressed()));
+    connect(w->ui->number3, SIGNAL(clicked()),
+            this, SLOT(fromPINUIButtonPressed()));
+    connect(w->ui->number4, SIGNAL(clicked()),
+            this, SLOT(fromPINUIButtonPressed()));
+    connect(w->ui->number5, SIGNAL(clicked()),
+            this, SLOT(fromPINUIButtonPressed()));
+    connect(w->ui->number6, SIGNAL(clicked()),
+            this, SLOT(fromPINUIButtonPressed()));
+    connect(w->ui->number7, SIGNAL(clicked()),
+            this, SLOT(fromPINUIButtonPressed()));
+    connect(w->ui->number8, SIGNAL(clicked()),
+            this, SLOT(fromPINUIButtonPressed()));
+    connect(w->ui->number9, SIGNAL(clicked()),
+            this, SLOT(fromPINUIButtonPressed()));
+
+    //Time
+    connect(timer, SIGNAL(timeout()),
+            this, SLOT(handleTimeout()));
 }
 
 void Tilakone::runStateMachine(state n, event m)
@@ -113,28 +169,184 @@ void Tilakone::runStateMachine(state n, event m)
     case 7:
         stateTransferMoney(m);
         break;
+    case 8:
+        stateEndScreen();
+        break;
     default:
         qDebug()<<"runStateMachine default state!";
     }
 }
 
-void Tilakone::handleTimeOut()
+void Tilakone::addToUiTransactions(int, int)    //TODO: kaataa jostain syystä ohjelman
 {
+    //new objects for table view
+    column1 = new QTableWidgetItem(0);
+    column2 = new QTableWidgetItem(0);
+    column3 = new QTableWidgetItem(0);
+    column4 = new QTableWidgetItem(0);
+    column5 = new QTableWidgetItem(0);
+    column6 = new QTableWidgetItem(0);
+    column7 = new QTableWidgetItem(0);
+    column8 = new QTableWidgetItem(0);
+    column9 = new QTableWidgetItem(0);
+    column10 = new QTableWidgetItem(0);
 
+    //convert QStringList to QTableWidgetItem and place in ui, hierarchy issue
+    for(int i = 0; i < accAikaleima.size(); i++) {
+        accAikaleima.append(" " + accTapahtuma.at(i));
+        accAikaleima.append(" " + accSumma.at(i));
+        accAikaleima.append(" " + accTransactions.at(i));
+
+        column1->setData(0, accAikaleima.at(i));
+        w->ui->tableWidget->setItem(i, 0, column1);
+
+        column2->setData(0, accAikaleima.at(i));
+        w->ui->tableWidget->setItem(i, 0, column2);
+
+        column3->setData(0, accAikaleima.at(i));
+        w->ui->tableWidget->setItem(i, 0, column3);
+
+        column4->setData(0, accAikaleima.at(i));
+        w->ui->tableWidget->setItem(i, 0, column4);
+
+        column5->setData(0, accAikaleima.at(i));
+        w->ui->tableWidget->setItem(i, 0, column5);
+
+        column6->setData(0, accAikaleima.at(i));
+        w->ui->tableWidget->setItem(i, 0, column6);
+
+        column7->setData(0, accAikaleima.at(i));
+        w->ui->tableWidget->setItem(i, 0, column7);
+
+        column8->setData(0, accAikaleima.at(i));
+        w->ui->tableWidget->setItem(i, 0, column8);
+
+        column9->setData(0, accAikaleima.at(i));
+        w->ui->tableWidget->setItem(i, 0, column9);
+
+        column10->setData(0, accAikaleima.at(i));
+        w->ui->tableWidget->setItem(i, 0, column10);
+
+    }
+/*
+    for(int i = 0; i < accTapahtuma.size(); i++) {
+        column1->setData(0, accTapahtuma.at(i));
+        w->ui->tableWidget->setItem(i, 0, column1);
+
+        column2->setData(0, accTapahtuma.at(i));
+        w->ui->tableWidget->setItem(i, 0, column2);
+
+        column3->setData(0, accTapahtuma.at(i));
+        w->ui->tableWidget->setItem(i, 0, column3);
+
+        column4->setData(0, accTapahtuma.at(i));
+        w->ui->tableWidget->setItem(i, 0, column4);
+
+        column5->setData(0, accTapahtuma.at(i));
+        w->ui->tableWidget->setItem(i, 0, column5);
+
+        column6->setData(0, accTapahtuma.at(i));
+        w->ui->tableWidget->setItem(i, 0, column6);
+
+        column7->setData(0, accTapahtuma.at(i));
+        w->ui->tableWidget->setItem(i, 0, column7);
+
+        column8->setData(0, accTapahtuma.at(i));
+        w->ui->tableWidget->setItem(i, 0, column8);
+
+        column9->setData(0, accTapahtuma.at(i));
+        w->ui->tableWidget->setItem(i, 0, column9);
+
+        column10->setData(0, accTapahtuma.at(i));
+        w->ui->tableWidget->setItem(i, 0, column10);
+
+    }
+
+    for(int i = 0; i < accSumma.size(); i++) {
+        column1->setData(0, accSumma.at(i));
+        w->ui->tableWidget->setItem(i, 0, column1);
+
+        column2->setData(0, accSumma.at(i));
+        w->ui->tableWidget->setItem(i, 0, column2);
+
+        column3->setData(0, accSumma.at(i));
+        w->ui->tableWidget->setItem(i, 0, column3);
+
+        column4->setData(0, accSumma.at(i));
+        w->ui->tableWidget->setItem(i, 0, column4);
+
+        column5->setData(0, accSumma.at(i));
+        w->ui->tableWidget->setItem(i, 0, column5);
+
+        column6->setData(0, accSumma.at(i));
+        w->ui->tableWidget->setItem(i, 0, column6);
+
+        column7->setData(0, accSumma.at(i));
+        w->ui->tableWidget->setItem(i, 0, column7);
+
+        column8->setData(0, accSumma.at(i));
+        w->ui->tableWidget->setItem(i, 0, column8);
+
+        column9->setData(0, accSumma.at(i));
+        w->ui->tableWidget->setItem(i, 0, column9);
+
+        column10->setData(0, accSumma.at(i));
+        w->ui->tableWidget->setItem(i, 0, column10);
+
+    }
+
+    for(int i = 0; i < accTransactions.size(); i++) {
+        column1->setData(0, accTransactions.at(i));
+        w->ui->tableWidget->setItem(i, 0, column1);
+
+        column2->setData(0, accTransactions.at(i));
+        w->ui->tableWidget->setItem(i, 0, column2);
+
+        column3->setData(0, accTransactions.at(i));
+        w->ui->tableWidget->setItem(i, 0, column3);
+
+        column4->setData(0, accTransactions.at(i));
+        w->ui->tableWidget->setItem(i, 0, column4);
+
+        column5->setData(0, accTransactions.at(i));
+        w->ui->tableWidget->setItem(i, 0, column5);
+
+        column6->setData(0, accTransactions.at(i));
+        w->ui->tableWidget->setItem(i, 0, column6);
+
+        column7->setData(0, accTransactions.at(i));
+        w->ui->tableWidget->setItem(i, 0, column7);
+
+        column8->setData(0, accTransactions.at(i));
+        w->ui->tableWidget->setItem(i, 0, column8);
+
+        column9->setData(0, accTransactions.at(i));
+        w->ui->tableWidget->setItem(i, 0, column9);
+
+        column10->setData(0, accTransactions.at(i));
+        w->ui->tableWidget->setItem(i, 0, column10);
+
+    }
+*/
 }
 
-bool Tilakone::handlePIN()
+void Tilakone::addToUiBalance()
 {
-    if (insertedPIN >= 4) {
-        return false;
-    }
-    return true;
+    w->ui->DisplaySum->setText(accBalance);
+}
+
+void Tilakone::timeMachine(int n)   //Re-calling this funtion while timer is active will restart timer with new given value
+{
+    timer->start(n);        //Use timer with custom amounts of ms
+
+    //One time implementation
+    //QTimer::singleShot(n, this, SLOT(handleTimeout()));
 }
 
 void Tilakone::recieveFromRFID125(QByteArray n)
 {
     this->stringID = QString(n);
-    qDebug()<<stringID<<" recieved from rfiddll";
+    runStateMachine(AwaitingPin, CardInserted);
 }
 
 void Tilakone::fromRESTAPILogin(QJsonObject l)
@@ -143,32 +355,70 @@ void Tilakone::fromRESTAPILogin(QJsonObject l)
         QJsonValue value = l.value(key);
         loginINFO.insert(key, value.toString());
     }
+    if (l.contains("result")) {
+        //this means login succesful
+        //move to next state
+        runStateMachine(AwaitingDecision, ShowOptions);
+    } else if (l.contains("error")) {
+        //this means login was not succesful
+        //invoke incorrectpin event
+        runStateMachine(AwaitingPin, IncorrectPIN);     //TODO: should propably check that the error is pin related
+    }
 }
 
 void Tilakone::fromRESTAPILogout(QJsonObject)
 {
-    qDebug()<<"Logout processed!";
+    stringID = "";
+    insertedPIN = "";
+    chosenAmount = "";
+    accBalance = "";
+
+    runStateMachine(MainWindow, SMStart);
 }
 
-void Tilakone::fromRESTAPIGetAccTransactions(QJsonObject t)
+void Tilakone::fromRESTAPIGetAccTransactions(QJsonObject t) //TODO: selvitä miksi ei toimi
 {
-    foreach(const QString& key, t.keys()) {
-        QJsonValue value = t.value(key);
-        accTransactions.insert(key, value.toString());
+    timeMachine(30000);
+
+    QJsonArray subValue = t["result"].toArray();
+
+    foreach(const QJsonValue& value, subValue) {
+        QJsonObject obj = value.toObject();
+        accAikaleima.append(obj["aikaleima"].toString());
+        accSumma.append(obj["summa"].toString());
+        accTapahtuma.append(obj["tapahtuma"].toString());
+        accTransactions.append(obj["tilinumero"].toString());
     }
+    addToUiTransactions(10, offsetGlobal);  //TODO: propably pointless to use variables in addToUi
 }
 
 void Tilakone::fromRESTAPIGetAccBalance(QJsonObject b)
 {
     foreach(const QString& key, b.keys()) {
         QJsonValue value = b.value(key);
-        accBalance.insert(key, value.toString());
+        accBalance = value.toString();
+        qDebug()<< "Key: " << key << " Value: " << value.toString();
     }
+    addToUiBalance();
 }
 
-void Tilakone::fromRESTAPIGetCustCards(QJsonObject)
+void Tilakone::fromRESTAPIGetCustCards(QJsonObject c)   //TODO: selvitä miksi ei toimi
 {
+    /*
+    foreach(const QString& key, c.value("result").toArray().at(i).toObject()) {
+        QJsonValue value = c.value(key);
+        custCards.append(c.value("korttinumero").toString());
+        //w->ui->recieverAddress->addItems(custCards);
 
+    }*/
+    QJsonArray subValue = c["result"].toArray();
+
+    foreach(const QJsonValue& value, subValue) {
+        QJsonObject obj = value.toObject();
+        custCards.append(obj["korttinumero"].toString());
+    }
+    qDebug()<<custCards;
+    w->ui->recieverAddress->addItems(custCards);
 }
 
 void Tilakone::fromRESTAPIWithdraw(QJsonObject n)
@@ -180,136 +430,192 @@ void Tilakone::fromRESTAPIWithdraw(QJsonObject n)
             qDebug()<< "Key: " << key << " Value: " << value.toString();
         }
     }
+    runStateMachine(EndScreen, LogOut);
 }
 
-void Tilakone::fromRESTAPITransact(QJsonObject)
+void Tilakone::fromRESTAPITransact(QJsonObject) //TODO: selvitä oliko tämä turha
 {
-
+    addToUiTransactions(10, offsetGlobal);
 }
 
 void Tilakone::fromRESTAPICardLocked(QJsonObject n)
 {
     qDebug()<<"Card locked confirmation recieved!";
+
     foreach(const QString& key, n.keys()) {
         QJsonValue value = n.value(key);
         qDebug()<<"Key: " << key << " Value: " << value.toString();
     }
 }
 
-void Tilakone::fromPINUIPinEntered(QString)
+void Tilakone::fromPINUIPinEntered(QString n)
 {
-
+    insertedPIN = n;
+    runStateMachine(AwaitingPin, LoginCheck);
 }
 
 void Tilakone::fromPINUIPinCancelled()
 {
-
+    qDebug()<<"Pin cancelled, aborting";
+    stringID = "";                          //Hide card info
+    runStateMachine(MainWindow, SMStart);   //Return to start
 }
 
 void Tilakone::fromPINUIButtonPressed()
 {
-
-}
-
-void Tilakone::uiConfirmPin()           //TODO: propably pointless
-{
-    insertedPIN = w->ui->lineEdit->text();
-    qDebug()<<"PIN inserted is " << insertedPIN;
-    //errorhandling PIN
-    //emit a signal to signify confirmButton was pressed
+    timeMachine(30000); //Reset timer with 30sec
 }
 
 void Tilakone::uiConfirmAmount()
 {
-    qDebug()<<"Amount to be withdrawn is ";
-    //errorhandling for withdraw amount
+    amountDouble = w->chosenAmount.toDouble();
+    emit withdraw(amountDouble);
+}
+
+void Tilakone::clickTransactions()
+{
+    w->ui->DisplaySum->setText("");
+    runStateMachine(AwaitingDecision, ShowTransactions);
+}
+
+void Tilakone::clickDraw()
+{
+    w->ui->DisplaySum->setText("");
+    runStateMachine(AwaitingDecision, DrawMoney);
+}
+
+void Tilakone::clickBalance()
+{
+    w->ui->DisplaySum->setText("");
+    runStateMachine(AwaitingDecision, CheckBalance);
+}
+
+void Tilakone::clickMore()
+{
+    if (offsetGlobal >= 0) {
+        offsetGlobal += 10;
+        emit getAccTransactions(10, offsetGlobal);
+    }
+}
+
+void Tilakone::clickLess()
+{
+    if (offsetGlobal < 10) {
+        qDebug()<<"invalid offsetGlobal too small!";
+        offsetGlobal = 0;
+        emit getAccTransactions(10, offsetGlobal);
+    } else if (offsetGlobal >= 10) {
+        offsetGlobal -= 10;
+        emit getAccTransactions(10, offsetGlobal);
+    }
+}
+
+void Tilakone::clickBack()
+{
+    switch(currentState) {
+    case MainWindow:
+        qDebug()<<"Cant' go further back";
+        break;
+    case AwaitingPin:
+        currentState = MainWindow;
+        currentEvent = SMStart;
+        break;
+    case AwaitingDecision:
+        currentState = AwaitingDecision;  //can't go back to givin pin
+        currentEvent = ShowOptions;
+        break;
+    case Transactions:
+        currentState = AwaitingDecision;
+        currentEvent = ShowOptions;
+        break;
+    case ChooseAmount:
+        currentState = AwaitingDecision;
+        currentEvent = ShowOptions;
+        break;
+    case DisplayBalance:
+        currentState = AwaitingDecision;
+        currentEvent = ShowOptions;
+        break;
+    case WithdrawMoney:
+        currentState = AwaitingDecision;
+        currentEvent = ShowOptions;
+        break;
+    case TransferMoney:
+        currentState = AwaitingDecision;
+        currentEvent = ShowOptions;
+        break;
+    case EndScreen:
+        qDebug()<<"Cant go back from this!";
+        break;
+    }
+    runStateMachine(currentState, currentEvent);
+}
+
+void Tilakone::clickLogout()
+{
+    emit logoutCheck();
+}
+
+void Tilakone::comboBoxSelect(int i)
+{
+    qDebug()<<"Chosen acc index: " << i;
+    qDebug()<<"chosenAcc: " << w->ui->recieverAddress->currentData(i).toString();
+    chosenAcc = w->ui->recieverAddress->currentData(i).toString();
+}
+
+void Tilakone::handleTimeout()
+{
+    qDebug()<<"Time's up!";
+    emit logoutCheck();
+}
+
+void Tilakone::clickTransfer()
+{
+    w->ui->DisplaySum->setText("");
+    runStateMachine(AwaitingDecision, ShowTransfer);
 }
 
 void Tilakone::stateMainWindow(event n)
 {
+    currentState = MainWindow;
+    currentEvent = SMStart;
 
-    qDebug()<<"stateMainWindow";
-
-    if (n == 0) {
+    if (n == SMStart) {
         //Here to show default screen on opening or Insert Card -screen
         w->show();
-        w->displayMessage();
+        w->displayPinMenu();
 
-        /*
         try {
             oRFID.readCardID();
-        } catch (QString error) {
+        } catch (int error) {
             qDebug()<<"readCardID error: "<<error;
-            runStateMachine(stateMainWindow, SMStart);
-        }
-        //wait for answer
-        */
-
-
-        //here we do a pirkka solution because trycatch only crashes the program without rfid reader
-        oRFID.testCardID();
-
-        //Move to next state
-        runStateMachine(AwaitingPin, CardInserted);
-
-    } else if (n == 2) {
-        //Default timeout event, clear all objects and restart
+            emit mainWindow_WaitingCard(MainWindow, SMStart);
+            }
     }
 }
 
 void Tilakone::stateAwaitingPin(event n)
 {
-    if (n == 1) {
+    currentState = AwaitingPin;
 
-        //Pirkka
+    timeMachine(30000); //Reset timer with 30sec
+
+    if (n == CardInserted) {
         qDebug()<<"stateAwaitingPin";
-        /*
-        PinUi3* pPinUi = new PinUi3;
-        delete pPinUi;
-        pPinUi = nullptr;
-        */
+        currentEvent = CardInserted;
+        //pinuidll compilation error
+        //pPinUi3->openUi();
 
-        /*
-        pPinCode->pinui();      //Opens dialog for entering pin
-        */  //commented out until fix is found
+        insertedPIN = "1234";
+        runStateMachine(AwaitingPin, LoginCheck);   //instead of waiting pinuidll we just skip to next
 
-
-        /*      //Pirkka(tm) ratkasu palvelimen yhdistystä varten
-        if (insertedPIN.length() < 1) {
-            insertedPIN = "1234";
-        }
-        */
-
-        w->displayPinMenu();
-
-        while(handlePIN()) {
-
+    } else if (n == LoginCheck) {
+        currentEvent = LoginCheck;
         //Test for login with restapidll
         emit loginCheck(stringID, insertedPIN);
-        if (loginINFO.contains("result")) {
-            //this means login succesful
-            qDebug()<< "loginINFO contains key:response";
-            foreach(const QString& key, loginINFO.keys()) {
-                QJsonValue value = loginINFO.value(key);
-                qDebug()<< "key: " << key << " value: " << value.toString();
-            }
 
-            //move to next state
-            runStateMachine(AwaitingDecision, ShowOptions);
-
-        } else if (loginINFO.contains("error")) {
-            //this means login was not succesful
-            qDebug()<< "loginINFO contains key:error";
-            foreach(const QString& key, loginINFO.keys()) {
-                QJsonValue value = loginINFO.value(key);
-                qDebug()<< "key: " << key << " value: " << value.toString();
-            }
-
-            //invoke incorrectpin event
-            runStateMachine(AwaitingPin, IncorrectPIN);     //TODO: should propably check that the error is pin related
-        }
-        }
     } else if (n == 3) {
+        currentEvent = IncorrectPIN;
         //incorrect pin
         if (wrongPIN >= 3) {
             runStateMachine(AwaitingPin, TooManyIncorrectPINs);
@@ -318,99 +624,106 @@ void Tilakone::stateAwaitingPin(event n)
         qDebug()<< "number of incorrect pins: " << wrongPIN;
         runStateMachine(AwaitingPin, CardInserted);
     } else if (n == 4) {
+        currentEvent = LockCard;
         //Card will be locked
         emit lockCard();
         runStateMachine(MainWindow, SMStart);       //TODO: should be a cleanup state before restart
-    } else if (n == 2) {
-        //Default timeout event, clear all objects and restart
     }
 }
 
 void Tilakone::stateAwaitingDecision(event n)
 {
-    qDebug()<< "stateAwaitingDecision";
+    currentState = AwaitingDecision;
+
+    timeMachine(30000); //Reset timer with 30sec
 
     if (n == 9) {
+        currentEvent = ShowOptions;
         qDebug()<<"Displaying options!";
         w->displayOptions();
-    } else if (n == 7) {            //Show transactions ->
+    } else if (n == ShowTransactions) {            //Show transactions ->
+        currentEvent = ShowTransactions;
         //move to show transactions
         runStateMachine(Transactions, ShowTransactions);
-    } else if (n == 10) {           //Draw money ->
+    } else if (n == DrawMoney) {           //Draw money ->
+        currentEvent = DrawMoney;
         //move to choose amount screen
         runStateMachine(ChooseAmount, DrawMoney);
-    } else if (n == 11) {           //Check balance ->
+    } else if (n == CheckBalance) {           //Check balance ->
+        currentEvent = CheckBalance;
         //move to check balance screen
         runStateMachine(DisplayBalance, CheckBalance);
-    } else if (n == 2) {
-        //Default timeout event, clear all objects and restart
-    } //TODO: Maybe also have logout option on all states
+    } else if (n == ShowTransfer) {         //TransferMoney ->
+        currentEvent = ShowTransfer;
+        //move to transfer screen
+        runStateMachine(TransferMoney, ShowTransfer);
+    }
 }
 
-void Tilakone::stateTransactions(event n)
+void Tilakone::stateTransactions(event)
 {
-    qDebug()<< "stateTransactions, event: " << n;
+    currentState = Transactions;
 
-    //restapidll request for 10 transactions starting from 0.th
-    emit getAccTransactions(10, 0);
-    foreach(const QString& key, accTransactions.keys()) {
-        QJsonValue value = accTransactions.value(key);
-        //place into ui element each transaction
-        qDebug()<<"key: "<< key << " value: " << value;
-    }
+    timeMachine(30000); //Reset timer with 30sec
+
+    offsetGlobal = 0; //first time invocation to set 0
 
     //ui change here
     w->displayTransactions();
 
-    //TODO: in displayTransactions, more and less buttons to refresh the displayed transactions
-    //TODO: button to return to previous menu
+    //Get transactions from server
+    emit getAccTransactions(10, offsetGlobal);
+
 }
 
-void Tilakone::stateChooseAmount(event n)
+void Tilakone::stateChooseAmount(event)
 {
-    qDebug()<< "stateChooseAmount, event: " << n;
+    currentState = ChooseAmount;
+
+    timeMachine(30000); //Reset timer with 30sec
 
     //ui change here
     w->displayChooseAmount();
-
-    //TODO: button to emit signal to restapidll for withdrawal
 }
 
-void Tilakone::stateDisplayBalance(event n)
+void Tilakone::stateDisplayBalance(event)
 {
-    qDebug()<< "stateDisplayBalance, event: " << n;
+    currentState = DisplayBalance;
 
-    emit getAccBalance();
+    timeMachine(30000); //Reset timer with 30sec
 
-    foreach(const QString& key, accBalance.keys()) {
-        QJsonValue value = accBalance.value(key);
-        qDebug()<< "Key: " << key << " Value: " << value.toString();    //TODO: ui
-    }
-
+    emit getAccBalance();   //slot to this will push the values to ui
     //ui change here
     w->displayBalance();
-
-    //TODO: back and logout buttons
 }
 
-void Tilakone::stateDrawMoney(event n)
+void Tilakone::stateDrawMoney(event)
 {
-    qDebug() << "stateDrawMoney, event: " << n;
+    currentState = WithdrawMoney;
+
+    timeMachine(30000); //Reset timer with 30sec
 
     //ui change here
     w->displayChooseAmount();
-
-    //from ui buttons to emit signal to restapidll
 }
 
-void Tilakone::stateTransferMoney(event n)
+void Tilakone::stateTransferMoney(event)
 {
-    qDebug()<< "stateTransferMoney, event " << n;
+    currentState = TransferMoney;
+
+    timeMachine(30000); //Reset timer with 30sec
 
     //ui change here
     w->displayTransfer();
 
-    //from ui to choose account and emit send transaction
+    emit getCustCards();
+}
+
+void Tilakone::stateEndScreen()
+{
+    w->displayMessage();
+    timer->stop();
+    QTimer::singleShot(5000, this, SLOT(handleTimeout()));
 }
 
 

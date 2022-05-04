@@ -32,18 +32,27 @@ void PinCode::digit_pressed() //Function definiton for pressing a digit
     QPushButton * button = (QPushButton*)sender(); //Sender returns a pointer to the object that sent the signal, if called in a slot activated by
                                                    // a signal; otherwise it returns 0
     double buttonNumber;
-    QString newNumber;
+    int newNumber;
 
     buttonNumber = (ui->lineEditPinCode->text() + button->text()).toDouble(); //With this we can use the texts on buttons, instead of declaring a number to a each push button
 
-    newNumber = QString::number(buttonNumber);
-
-    ui->lineEditPinCode->setText(newNumber);
+    newNumber = (QString::number(buttonNumber)).length();
+    if (newNumber == 0) {
+        ui->lineEditPinCode->setText("");
+    } else if (newNumber == 1) {
+        ui->lineEditPinCode->setText("*");
+    } else if (newNumber == 2) {
+        ui->lineEditPinCode->setText("**");
+    } else if (newNumber == 3) {
+        ui->lineEditPinCode->setText("***");
+    } else if (newNumber == 4) {
+        ui->lineEditPinCode->setText("****");
+    }
 }
 
 void PinCode::on_pushButton_Cancel_clicked()
 {
-    ui->lineEditPinCode->setText("");
+    emit toExePinCodeEntered(pinCode);
 }
 
 void PinCode::on_pushButton_Clear_clicked()

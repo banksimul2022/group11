@@ -4,6 +4,7 @@
 #include <QJsonObject>
 #include <QObject>
 #include <QMainWindow>
+#include <QTableWidgetItem>
 
 #include <rfid125.h>
 #include <mainwindow.h>
@@ -26,7 +27,8 @@ public:
         ChooseAmount,
         DisplayBalance,
         WithdrawMoney,
-        TransferMoney
+        TransferMoney,
+        EndScreen
     };
     enum event {
         SMStart,            //This is for resetting all variables and objects in case of unexpected restart
@@ -40,14 +42,13 @@ public:
         LogOut,             //Each screen show should have the opportunity to log out of endpoint
         ShowOptions,
         DrawMoney,
-        CheckBalance
+        CheckBalance,
+        LoginCheck,
+        ShowTransfer
     };
 
 public slots:
     void runStateMachine(Tilakone::state, Tilakone::event);
-    void handleTimeOut();   //TODO: this
-
-    bool handlePIN();
 
     //RFID slots
     void recieveFromRFID125(QByteArray);
@@ -68,12 +69,24 @@ public slots:
     void fromPINUIButtonPressed();
 
     //UI slots
-    void uiConfirmPin();
     void uiConfirmAmount();
+    void clickTransactions();
+    void clickDraw();
+    void clickBalance();
+    void clickTransfer();
+    void clickMore();
+    void clickLess();
+    void clickBack();
+    void clickLogout();
+    void comboBoxSelect(int);
+
+    //Timer
+    void handleTimeout();
 
 signals:
     //send these to runStateMachine slot
     void mainWindow_WaitingCard(Tilakone::state, Tilakone::event);
+    void mainWindow_AwaitingPin(Tilakone::state,Tilakone::event);
     void decisionWindow_drawDecision(Tilakone::state, Tilakone::event);
     void decisionWindow_transactionDecision(Tilakone::state, Tilakone::event);
     void decisionWindow_balanceDecision(Tilakone::state, Tilakone::event);
@@ -99,20 +112,60 @@ private:
     void stateDisplayBalance(event n);
     void stateDrawMoney(event n);
     void stateTransferMoney(event n);
+    void stateEndScreen();
+
+    void addToUiTransactions(int, int);
+    void addToUiBalance();
+
+    void timeMachine(int);
+
+    PinUi3* pPinUi3;
+    QTimer* timer;
+
+    QTableWidgetItem* column1;
+    QTableWidgetItem* column2;
+    QTableWidgetItem* column3;
+    QTableWidgetItem* column4;
+    QTableWidgetItem* column5;
+    QTableWidgetItem* column6;
+    QTableWidgetItem* column7;
+    QTableWidgetItem* column8;
+    QTableWidgetItem* column9;
+    QTableWidgetItem* column10;
 
 protected:
     QString stringID;
     QString insertedPIN;
     QString chosenAmount;
+    QString accBalance;
+    QString chosenAcc;
+
+    QString custCard1;
+    QString custCard2;
+    QString custCard3;
+    QString custCard4;
+    QString custCard5;
+    QString custCard6;
+    QString custCard7;
+    QString custCard8;
+    QString custCard9;
+    QString custCard10;
 
     QJsonObject loginINFO;
-    QJsonObject accTransactions;
-    QJsonObject accBalance;
+    QStringList accTransactions;
+    QStringList accSumma;
+    QStringList accTapahtuma;
+    QStringList accAikaleima;
+    QStringList custCards;
+
+    event currentEvent;
+    state currentState;
 
     short int wrongPIN;
+    int offsetGlobal;
+    double amountDouble;
 
     bool pinloop;
-
 };
 
 #endif // TILAKONE_H

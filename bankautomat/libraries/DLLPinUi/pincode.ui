@@ -176,7 +176,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Cancel</string>
+    <string>Confirm</string>
    </property>
   </widget>
  </widget>

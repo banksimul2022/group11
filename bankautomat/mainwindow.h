@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "qstandarditemmodel.h"
 #include <QMainWindow>
 
 
@@ -16,28 +17,37 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    class QStandardItem treeView;
+    QString chosenAmount;
+
+
     //Methods to control ui elements
-    void pinUiVisibility(bool);
     void withdrawOptionsVisibility(bool);
     void messageLabelVisibility(bool);
     void customAmountVisibility(bool);
     void optionsVisibility(bool);
+    void transactionVisibility(bool);
+    void balanceVisibility(bool);
+    void transferVisibility(bool);
+    void backButtonVisibility(bool);
+    void logoutButtonVisibility(bool);
     void setMessageLabel(QString);
 
     //Different display settings for each state
-    void displayPinMenu();      //This is for if PinUi.dll doesn't work
+    void displayPinMenu();      //Should rename, this is custom amount ui
     void displayOptions();
     void displayTransactions();
     void displayChooseAmount();
     void displayTransfer();
     void displayBalance();
 
+    //Change message
     void displayMessage();
 
-     Ui::MainWindow *ui;
+    Ui::MainWindow *ui;
 
 public slots:
-
+    void handleChooseAmount();
 
 signals:
     void testCardInserted(QByteArray);

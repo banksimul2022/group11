@@ -12,6 +12,7 @@ class PINUI3_EXPORT PinUi3: public QObject
 public:
     PinUi3(QObject * parent= nullptr);
     ~PinUi3();
+    void openUi();
 
 signals:
     void toExePinCodeEntered(QString pincode);
