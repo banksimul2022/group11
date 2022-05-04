@@ -7,9 +7,24 @@ bankautomat/*.user
 # QT_RFID
 bankautomat/libraries/DLL-RFID/build/
 bankautomat/libraries/DLL-RFID/*.user
+bankautomat/libraries/build-RFID125-Desktop_Qt_5_15_2_MinGW_32_bit-Debug/
 
 # DLLRestApi build and user
 bankautomat/libraries/DLLRestAPI/build/
 bankautomat/libraries/DLLRestAPI/*.user
 bankautomat/libraries/DLLRestAPI/*.user.bak
 
+build-bankautomat-Desktop_Qt_5_15_2_MinGW_32_bit-Debug
+build-bankautomat-Desktop_Qt_5_15_2_MinGW_32_bit-Release
+
+# DLL-PinUi
+bankautomat/libraries/DLLPinUi/build/
+bankautomat/libraries/DLLPinUi/*.user
+bankautomat/libraries/build-PinUi3-Desktop_Qt_5_15_2_MinGW_32_bit-Debug
+
+# EXE
+build-bankautomat-Desktop_Qt_5_15_2_MinGW_32_bit-Debug
+build-bankautomat-Desktop_Qt_5_15_2_MinGW_32_bit-Release
+bankautomat\libraries\build-RFID125-Desktop_Qt_5_15_2_MinGW_32_bit-Debug
+bankautomat\libraries\build-PinUi3-Desktop_Qt_5_15_2_MinGW_32_bit-Debug
+bankautomat\libraries\build-DLLRestAPI-Desktop_Qt_5_15_2_MinGW_32_bit-Debug

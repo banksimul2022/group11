@@ -30,7 +30,7 @@ void RFID125::readCardID()
 
 void RFID125::testCardID()
 {
-    emit sendToExe(QByteArray("testOutput"));
+    emit sendToExe(QByteArray("05009B3106"));
 }
 
 void RFID125::receiveCardID()
