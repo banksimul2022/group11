@@ -46,3 +46,6 @@ else:unix: LIBS += -L$$PWD/libraries/build-PinUi3-Desktop_Qt_5_15_2_MinGW_32_bit
 
 INCLUDEPATH += $$PWD/libraries/DLLPinUi
 DEPENDPATH += $$PWD/libraries/DLLPinUi
+
+RESOURCES += \
+    Resources.qrc

@@ -19,7 +19,7 @@ PinCode::PinCode(QWidget *parent) :
     connect(ui->Button9,SIGNAL(clicked()),this,SLOT(digit_pressed()));
     connect(ui->Button0,SIGNAL(clicked()),this,SLOT(digit_pressed()));
 
-
+    connect(ui->pushButton_Cancel, SIGNAL(clicked()), this, SLOT(on_pushButton_Cancel_clicked()));
 }
 
 PinCode::~PinCode()
@@ -32,25 +32,16 @@ void PinCode::digit_pressed() //Function definiton for pressing a digit
     QPushButton * button = (QPushButton*)sender(); //Sender returns a pointer to the object that sent the signal, if called in a slot activated by
                                                    // a signal; otherwise it returns 0
     double buttonNumber;
-    int newNumber;
+    QString newNumber;
 
     buttonNumber = (ui->lineEditPinCode->text() + button->text()).toDouble(); //With this we can use the texts on buttons, instead of declaring a number to a each push button
 
-    newNumber = (QString::number(buttonNumber)).length();
-    if (newNumber == 0) {
-        ui->lineEditPinCode->setText("");
-    } else if (newNumber == 1) {
-        ui->lineEditPinCode->setText("*");
-    } else if (newNumber == 2) {
-        ui->lineEditPinCode->setText("**");
-    } else if (newNumber == 3) {
-        ui->lineEditPinCode->setText("***");
-    } else if (newNumber == 4) {
-        ui->lineEditPinCode->setText("****");
-    }
+    newNumber = (QString::number(buttonNumber));
+    pinCode = newNumber;
+    ui->lineEditPinCode->setText(newNumber);
 }
 
-void PinCode::on_pushButton_Cancel_clicked()
+void PinCode::on_pushButton_Cancel_clicked()    //Tällä lähetteään vastaus
 {
     emit toExePinCodeEntered(pinCode);
 }

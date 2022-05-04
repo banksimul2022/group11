@@ -5,6 +5,7 @@
 #include <QDebug>
 #include <QStandardItem>
 #include <QAbstractItemModel>
+#include <QStringList>
 
 
 
@@ -14,13 +15,12 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    class QStandardItemModel* treeList = new QStandardItemModel;
-    treeList->setRowCount(10);
+    QStringList transHeader;
+    transHeader<< "Time" << "Event" << "Amount" << "Account";
 
     ui->tableWidget->setRowCount(10);
-    ui->tableWidget->setColumnCount(1);
-
-    //ui->tableWidget->setModel(treeList);
+    ui->tableWidget->setColumnCount(4);
+    ui->tableWidget->setHorizontalHeaderLabels(transHeader);
 
     //Connect numbers like Aappo does
     connect(ui->number0, SIGNAL(clicked()),
@@ -85,6 +85,8 @@ MainWindow::MainWindow(QWidget *parent)
             this, SLOT(handleChooseAmount()));
     connect(ui->draw500, SIGNAL(clicked()),
             this, SLOT(handleChooseAmount()));
+    connect(ui->amountOther, SIGNAL(clicked()),
+            this, SLOT(handleChooseAmount()));
 }
 
 MainWindow::~MainWindow()
@@ -104,6 +106,7 @@ void MainWindow::withdrawOptionsVisibility(bool b)
     this->ui->draw200->setVisible(b);
     this->ui->draw500->setVisible(b);
     this->ui->amountOther->setVisible(b);
+    this->ui->currency->setVisible(b);
 }
 
 void MainWindow::messageLabelVisibility(bool b)
@@ -128,14 +131,16 @@ void MainWindow::customAmountVisibility(bool b)
     this->ui->confirmButton->setVisible(b);
     //this->ui->lineEdit_2->setVisible(b);
     //this->ui->DisplaySum->setVisible(b);
+    this->ui->currency->setVisible(b);
 }
 
 void MainWindow::optionsVisibility(bool b)
-{
+{    
     this->ui->drawCashButton->setVisible(b);
     this->ui->transactionsButton->setVisible(b);
     this->ui->transferButton->setVisible(b);
     this->ui->balanceButton->setVisible(b);
+    this->ui->greetingLabel->setVisible(b);
 }
 
 void MainWindow::transactionVisibility(bool b)
@@ -148,6 +153,8 @@ void MainWindow::transactionVisibility(bool b)
 void MainWindow::balanceVisibility(bool b)
 {
     this->ui->DisplaySum->setVisible(b);
+    this->ui->currency->setVisible(b);
+
 }
 
 void MainWindow::transferVisibility(bool b)
@@ -157,6 +164,7 @@ void MainWindow::transferVisibility(bool b)
     this->ui->recieverLabel->setVisible(b);
     this->ui->recieverAddress->setVisible(b);
     this->ui->transferConfirm->setVisible(b);
+    this->ui->currency->setVisible(b);
 }
 
 void MainWindow::backButtonVisibility(bool b)
@@ -172,6 +180,11 @@ void MainWindow::logoutButtonVisibility(bool b)
 void MainWindow::setMessageLabel(QString n)
 {
     this->ui->MessageLabel->setText(n);
+}
+
+void MainWindow::setGreetingsLabel(QString n)
+{
+    this->ui->greetingLabel->setText(n);
 }
 
 void MainWindow::displayPinMenu()

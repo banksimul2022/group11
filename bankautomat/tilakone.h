@@ -78,6 +78,7 @@ public slots:
     void clickLess();
     void clickBack();
     void clickLogout();
+    void confirmTransfer();
     void comboBoxSelect(int);
 
     //Timer
@@ -114,24 +115,13 @@ private:
     void stateTransferMoney(event n);
     void stateEndScreen();
 
-    void addToUiTransactions(int, int);
+    void addToUiTransactions();
     void addToUiBalance();
 
     void timeMachine(int);
 
     PinUi3* pPinUi3;
     QTimer* timer;
-
-    QTableWidgetItem* column1;
-    QTableWidgetItem* column2;
-    QTableWidgetItem* column3;
-    QTableWidgetItem* column4;
-    QTableWidgetItem* column5;
-    QTableWidgetItem* column6;
-    QTableWidgetItem* column7;
-    QTableWidgetItem* column8;
-    QTableWidgetItem* column9;
-    QTableWidgetItem* column10;
 
 protected:
     QString stringID;
@@ -140,16 +130,10 @@ protected:
     QString accBalance;
     QString chosenAcc;
 
-    QString custCard1;
-    QString custCard2;
-    QString custCard3;
-    QString custCard4;
-    QString custCard5;
-    QString custCard6;
-    QString custCard7;
-    QString custCard8;
-    QString custCard9;
-    QString custCard10;
+    QString pirkkaAcc;
+
+    QString fName;
+    QString sName;
 
     QJsonObject loginINFO;
     QStringList accTransactions;
@@ -164,8 +148,7 @@ protected:
     short int wrongPIN;
     int offsetGlobal;
     double amountDouble;
-
-    bool pinloop;
+    double transferAmount;
 };
 
 #endif // TILAKONE_H

@@ -10,7 +10,8 @@ PinUi3::PinUi3(QObject *parent): QObject(parent)
 
 PinUi3::~PinUi3()
 {
-
+    pPinCode->close();
+    delete pPinCode;
 }
 
 void PinUi3::openUi()
@@ -18,7 +19,8 @@ void PinUi3::openUi()
     pPinCode->show();
 }
 
-void PinUi3::reserveNumber(QString pincode)
+void PinUi3::reserveNumber(QString pincode) //Ja tämä lähettää sen exelle
 {
     emit sendNumberToExe(pincode);
+    pPinCode->reject();
 }

@@ -17,7 +17,6 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    class QStandardItem treeView;
     QString chosenAmount;
 
 
@@ -32,6 +31,7 @@ public:
     void backButtonVisibility(bool);
     void logoutButtonVisibility(bool);
     void setMessageLabel(QString);
+    void setGreetingsLabel(QString);
 
     //Different display settings for each state
     void displayPinMenu();      //Should rename, this is custom amount ui
