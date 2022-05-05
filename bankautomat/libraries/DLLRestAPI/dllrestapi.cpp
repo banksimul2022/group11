@@ -75,10 +75,10 @@ void DLLRestAPI::fromExeTransactSlot(double amount, QString targetCardNumber)
     pRestAPIEngine->fromDllTransactSlot(cardNumber, amount, targetCardNumber);
 }
 
-void DLLRestAPI::fromExeLockCardSlot()
+void DLLRestAPI::fromExeLockCardSlot(QString lockCardNumber)
 {
     qDebug() << "Changing card lock status to locked";
-    pRestAPIEngine->fromDllLockCardSlot(cardNumber);
+    pRestAPIEngine->fromDllLockCardSlot(lockCardNumber);
 }
 
 void DLLRestAPI::fromEngineLoginProcessedSlot(QJsonObject result)
