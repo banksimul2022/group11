@@ -44,7 +44,8 @@ public:
         DrawMoney,
         CheckBalance,
         LoginCheck,
-        ShowTransfer
+        ShowTransfer,
+        GetCustInfo
     };
 
 public slots:
@@ -62,6 +63,7 @@ public slots:
     void fromRESTAPIWithdraw(QJsonObject);
     void fromRESTAPITransact(QJsonObject);
     void fromRESTAPICardLocked(QJsonObject);
+    void fromRESTAPICustInfo(QJsonObject);
 
     //PINUI slots
     void fromPINUIPinEntered(QString);
@@ -79,7 +81,7 @@ public slots:
     void clickBack();
     void clickLogout();
     void confirmTransfer();
-    void comboBoxSelect(int);
+    void comboBoxSelect(QString);
 
     //Timer
     void handleTimeout();
@@ -102,6 +104,7 @@ signals:
     void withdraw(double);
     void getCustCards();
     void transferMoney(double, QString);
+    void getCustInfo();
 
 private:
     //Handler for each state with values for any event related
