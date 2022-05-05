@@ -31,7 +31,6 @@ private slots:
 private:
     Ui::PinCode *ui;
     QString pinCode;
-    void InsertNumber();
 };
 
 #endif // PINCODE_H

@@ -52,10 +52,4 @@ void PinCode::on_pushButton_Clear_clicked()
     ui->lineEditPinCode->setText("");
 }
 
-void PinCode::InsertNumber()
-{
-    if(pinCode.length() >= 4)
-    {
-        emit toExePinCodeEntered(pinCode);
-    }
-}
+

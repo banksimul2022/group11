@@ -25,6 +25,7 @@ MainWindow* w = nullptr;
 
 Tilakone::Tilakone(class MainWindow* p)
 {
+
     //Set variables to be nothing
     stringID = "";
     insertedPIN = "";
@@ -66,8 +67,8 @@ Tilakone::Tilakone(class MainWindow* p)
             oRestAPI, (SLOT(fromExeWithdrawSlot(double))));
     connect(this, SIGNAL(transferMoney(double,QString)),                 //Transfer
             oRestAPI, SLOT(fromExeTransactSlot(double,QString)));
-    connect(this, SIGNAL(lockCard()),                                    //CardLock
-            oRestAPI, SLOT(fromExeLockCardSlot()));
+    connect(this, SIGNAL(lockCard(QString)),                                    //CardLock
+            oRestAPI, SLOT(fromExeLockCardSlot(QString)));
     connect(this, SIGNAL(getCustInfo()),                                 //Customer info
             oRestAPI, SLOT(fromExeGetCustInfoSlot()));
 
@@ -331,8 +332,6 @@ void Tilakone::fromRESTAPICardLocked(QJsonObject n)
 
 void Tilakone::fromRESTAPICustInfo(QJsonObject n)
 {
-    qDebug()<<n;
-
     QJsonObject obj = n["result"].toObject();
     fName = obj["etunimi"].toString();
     sName = obj["sukunimi"].toString();
@@ -520,6 +519,8 @@ void Tilakone::stateAwaitingPin(event n)
     if (n == CardInserted) {
         currentEvent = CardInserted;
         //pinuidll invocation
+
+
         pPinUi3->openUi();
 
         //instead of waiting pinuidll we just skip to next with pirkka niksi's
@@ -544,7 +545,7 @@ void Tilakone::stateAwaitingPin(event n)
         currentEvent = LockCard;
         //Card will be locked
         wrongPIN = 0;
-        emit lockCard();
+        emit lockCard(stringID);
     } else if (n == GetCustInfo) {
         wrongPIN = 0;
         //Lets get customer info to display on the next screen
