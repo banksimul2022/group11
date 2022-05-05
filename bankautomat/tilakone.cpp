@@ -120,7 +120,7 @@ Tilakone::Tilakone(class MainWindow* p)
             this, SLOT(clickLogout()));
     connect(w->ui->transferConfirm, SIGNAL(clicked()),
             this, SLOT(confirmTransfer()));
-    connect(w->ui->recieverAddress, SIGNAL(textHighlighted(Qstring)),
+    connect(w->ui->recieverAddress, SIGNAL(textHighlighted(QString)),
             this, SLOT(comboBoxSelect(QString)));
 
     //UI timer reset connects
@@ -327,6 +327,11 @@ void Tilakone::fromRESTAPICardLocked(QJsonObject n)
 void Tilakone::fromRESTAPICustInfo(QJsonObject n)
 {
     qDebug()<<n;
+
+    QJsonObject obj = n["result"].toObject();
+    fName = obj["etunimi"].toString();
+    sName = obj["sukunimi"].toString();
+
     runStateMachine(AwaitingDecision, ShowOptions);
 }
 
@@ -443,7 +448,6 @@ void Tilakone::confirmTransfer()
     transferAmount = w->ui->DisplaySum->text().toDouble();
     chosenAcc = w->ui->recieverAddress->currentText();
 
-    qDebug()<<"Sending " << transferAmount << "€";
     //pirkkaAcc = "0500AAAAAA";     //For when all else fails, there is Pirkka
     emit transferMoney(transferAmount, chosenAcc);
 }
@@ -536,7 +540,7 @@ void Tilakone::stateAwaitingDecision(event n)
 
     if (n == 9) {
         currentEvent = ShowOptions;
-        w->setGreetingsLabel("Greetings "+fName+" "+sName+"!"); //TODO: try to populate with names from server
+        w->setGreetingsLabel("Greetings "+fName+" "+sName+"!");
         w->displayOptions();
     } else if (n == ShowTransactions) {            //Show transactions ->
         currentEvent = ShowTransactions;
