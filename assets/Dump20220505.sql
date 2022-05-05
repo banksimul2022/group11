@@ -1,10 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `heroku_aa383b216a9c7f7` /*!40100 DEFAULT CHARACTER SET utf8 */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `heroku_aa383b216a9c7f7`;
 -- MySQL dump 10.13  Distrib 8.0.28, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: heroku_aa383b216a9c7f7
+-- Host: eu-cdbr-west-02.cleardb.net    Database: heroku_aa383b216a9c7f7
 -- ------------------------------------------------------
--- Server version	8.0.23
+-- Server version	5.6.50-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -25,7 +23,7 @@ DROP TABLE IF EXISTS `asiakas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `asiakas` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `tunnus` varchar(20) NOT NULL,
   `etunimi` varchar(20) NOT NULL,
   `sukunimi` varchar(20) NOT NULL,
@@ -44,9 +42,9 @@ DROP TABLE IF EXISTS `asiakastili`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `asiakastili` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `idAsiakas` int NOT NULL,
-  `idTili` int NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `idAsiakas` int(11) NOT NULL,
+  `idTili` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `idAsiakas_idx` (`idAsiakas`),
@@ -64,11 +62,11 @@ DROP TABLE IF EXISTS `kortti`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `kortti` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `idAsiakasTili` int NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `idAsiakasTili` int(11) NOT NULL,
   `korttiNumero` varchar(16) NOT NULL,
   `pinKoodi` varchar(255) NOT NULL,
-  `lukittu` tinyint NOT NULL,
+  `lukittu` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   UNIQUE KEY `korttiNumero_UNIQUE` (`korttiNumero`),
@@ -85,7 +83,7 @@ DROP TABLE IF EXISTS `tili`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tili` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `tilinumero` varchar(18) NOT NULL,
   `saldo` decimal(16,2) NOT NULL,
   PRIMARY KEY (`id`),
@@ -102,8 +100,8 @@ DROP TABLE IF EXISTS `tilitapahtuma`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tilitapahtuma` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `idKortti` int NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `idKortti` int(11) NOT NULL,
   `aikaleima` datetime NOT NULL,
   `tapahtuma` varchar(10) NOT NULL,
   `summa` decimal(16,2) NOT NULL,
@@ -111,7 +109,7 @@ CREATE TABLE `tilitapahtuma` (
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `idKortti_idx` (`idKortti`),
   CONSTRAINT `idKortti` FOREIGN KEY (`idKortti`) REFERENCES `kortti` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=162 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=401 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -121,13 +119,13 @@ CREATE TABLE `tilitapahtuma` (
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_AvaaLukitseKortti`(p_korttiNumero VARCHAR(16), p_lukitusTila TINYINT)
+CREATE DEFINER=`b38464f0aeebef`@`%` PROCEDURE `sp_AvaaLukitseKortti`(p_korttiNumero VARCHAR(16), p_lukitusTila TINYINT)
 BEGIN
 	# Luo lukituksen tilan statusteksti tilitapahtumia varten
 	DECLARE _lukitusStatus VARCHAR(10);
@@ -151,13 +149,13 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Debug`(enabled INTEGER, msg VARCHAR(255))
+CREATE DEFINER=`b38464f0aeebef`@`%` PROCEDURE `sp_Debug`(enabled INTEGER, msg VARCHAR(255))
 BEGIN
   IF enabled THEN
     select concat('** ', msg) AS '** DEBUG:';
@@ -172,13 +170,13 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_HaeKortinOmistajanKortit`(p_korttiNumero VARCHAR(16))
+CREATE DEFINER=`b38464f0aeebef`@`%` PROCEDURE `sp_HaeKortinOmistajanKortit`(p_korttiNumero VARCHAR(16))
 BEGIN
 	# Haetaan ensin kortin omistajan id asiakas-taulusta
 	DECLARE _asiakasId INT;
@@ -202,17 +200,41 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_HaeKortinOmistajanTiedot` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`b38464f0aeebef`@`%` PROCEDURE `sp_HaeKortinOmistajanTiedot`(p_korttiNumero VARCHAR(16))
+BEGIN
+    SELECT asiakas.tunnus, asiakas.etunimi, asiakas.sukunimi, asiakas.osoite, asiakas.puhelin FROM asiakas
+    INNER JOIN asiakastili
+    ON asiakas.id = asiakastili.idAsiakas
+    INNER JOIN kortti
+    ON asiakastili.id = kortti.idAsiakasTili
+    WHERE kortti.korttiNumero = p_korttiNumero;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `sp_HaeSaldo` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_HaeSaldo`(p_korttiNumero VARCHAR(16))
+CREATE DEFINER=`b38464f0aeebef`@`%` PROCEDURE `sp_HaeSaldo`(p_korttiNumero VARCHAR(16))
 BEGIN    
 	# Etsi tilinumero joka sopii korttiin
 	DECLARE _tilinumero VARCHAR(18);
@@ -230,13 +252,13 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_HaeTiliKorttinumerolla`(p_korttiNumero VARCHAR(16), OUT out_tilinumero VARCHAR(18))
+CREATE DEFINER=`b38464f0aeebef`@`%` PROCEDURE `sp_HaeTiliKorttinumerolla`(p_korttiNumero VARCHAR(16), OUT out_tilinumero VARCHAR(18))
 BEGIN
 	SELECT tilinumero INTO out_tilinumero FROM tili
     JOIN asiakasTili
@@ -259,13 +281,13 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_HaeTilitapahtumat`(p_korttiNumero VARCHAR(16), p_alkaenRiviNumero INT, p_tulostenMaara INT)
+CREATE DEFINER=`b38464f0aeebef`@`%` PROCEDURE `sp_HaeTilitapahtumat`(p_korttiNumero VARCHAR(16), p_alkaenRiviNumero INT, p_tulostenMaara INT)
 BEGIN
 	# Etsi tilinumero joka sopii korttiin
 	DECLARE _tilinumero VARCHAR(18);
@@ -300,13 +322,13 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_LisaaTilitapahtuma`(p_korttiNumero VARCHAR(16), p_tapahtuma VARCHAR(10), p_summa DECIMAL(16,2))
+CREATE DEFINER=`b38464f0aeebef`@`%` PROCEDURE `sp_LisaaTilitapahtuma`(p_korttiNumero VARCHAR(16), p_tapahtuma VARCHAR(10), p_summa DECIMAL(16,2))
 BEGIN
 	DECLARE _korttiId INT;
     
@@ -327,13 +349,13 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_LukitseKortti`(korttiNumero VARCHAR(16))
+CREATE DEFINER=`b38464f0aeebef`@`%` PROCEDURE `sp_LukitseKortti`(korttiNumero VARCHAR(16))
 BEGIN
 	# Lukitse kortti
 	UPDATE kortti
@@ -350,13 +372,13 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_NostaRahaa`(p_korttiNumero VARCHAR(16), p_nostettavaMaara DECIMAL(16,2))
+CREATE DEFINER=`b38464f0aeebef`@`%` PROCEDURE `sp_NostaRahaa`(p_korttiNumero VARCHAR(16), p_nostettavaMaara DECIMAL(16,2))
 BEGIN
 	# Paikalliset muuttujat
 	DECLARE _tilinumero VARCHAR(18);
@@ -387,13 +409,13 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_SiirraRahaa`(p_korttiNumero VARCHAR(16), p_siirrettavaMaara DECIMAL(16,2), p_kohdeKorttiNumero VARCHAR(18))
+CREATE DEFINER=`b38464f0aeebef`@`%` PROCEDURE `sp_SiirraRahaa`(p_korttiNumero VARCHAR(16), p_siirrettavaMaara DECIMAL(16,2), p_kohdeKorttiNumero VARCHAR(18))
 BEGIN
 	# Paikalliset muuttujat
 	DECLARE _tilinumero VARCHAR(18);
@@ -440,4 +462,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-04-25 13:00:24
+-- Dump completed on 2022-05-05 12:00:43
