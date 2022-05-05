@@ -24,7 +24,7 @@ Following planning and documenting steps were made during the planning phase:
 
 * Pre-study
 * Project contract with the customer
-* Functional description (includes use cases, user stories, ER-diagram)
+* Functional description (includes use cases, user stories and ER-diagram)
 * Technical implementation description (includes UML component diagram and class diagram)
 * Final report
 
@@ -44,6 +44,12 @@ Following planning and documenting steps were made during the planning phase:
   <img src="assets/Component%20diagram.png" alt="Component Diagram" height="500">
 
   ### Class Diagrams
+
+  #### BankSimul.EXE
+  <img src="assets/EXE%20Class%20diagram.png" alt="BankSimulEXE" height="500">
+
+  #### DLLPinUi
+  <img src="assets/DLLPinUi%20Class%20Diagram.png" alt="DLLPinUi" height="500">
 
   #### DLLRestApi
   <img src="assets/DLLRestAPI%20Class%20Diagram.png" alt="DLLRestApi" height="500">
