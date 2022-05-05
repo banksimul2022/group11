@@ -24,7 +24,7 @@ Following planning and documenting steps were made during the planning phase:
 
 * Pre-study
 * Project contract with the customer
-* Functional description (includes use cases, user stories, ER-diagram)
+* Functional description (includes use cases, user stories and ER-diagram)
 * Technical implementation description (includes UML component diagram and class diagram)
 * Final report
 
