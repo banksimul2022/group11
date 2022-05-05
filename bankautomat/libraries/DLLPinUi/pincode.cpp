@@ -43,6 +43,7 @@ void PinCode::digit_pressed() //Function definiton for pressing a digit
 
 void PinCode::on_pushButton_Cancel_clicked()    //Tällä lähetteään vastaus
 {
+    ui->lineEditPinCode->clear();
     emit toExePinCodeEntered(pinCode);
 }
 
