@@ -153,9 +153,8 @@ void RestAPIEngine::fromDllLockCardSlot(QString cardNumber)
     jsonObj.insert("cardNumber", cardNumber);
     jsonObj.insert("lockStatus", 1);
 
-    QNetworkRequest req((baseUrl + "/operaatiot/muutalukitus"));
+    QNetworkRequest req((baseUrl + "/lukitse"));
     req.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-    req.setRawHeader(QByteArray("Authorization"),QString("bearer ").append(token).toUtf8());
 
     loginManager = new QNetworkAccessManager(this);
     connect(loginManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(fromEngineLockCardResponseSlot(QNetworkReply*)));
