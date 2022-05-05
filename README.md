@@ -46,10 +46,10 @@ Following planning and documenting steps were made during the planning phase:
   ### Class Diagrams
 
   #### BankSimul.EXE
-  <img src="assets/DLLPinUi%20Class%20Diagram.png" alt="DLLPinUi" height="1000">
-
-  #### BankSimul.EXE
   <img src="assets/EXE%20Class%20Diagram.png" alt="BankSimulEXE" height="500">
+
+  #### DLLPinUi
+  <img src="assets/DLLPinUi%20Class%20Diagram.png" alt="DLLPinUi" height="500">
 
   #### DLLRestApi
   <img src="assets/DLLRestAPI%20Class%20Diagram.png" alt="DLLRestApi" height="500">
