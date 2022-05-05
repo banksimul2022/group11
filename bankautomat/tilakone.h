@@ -28,7 +28,8 @@ public:
         DisplayBalance,
         WithdrawMoney,
         TransferMoney,
-        EndScreen
+        EndScreen,
+        ExitState
     };
     enum event {
         SMStart,            //This is for resetting all variables and objects in case of unexpected restart
@@ -80,6 +81,7 @@ public slots:
     void clickLess();
     void clickBack();
     void clickLogout();
+    void clickShutdown();
     void confirmTransfer();
     void comboBoxSelect(QString);
 

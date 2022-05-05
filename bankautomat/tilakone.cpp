@@ -122,6 +122,8 @@ Tilakone::Tilakone(class MainWindow* p)
             this, SLOT(confirmTransfer()));
     connect(w->ui->recieverAddress, SIGNAL(textHighlighted(QString)),
             this, SLOT(comboBoxSelect(QString)));
+    connect(w->ui->shutdownButton, SIGNAL(clicked()),
+            this, SLOT(clickShutdown()));
 
     //UI timer reset connects
     connect(w->ui->number0, SIGNAL(clicked()),
@@ -180,6 +182,8 @@ void Tilakone::runStateMachine(state n, event m)
     case 8:
         stateEndScreen();
         break;
+    case 9:
+        return;
     default:
         qDebug()<<"runStateMachine default state!";
     }
@@ -434,6 +438,9 @@ void Tilakone::clickBack()
     case EndScreen:
         qDebug()<<"Cant go back from this!";
         break;
+    case ExitState:
+        qDebug()<<"HOW ARE YOU HERE!";
+        break;
     }
     runStateMachine(currentState, currentEvent);
 }
@@ -441,6 +448,14 @@ void Tilakone::clickBack()
 void Tilakone::clickLogout()
 {
     emit logoutCheck();
+}
+
+void Tilakone::clickShutdown()
+{
+    qDebug()<<"Shutting Down!";
+
+    w->close();
+    runStateMachine(ExitState, LogOut);
 }
 
 void Tilakone::confirmTransfer()
@@ -487,7 +502,10 @@ void Tilakone::stateMainWindow(event n)
             oRFID.readCardID();
         } catch (int error) {
             qDebug()<<"readCardID error: "<<error;
-            emit mainWindow_WaitingCard(MainWindow, SMStart);
+            //emit mainWindow_WaitingCard(MainWindow, SMStart);
+            QString message = "Please install card reader!";
+            w->displayMessage();
+            w->setMessageLabel(message);
             }
     }
 }
@@ -542,19 +560,19 @@ void Tilakone::stateAwaitingDecision(event n)
         currentEvent = ShowOptions;
         w->setGreetingsLabel("Greetings "+fName+" "+sName+"!");
         w->displayOptions();
-    } else if (n == ShowTransactions) {            //Show transactions ->
+    } else if (n == ShowTransactions) {         //Show transactions ->
         currentEvent = ShowTransactions;
         //move to show transactions
         runStateMachine(Transactions, ShowTransactions);
-    } else if (n == DrawMoney) {           //Draw money ->
+    } else if (n == DrawMoney) {                //Draw money ->
         currentEvent = DrawMoney;
         //move to choose amount screen
         runStateMachine(ChooseAmount, DrawMoney);
-    } else if (n == CheckBalance) {           //Check balance ->
+    } else if (n == CheckBalance) {            //Check balance ->
         currentEvent = CheckBalance;
         //move to check balance screen
         runStateMachine(DisplayBalance, CheckBalance);
-    } else if (n == ShowTransfer) {         //TransferMoney ->
+    } else if (n == ShowTransfer) {           //TransferMoney ->
         currentEvent = ShowTransfer;
         //move to transfer screen
         runStateMachine(TransferMoney, ShowTransfer);

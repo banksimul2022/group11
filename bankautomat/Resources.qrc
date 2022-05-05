@@ -1,2 +1,8 @@
-<!DOCTYPE RCC>
-<RCC version="1.0"/>
+<RCC>
+    <qresource prefix="/LogOutIcon">
+        <file>Icons/icons8-logout-58.png</file>
+    </qresource>
+    <qresource prefix="/ShutdownIcon">
+        <file>Icons/icons8-shutdown-24.png</file>
+    </qresource>
+</RCC>

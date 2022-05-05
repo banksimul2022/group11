@@ -135,13 +135,17 @@ MessageLabel  {
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>440</y>
-      <width>54</width>
-      <height>17</height>
+      <y>426</y>
+      <width>31</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="text">
-     <string>Logout</string>
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="Resources.qrc">
+      <normaloff>:/LogOutIcon/Icons/icons8-logout-58.png</normaloff>:/LogOutIcon/Icons/icons8-logout-58.png</iconset>
     </property>
    </widget>
    <widget class="QLabel" name="currency">
@@ -170,7 +174,7 @@ MessageLabel  {
      <string>TextLabel</string>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>560</x>
@@ -196,7 +200,7 @@ MessageLabel  {
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>50</x>
@@ -231,7 +235,7 @@ MessageLabel  {
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>130</x>
@@ -313,7 +317,7 @@ MessageLabel  {
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>270</x>
@@ -419,6 +423,23 @@ MessageLabel  {
      </item>
     </layout>
    </widget>
+   <widget class="QPushButton" name="shutdownButton">
+    <property name="geometry">
+     <rect>
+      <x>630</x>
+      <y>420</y>
+      <width>31</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="Resources.qrc">
+      <normaloff>:/ShutdownIcon/Icons/icons8-shutdown-24.png</normaloff>:/ShutdownIcon/Icons/icons8-shutdown-24.png</iconset>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -432,6 +453,8 @@ MessageLabel  {
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources/>
+ <resources>
+  <include location="Resources.qrc"/>
+ </resources>
  <connections/>
 </ui>
