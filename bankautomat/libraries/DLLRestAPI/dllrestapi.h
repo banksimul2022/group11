@@ -130,7 +130,7 @@ public slots:
    /*!
     * \brief fromExeLockCardSlot starts ATM card locking process. Result is send back with toExeLockCardProcessedSignal as a QJsonObject.
     */
-   void fromExeLockCardSlot();
+   void fromExeLockCardSlot(QString lockCardNumber);
 
    // private slots handle inner communication of dll
 private slots:
