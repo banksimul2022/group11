@@ -56,6 +56,12 @@ signals:
    void toExeGetCustCardsProcessedSignal(QJsonObject result);
 
    /*!
+    * \brief toExeGetCustInfoProcessedSignal
+    * \param result has field "result" if result is succesful. Otherwise it has field "error" which explains the error with message.
+    */
+   void toExeGetCustInfoProcessedSignal(QJsonObject result);
+
+   /*!
     * \brief toExeWithdrawProcessedSignal
     * \param result has field "result" if result is succesful. Otherwise it has field "error" which explains the error with message.
     */
@@ -104,6 +110,11 @@ public slots:
    void fromExeGetCustCardsSlot();
 
    /*!
+    * \brief fromExeGetCustInfoSlot starts customers info retrieval process. Result is send back with toExeGetCustInfoProcessedSignal as a QJsonObject.
+    */
+   void fromExeGetCustInfoSlot();
+
+   /*!
     * \brief fromExeWithdrawSlot starts withdraw process. Result is send back with toExeWithdrawProcessedSignal as a QJsonObject.
     * \param amount to withdraw
     */
@@ -127,6 +138,7 @@ private slots:
    void fromEngineGetAccTransactsProcessedSlot(QJsonObject result);
    void fromEngineGetAccBalanceProcessedSlot(QJsonObject result);
    void fromEngineGetCustCardsProcessedSlot(QJsonObject result);
+   void fromEngineGetCustInfoProcessedSlot(QJsonObject result);
    void fromEngineWithdrawProcessedSlot(QJsonObject result);
    void fromEngineTransactProcessedSlot(QJsonObject result);
    void fromEngineLockCardProcessedSlot(QJsonObject result);
