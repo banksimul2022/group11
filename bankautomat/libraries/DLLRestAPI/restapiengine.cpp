@@ -94,7 +94,22 @@ void RestAPIEngine::fromDllGetCustCardsSlot(QString cardNumber)
     req.setRawHeader(QByteArray("Authorization"),QString("bearer ").append(token).toUtf8());
 
     loginManager = new QNetworkAccessManager(this);
-    connect(loginManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(fromEngineGetAccBalanceResponseSlot(QNetworkReply*)));
+    connect(loginManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(fromEngineGetCustCardsResponseSlot(QNetworkReply*)));
+
+    reply = loginManager->post(req, QJsonDocument(jsonObj).toJson());
+}
+
+void RestAPIEngine::fromDllGetCustInfoSlot(QString cardNumber)
+{
+    QJsonObject jsonObj;
+    jsonObj.insert("cardNumber", cardNumber);
+
+    QNetworkRequest req((baseUrl + "/operaatiot/asiakastiedot"));
+    req.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+    req.setRawHeader(QByteArray("Authorization"),QString("bearer ").append(token).toUtf8());
+
+    loginManager = new QNetworkAccessManager(this);
+    connect(loginManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(fromEngineGetCustInfoResponseSlot(QNetworkReply*)));
 
     reply = loginManager->post(req, QJsonDocument(jsonObj).toJson());
 }
@@ -158,27 +173,32 @@ void RestAPIEngine::fromEngineGetAccTransactsResponseSlot(QNetworkReply *reply)
     emit toDllGetAccTransactsProcessedSignal(replyToJsonObject(reply, debugOn));
 }
 
-void RestAPIEngine::fromEngineGetAccBalanceResponseSlot(QNetworkReply *)
+void RestAPIEngine::fromEngineGetAccBalanceResponseSlot(QNetworkReply *reply)
 {
     emit toDllGetAccBalanceProcessedSignal(replyToJsonObject(reply, debugOn));
 }
 
-void RestAPIEngine::fromEngineGetCustCardsResponseSlot(QNetworkReply *)
+void RestAPIEngine::fromEngineGetCustCardsResponseSlot(QNetworkReply *reply)
 {
     emit toDllGetCustCardsProcessedSignal(replyToJsonObject(reply, debugOn));
 }
 
-void RestAPIEngine::fromEngineWithdrawResponseSlot(QNetworkReply *)
+void RestAPIEngine::fromEngineGetCustInfoResponseSlot(QNetworkReply *reply)
+{
+    emit toDllGetCustInfoProcessedSignal(replyToJsonObject(reply, debugOn));
+}
+
+void RestAPIEngine::fromEngineWithdrawResponseSlot(QNetworkReply *reply)
 {
     emit toDllWithdrawProcessedSignal(replyToJsonObject(reply, debugOn));
 }
 
-void RestAPIEngine::fromEngineTransactResponseSlot(QNetworkReply *)
+void RestAPIEngine::fromEngineTransactResponseSlot(QNetworkReply *reply)
 {
     emit toDllTransactProcessedSignal(replyToJsonObject(reply, debugOn));
 }
 
-void RestAPIEngine::fromEngineLockCardResponseSlot(QNetworkReply *)
+void RestAPIEngine::fromEngineLockCardResponseSlot(QNetworkReply *reply)
 {
     emit toDllLockCardProcessedSignal(replyToJsonObject(reply, debugOn));
 }
