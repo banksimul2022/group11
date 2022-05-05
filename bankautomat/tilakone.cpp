@@ -67,6 +67,8 @@ Tilakone::Tilakone(class MainWindow* p)
             oRestAPI, SLOT(fromExeTransactSlot(double,QString)));
     connect(this, SIGNAL(lockCard()),                                    //CardLock
             oRestAPI, SLOT(fromExeLockCardSlot()));
+    connect(this, SIGNAL(getCustInfo()),                                 //Customer info
+            oRestAPI, SLOT(fromExeGetCustInfoSlot()));
 
     connect(oRestAPI, SIGNAL(toExeLoginProcessedSignal(QJsonObject)),           //Login
             this, SLOT(fromRESTAPILogin(QJsonObject)));
@@ -84,6 +86,8 @@ Tilakone::Tilakone(class MainWindow* p)
             this, SLOT(fromRESTAPITransact(QJsonObject)));
     connect(oRestAPI, SIGNAL(toExeLockCardProcessedSignal(QJsonObject)),        //CardLock
             this, SLOT(fromRESTAPICardLocked(QJsonObject)));
+    connect(oRestAPI, SIGNAL(toExeGetCustInfoProcessedSignal(QJsonObject)),     //Customer info
+            this, SLOT(fromRESTAPICustInfo(QJsonObject)));
 
 
     //PINUI connections
@@ -116,6 +120,10 @@ Tilakone::Tilakone(class MainWindow* p)
             this, SLOT(clickLogout()));
     connect(w->ui->transferConfirm, SIGNAL(clicked()),
             this, SLOT(confirmTransfer()));
+    connect(w->ui->recieverAddress, SIGNAL(textHighlighted(QString)),
+            this, SLOT(comboBoxSelect(QString)));
+    connect(w->ui->shutdownButton, SIGNAL(clicked()),
+            this, SLOT(clickShutdown()));
 
     //UI timer reset connects
     connect(w->ui->number0, SIGNAL(clicked()),
@@ -174,6 +182,8 @@ void Tilakone::runStateMachine(state n, event m)
     case 8:
         stateEndScreen();
         break;
+    case 9:
+        return;
     default:
         qDebug()<<"runStateMachine default state!";
     }
@@ -223,7 +233,7 @@ void Tilakone::fromRESTAPILogin(QJsonObject l)      //TODO: selvitä miksi pinui
     if (l.contains("result")) {
         //this means login succesful
         //move to next state
-        runStateMachine(AwaitingDecision, ShowOptions);
+        runStateMachine(AwaitingPin, GetCustInfo);
     } else if (l.contains("error")) {
         //this means login was not succesful
         //invoke incorrectpin event
@@ -269,7 +279,7 @@ void Tilakone::fromRESTAPIGetAccBalance(QJsonObject b)
 
 void Tilakone::fromRESTAPIGetCustCards(QJsonObject c)   //TODO: selvitä miksi ei toimi
 {
-    qDebug()<<"IN RESTAPIGETCUSTCARDS!!";
+    w->ui->recieverAddress->clear();
 
     QJsonArray subValue = c["result"].toArray();
 
@@ -279,12 +289,7 @@ void Tilakone::fromRESTAPIGetCustCards(QJsonObject c)   //TODO: selvitä miksi e
         qDebug()<<"Lisätty kortti :" << obj["korttinumero"].toString();
     }
 
-    //w->ui->recieverAddress->setEditable(true);
     w->ui->recieverAddress->addItems(custCards);
-    w->ui->recieverAddress->addItem("Testi Vedos");
-
-    qDebug()<<w->ui->recieverAddress->itemText(0);
-
     //Move away from here by pressing transfer or back
     }
 
@@ -316,6 +321,22 @@ void Tilakone::fromRESTAPICardLocked(QJsonObject n)
         QJsonValue value = n.value(key);
         qDebug()<<"Key: " << key << " Value: " << value.toString();
     }
+
+    stringID = "";
+    insertedPIN = "";
+
+    runStateMachine(MainWindow, SMStart);
+}
+
+void Tilakone::fromRESTAPICustInfo(QJsonObject n)
+{
+    qDebug()<<n;
+
+    QJsonObject obj = n["result"].toObject();
+    fName = obj["etunimi"].toString();
+    sName = obj["sukunimi"].toString();
+
+    runStateMachine(AwaitingDecision, ShowOptions);
 }
 
 void Tilakone::fromPINUIPinEntered(QString n)
@@ -417,6 +438,9 @@ void Tilakone::clickBack()
     case EndScreen:
         qDebug()<<"Cant go back from this!";
         break;
+    case ExitState:
+        qDebug()<<"HOW ARE YOU HERE!";
+        break;
     }
     runStateMachine(currentState, currentEvent);
 }
@@ -426,19 +450,27 @@ void Tilakone::clickLogout()
     emit logoutCheck();
 }
 
+void Tilakone::clickShutdown()
+{
+    qDebug()<<"Shutting Down!";
+
+    w->close();
+    runStateMachine(ExitState, LogOut);
+}
+
 void Tilakone::confirmTransfer()
 {
     transferAmount = w->ui->DisplaySum->text().toDouble();
-    qDebug()<<"Sending " << transferAmount << "€";
-    pirkkaAcc = "0500AAAAAA";
-    emit transferMoney(transferAmount, pirkkaAcc);
+    chosenAcc = w->ui->recieverAddress->currentText();
+
+    //pirkkaAcc = "0500AAAAAA";     //For when all else fails, there is Pirkka
+    emit transferMoney(transferAmount, chosenAcc);
 }
 
-void Tilakone::comboBoxSelect(int i)    //TODO: ei toimi
+void Tilakone::comboBoxSelect(QString i)
 {
-    qDebug()<<"Chosen acc index: " << i;
-    qDebug()<<"chosenAcc: " << w->ui->recieverAddress->currentData(i).toString();
-    chosenAcc = w->ui->recieverAddress->currentData(i).toString();
+    qDebug()<<"Chosen acc: " << i;
+    chosenAcc = w->ui->recieverAddress->currentText();
 }
 
 void Tilakone::handleTimeout()
@@ -453,6 +485,9 @@ void Tilakone::clickTransfer()
     runStateMachine(AwaitingDecision, ShowTransfer);
 }
 
+/*                             */
+/*   THE MACHINE STARTS HERE   */
+/*                             */
 void Tilakone::stateMainWindow(event n)
 {
     currentState = MainWindow;
@@ -467,14 +502,14 @@ void Tilakone::stateMainWindow(event n)
             oRFID.readCardID();
         } catch (int error) {
             qDebug()<<"readCardID error: "<<error;
-            emit mainWindow_WaitingCard(MainWindow, SMStart);
+            //emit mainWindow_WaitingCard(MainWindow, SMStart);
+            QString message = "Please install card reader!";
+            w->displayMessage();
+            w->setMessageLabel(message);
             }
     }
 }
 
-/*                             */
-/*   THE MACHINE STARTS HERE   */
-/*                             */
 void Tilakone::stateAwaitingPin(event n)
 {
     currentState = AwaitingPin;
@@ -508,7 +543,10 @@ void Tilakone::stateAwaitingPin(event n)
         currentEvent = LockCard;
         //Card will be locked
         emit lockCard();
-        runStateMachine(MainWindow, SMStart);       //TODO: should be a cleanup state before restart
+        //runStateMachine(MainWindow, SMStart);
+    } else if (n == GetCustInfo) {
+        //Lets get customer info to display on the next screen
+        emit getCustInfo();
     }
 }
 
@@ -520,21 +558,21 @@ void Tilakone::stateAwaitingDecision(event n)
 
     if (n == 9) {
         currentEvent = ShowOptions;
-        w->setGreetingsLabel("Greetings "+fName+" "+sName+"!"); //TODO: try to populate with names from server
+        w->setGreetingsLabel("Greetings "+fName+" "+sName+"!");
         w->displayOptions();
-    } else if (n == ShowTransactions) {            //Show transactions ->
+    } else if (n == ShowTransactions) {         //Show transactions ->
         currentEvent = ShowTransactions;
         //move to show transactions
         runStateMachine(Transactions, ShowTransactions);
-    } else if (n == DrawMoney) {           //Draw money ->
+    } else if (n == DrawMoney) {                //Draw money ->
         currentEvent = DrawMoney;
         //move to choose amount screen
         runStateMachine(ChooseAmount, DrawMoney);
-    } else if (n == CheckBalance) {           //Check balance ->
+    } else if (n == CheckBalance) {            //Check balance ->
         currentEvent = CheckBalance;
         //move to check balance screen
         runStateMachine(DisplayBalance, CheckBalance);
-    } else if (n == ShowTransfer) {         //TransferMoney ->
+    } else if (n == ShowTransfer) {           //TransferMoney ->
         currentEvent = ShowTransfer;
         //move to transfer screen
         runStateMachine(TransferMoney, ShowTransfer);

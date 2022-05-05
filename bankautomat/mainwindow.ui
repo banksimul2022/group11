@@ -55,24 +55,27 @@ QLineEdit
 
 *
 {
-    font: 10pt &quot;Bahnschrift&quot;;
+    font: 12pt &quot;Bahnschrift&quot; rgb(255, 255, 255)
 }
 
 /* Done by Esa Salminen */
-
-MessageLabel  {
-	font: 12pt &quot;Bahnchrift&quot;;
-}</string>
+</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="MessageLabel">
     <property name="geometry">
      <rect>
-      <x>270</x>
+      <x>242</x>
       <y>30</y>
-      <width>143</width>
-      <height>14</height>
+      <width>201</width>
+      <height>20</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">*
+{
+	color: rgb(255, 255, 255);
+}</string>
     </property>
     <property name="text">
      <string>Please insert card to reader</string>
@@ -83,8 +86,8 @@ MessageLabel  {
      <rect>
       <x>190</x>
       <y>370</y>
-      <width>301</width>
-      <height>19</height>
+      <width>354</width>
+      <height>22</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
@@ -123,8 +126,8 @@ MessageLabel  {
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>45</width>
-      <height>17</height>
+      <width>51</width>
+      <height>21</height>
      </rect>
     </property>
     <property name="text">
@@ -135,13 +138,17 @@ MessageLabel  {
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>440</y>
-      <width>54</width>
-      <height>17</height>
+      <y>426</y>
+      <width>31</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="text">
-     <string>Logout</string>
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="Resources.qrc">
+      <normaloff>:/LogOutIcon/Icons/icons8-logout-58.png</normaloff>:/LogOutIcon/Icons/icons8-logout-58.png</iconset>
     </property>
    </widget>
    <widget class="QLabel" name="currency">
@@ -160,17 +167,23 @@ MessageLabel  {
    <widget class="QLabel" name="greetingLabel">
     <property name="geometry">
      <rect>
-      <x>258</x>
+      <x>248</x>
       <y>10</y>
-      <width>171</width>
+      <width>191</width>
       <height>20</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">*
+{
+color: rgb(255, 255, 255)
+}</string>
     </property>
     <property name="text">
      <string>TextLabel</string>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>560</x>
@@ -196,13 +209,13 @@ MessageLabel  {
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>50</x>
+      <x>41</x>
       <y>50</y>
-      <width>82</width>
-      <height>66</height>
+      <width>91</width>
+      <height>74</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -231,7 +244,7 @@ MessageLabel  {
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>130</x>
@@ -313,13 +326,13 @@ MessageLabel  {
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>270</x>
       <y>250</y>
-      <width>150</width>
-      <height>116</height>
+      <width>167</width>
+      <height>131</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -419,6 +432,23 @@ MessageLabel  {
      </item>
     </layout>
    </widget>
+   <widget class="QPushButton" name="shutdownButton">
+    <property name="geometry">
+     <rect>
+      <x>630</x>
+      <y>420</y>
+      <width>31</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="Resources.qrc">
+      <normaloff>:/ShutdownIcon/Icons/icons8-shutdown-24.png</normaloff>:/ShutdownIcon/Icons/icons8-shutdown-24.png</iconset>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -426,12 +456,14 @@ MessageLabel  {
      <x>0</x>
      <y>0</y>
      <width>680</width>
-     <height>18</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources/>
+ <resources>
+  <include location="Resources.qrc"/>
+ </resources>
  <connections/>
 </ui>
