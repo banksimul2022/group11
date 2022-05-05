@@ -50,6 +50,9 @@ Following planning and documenting steps were made during the planning phase:
 
   #### DLLRfid
   <img src="assets/DLL_RFID%20Class%20diagram.png" alt="DLLRFID" height="500">
+
+  ### EXE
+  <img src="assets/EXE%20Class%20Diagram.png" alt="EXE" height="500">
   
 </details>
 
