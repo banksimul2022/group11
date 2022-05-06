@@ -25,9 +25,11 @@ MainWindow* w = nullptr;
 
 Tilakone::Tilakone(class MainWindow* p)
 {
+
     //Set variables to be nothing
     stringID = "";
     insertedPIN = "";
+    wrongPIN = 0;
 
     pPinUi3 = new PinUi3(this); //Pass this pointer so that if Tilakone is deleted, the PinUi will be also
     timer = new QTimer(this);
@@ -65,8 +67,8 @@ Tilakone::Tilakone(class MainWindow* p)
             oRestAPI, (SLOT(fromExeWithdrawSlot(double))));
     connect(this, SIGNAL(transferMoney(double,QString)),                 //Transfer
             oRestAPI, SLOT(fromExeTransactSlot(double,QString)));
-    connect(this, SIGNAL(lockCard()),                                    //CardLock
-            oRestAPI, SLOT(fromExeLockCardSlot()));
+    connect(this, SIGNAL(lockCard(QString)),                                    //CardLock
+            oRestAPI, SLOT(fromExeLockCardSlot(QString)));
     connect(this, SIGNAL(getCustInfo()),                                 //Customer info
             oRestAPI, SLOT(fromExeGetCustInfoSlot()));
 
@@ -261,7 +263,7 @@ void Tilakone::fromRESTAPIGetAccTransactions(QJsonObject t)
         QJsonObject obj = value.toObject();
 
         accAikaleima.append(obj["aikaleima"].toString());
-        accSumma.append(QString::number(obj["summa"].toDouble()));           //TODO: find a way to get it to double or keep it's value
+        accSumma.append(QString::number(obj["summa"].toDouble()));
         accTapahtuma.append(obj["tapahtuma"].toString());
         accTransactions.append(obj["tilinumero"].toString());
         }
@@ -330,8 +332,6 @@ void Tilakone::fromRESTAPICardLocked(QJsonObject n)
 
 void Tilakone::fromRESTAPICustInfo(QJsonObject n)
 {
-    qDebug()<<n;
-
     QJsonObject obj = n["result"].toObject();
     fName = obj["etunimi"].toString();
     sName = obj["sukunimi"].toString();
@@ -519,6 +519,8 @@ void Tilakone::stateAwaitingPin(event n)
     if (n == CardInserted) {
         currentEvent = CardInserted;
         //pinuidll invocation
+
+
         pPinUi3->openUi();
 
         //instead of waiting pinuidll we just skip to next with pirkka niksi's
@@ -530,7 +532,7 @@ void Tilakone::stateAwaitingPin(event n)
         //Test for login with restapidll
         emit loginCheck(stringID, insertedPIN);
 
-    } else if (n == 3) {
+    } else if (n == IncorrectPIN) {
         currentEvent = IncorrectPIN;
         //incorrect pin
         if (wrongPIN >= 3) {
@@ -539,12 +541,13 @@ void Tilakone::stateAwaitingPin(event n)
         wrongPIN++;
         qDebug()<< "number of incorrect pins: " << wrongPIN;
         runStateMachine(AwaitingPin, CardInserted);
-    } else if (n == 4) {
+    } else if (n == TooManyIncorrectPINs) {
         currentEvent = LockCard;
         //Card will be locked
-        emit lockCard();
-        //runStateMachine(MainWindow, SMStart);
+        wrongPIN = 0;
+        emit lockCard(stringID);
     } else if (n == GetCustInfo) {
+        wrongPIN = 0;
         //Lets get customer info to display on the next screen
         emit getCustInfo();
     }

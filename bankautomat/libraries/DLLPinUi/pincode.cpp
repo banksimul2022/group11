@@ -43,6 +43,7 @@ void PinCode::digit_pressed() //Function definiton for pressing a digit
 
 void PinCode::on_pushButton_Cancel_clicked()    //Tällä lähetteään vastaus
 {
+    ui->lineEditPinCode->clear();
     emit toExePinCodeEntered(pinCode);
 }
 
@@ -51,10 +52,4 @@ void PinCode::on_pushButton_Clear_clicked()
     ui->lineEditPinCode->setText("");
 }
 
-void PinCode::InsertNumber()
-{
-    if(pinCode.length() >= 4)
-    {
-        emit toExePinCodeEntered(pinCode);
-    }
-}
+

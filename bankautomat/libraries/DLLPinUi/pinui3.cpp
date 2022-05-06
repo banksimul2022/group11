@@ -22,5 +22,6 @@ void PinUi3::openUi()
 void PinUi3::reserveNumber(QString pincode) //Ja tämä lähettää sen exelle
 {
     emit sendNumberToExe(pincode);
+    pincode = "";
     pPinCode->reject();
 }

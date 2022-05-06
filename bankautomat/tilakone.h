@@ -100,7 +100,7 @@ signals:
     //send to RESTAPI
     void loginCheck(QString, QString);
     void logoutCheck();
-    void lockCard();
+    void lockCard(QString);
     void getAccTransactions(int, int);
     void getAccBalance();
     void withdraw(double);
